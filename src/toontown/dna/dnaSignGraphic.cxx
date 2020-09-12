@@ -20,7 +20,7 @@ TypeHandle DNASignGraphic::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNASignGraphic::DNASignGraphic(const string &initial_name) :
+DNASignGraphic::DNASignGraphic(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -70,7 +70,7 @@ NodePath DNASignGraphic::traverse(NodePath &parent, DNAStorage *store, int editi
   PT(DNASignBaseline) baseline = DCAST(DNASignBaseline, get_parent());
 
   // Use the baseline color, if available:
-  Colorf color = _color;
+  LColorf color = _color;
   if (_use_baseline_color) {
     color = baseline->get_color();
   }
@@ -110,7 +110,7 @@ NodePath DNASignGraphic::traverse(NodePath &parent, DNAStorage *store, int editi
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNASignGraphic::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNASignGraphic::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "graphic [\n";
 
   // Write out all properties

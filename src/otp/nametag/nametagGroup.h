@@ -17,6 +17,8 @@
 #include "nodePath.h"
 #include "vector_string.h"
 
+#include <string>
+
 class MarginManager;
 class Nametag2d;
 class Nametag3d;
@@ -71,26 +73,26 @@ PUBLISHED:
   void set_color_code(ColorCode code);
   INLINE ColorCode get_color_code() const;
 
-  INLINE void set_qt_color(const Colorf &color);
-  INLINE const Colorf &get_qt_color() const;
-  INLINE const Colorf &get_balloon_modulation_color() const;
+  INLINE void set_qt_color(const LColorf &color);
+  INLINE const LColorf &get_qt_color() const;
+  INLINE const LColorf &get_balloon_modulation_color() const;
 
   INLINE void set_shadow(float xoffset, float yoffset);
   INLINE void clear_shadow();
   INLINE bool has_shadow() const;
   INLINE LVecBase2f get_shadow() const;
 
-  INLINE void set_name(const string &name);
-  INLINE const string &get_name() const;
+  INLINE void set_name(const std::string &name);
+  INLINE const std::string &get_name() const;
 
-  void set_display_name(const string &name);
-  INLINE const string &get_display_name() const;
+  void set_display_name(const std::string &name);
+  INLINE const std::string &get_display_name() const;
 
-  void set_chat(const string &chat, int chat_flags, int page_number = 0);
+  void set_chat(const std::string &chat, int chat_flags, int page_number = 0);
   INLINE void clear_chat();
-  INLINE string get_chat() const;
-  INLINE string get_stomp_text() const;
-  INLINE const string &get_chat(int page_number) const;
+  INLINE std::string get_chat() const;
+  INLINE std::string get_stomp_text() const;
+  INLINE const std::string &get_chat(int page_number) const;
   INLINE int get_chat_flags() const;
 
   void set_page_number(int page_number);
@@ -100,8 +102,8 @@ PUBLISHED:
   INLINE int get_chat_stomp() const;
   INLINE float get_stomp_delay() const;
 
-  INLINE void set_unique_id(const string &event);
-  INLINE const string &get_unique_id() const;
+  INLINE void set_unique_id(const std::string &event);
+  INLINE const std::string &get_unique_id() const;
 
   INLINE void set_object_code(int code);
   INLINE int get_object_code() const;
@@ -151,7 +153,7 @@ private:
   Nametag2d *_nametag2d;
   Nametag3d *_nametag3d;
 
-  typedef pvector< PT(Nametag) > Nametags;
+  typedef pvector<Nametag*> Nametags;
   Nametags _nametags;
 
   PT(TextFont) _name_font;
@@ -165,29 +167,29 @@ private:
 
   float _name_wordwrap;
   ColorCode _color_code;
-  Colorf _qt_color;
-  Colorf _balloon_modulation_color;
+  LColorf _qt_color;
+  LColorf _balloon_modulation_color;
   LVecBase2f _shadow_offset;
   bool _has_shadow;
 
-  string _name;
-  string _display_name;
+  std::string _name;
+  std::string _display_name;
   vector_string _chat_pages;
   int _chat_flags;
 
   double _chat_timeout;
   double _button_timeout;
-  
-  string _chat_block_hold;
+
+  std::string _chat_block_hold;
   int    _chat_flags_hold;
   double _chat_block_length;
   double _chat_timeblock;
   int _chat_stomp_accum;
-  
+
   int _page_number;
   bool _buttons_pending;
 
-  string _unique_id;
+  std::string _unique_id;
   int _object_code;
 
   Nametag3dFlag _nametag3d_flag;
@@ -200,7 +202,7 @@ private:
   bool _master_visible;
 
   static int _unique_index;
-  
+
 };
 
 #include "nametagGroup.I"

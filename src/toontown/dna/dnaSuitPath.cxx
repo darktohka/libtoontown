@@ -28,7 +28,7 @@ DNASuitPath::DNASuitPath() {
 ////////////////////////////////////////////////////////////////////
 DNASuitPath::
 DNASuitPath(int reserve_length) {
-  _path.reserve(reserve_length);  
+  _path.reserve(reserve_length);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -61,9 +61,9 @@ void DNASuitPath::copy(const DNASuitPath &other) {
 ////////////////////////////////////////////////////////////////////
 //     Function: DNASuitPath::output
 //       Access: Public
-//  Description: Output the path to the ostream
+//  Description: Output the path to the std::ostream
 ////////////////////////////////////////////////////////////////////
-void DNASuitPath::output(ostream &out) const {
+void DNASuitPath::output(std::ostream &out) const {
   out << "Path: [ ";
   pvector<int>::const_iterator i;
   for (i = _path.begin(); i != _path.end(); ++i) {
@@ -71,4 +71,3 @@ void DNASuitPath::output(ostream &out) const {
   }
   out << "]";
 }
-

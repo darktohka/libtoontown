@@ -9,6 +9,8 @@
 #include "toontownbase.h"
 #include "cImpulse.h"
 
+class CMover;
+
 class EXPCL_TOONTOWN CPetChase : public CImpulse {
 PUBLISHED:
   CPetChase(NodePath *target = 0, float min_dist = 5., float move_angle = 20.);

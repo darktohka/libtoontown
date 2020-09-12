@@ -19,7 +19,7 @@ TypeHandle DNASign::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNASign::DNASign(const string &initial_name) :
+DNASign::DNASign(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -70,7 +70,7 @@ NodePath DNASign::traverse(NodePath &parent, DNAStorage *store, int editing) {
   if (!_code.empty()) {
     sign_node_path = (store->find_node(_code)).copy_to(building_front);
     if (sign_node_path.is_empty()) {
-      nout << "Sign not found in storage: " << _code << endl;
+      nout << "Sign not found in storage: " << _code << std::endl;
       return parent;
     }
     sign_node_path.node()->set_name("sign");
@@ -106,14 +106,14 @@ NodePath DNASign::traverse(NodePath &parent, DNAStorage *store, int editing) {
     // the building node, which is usually parent, but might be
     // farther up.
     NodePath building = parent;
-    while (!building.is_empty() && 
+    while (!building.is_empty() &&
            (building.get_name().empty() ||
             building.get_name().substr(0, 2) != "tb")) {
       building = building.get_parent();
     }
     // We only want do this is we have found a building and it is a landmark building (avoids billboards)
     if ((!building.is_empty()) && strstr(building.get_name().c_str(), "landmark") != 0) {
-      string block=store->get_block(building.get_name());
+      std::string block=store->get_block(building.get_name());
       store->store_block_sign_transform(block, sign_origin.get_transform(building)->get_mat());
     }
 
@@ -133,7 +133,7 @@ NodePath DNASign::traverse(NodePath &parent, DNAStorage *store, int editing) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNASign::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNASign::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "sign [\n";
 
   // Write out all properties

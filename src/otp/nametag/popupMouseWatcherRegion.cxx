@@ -14,7 +14,7 @@ TypeHandle PopupMouseWatcherRegion::_type_handle;
 //  Description:
 ////////////////////////////////////////////////////////////////////
 PopupMouseWatcherRegion::
-PopupMouseWatcherRegion(ClickablePopup *popup, const string &name,
+PopupMouseWatcherRegion(ClickablePopup *popup, const std::string &name,
                         const LVecBase4f &frame) :
   MouseWatcherRegion(name, frame),
   _popup(popup)

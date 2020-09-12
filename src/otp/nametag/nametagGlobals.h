@@ -97,13 +97,13 @@ PUBLISHED:
   INLINE static void set_global_nametag_scale(float scale);
   INLINE static float get_global_nametag_scale();
 
-  INLINE static const Colorf &get_name_fg(NametagGroup::ColorCode color_code,
+  INLINE static const LColorf &get_name_fg(NametagGroup::ColorCode color_code,
                                           PGButton::State state);
-  INLINE static const Colorf &get_name_bg(NametagGroup::ColorCode color_code,
+  INLINE static const LColorf &get_name_bg(NametagGroup::ColorCode color_code,
                                           PGButton::State state);
 
-  INLINE static const Colorf &get_balloon_modulation_color();
-  INLINE static void set_balloon_modulation_color(const Colorf &color);
+  INLINE static const LColorf &get_balloon_modulation_color();
+  INLINE static void set_balloon_modulation_color(const LColorf &color);
 
 public:
   static const float billboard_offset;
@@ -142,8 +142,8 @@ public:
 
   static const float building_nametag_distance;
 
-  static const Colorf default_qt_color;
-  static const Colorf default_balloon_modulation_color;
+  static const LColorf default_qt_color;
+  static const LColorf default_balloon_modulation_color;
 
   static UpdateSeq margin_prop_seq;
 
@@ -151,18 +151,18 @@ public:
 
   class Colors {
   public:
-    Colors(const Colorf &name_fg,
-           const Colorf &name_bg,
-           const Colorf &chat_fg,
-           const Colorf &chat_bg);
+    Colors(const LColorf &name_fg,
+           const LColorf &name_bg,
+           const LColorf &chat_fg,
+           const LColorf &chat_bg);
 
-    Colorf _name_fg;
-    Colorf _name_bg;
-    Colorf _chat_fg;
-    Colorf _chat_bg;
+    LColorf _name_fg;
+    LColorf _name_bg;
+    LColorf _chat_fg;
+    LColorf _chat_bg;
   };
 
-  static const Colorf &get_arrow_color(NametagGroup::ColorCode color_code);
+  static const LColorf &get_arrow_color(NametagGroup::ColorCode color_code);
 
   static const Colors &get_colors(NametagGroup::ColorCode color_code,
                                   PGButton::State state);
@@ -202,7 +202,7 @@ private:
 
   static float _global_nametag_scale;
 
-  static Colorf balloon_modulation_color;
+  static LColorf balloon_modulation_color;
 };
 
 #include "nametagGlobals.I"

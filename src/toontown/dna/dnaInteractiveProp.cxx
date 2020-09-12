@@ -19,7 +19,7 @@ TypeHandle DNAInteractiveProp::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAInteractiveProp::DNAInteractiveProp(const string &initial_name) :
+DNAInteractiveProp::DNAInteractiveProp(const std::string &initial_name) :
   DNAAnimProp(initial_name)
 {
   _cell_id = -1;
@@ -72,7 +72,7 @@ NodePath DNAInteractiveProp::traverse(NodePath &parent, DNAStorage *store, int e
   }
 
   prop_node_path.set_tag("DNAAnim", _anim);
-  string cellIdStr;
+  std::string cellIdStr;
   cellIdStr += _cell_id;
   prop_node_path.set_tag("DNACellIndex", cellIdStr);
 
@@ -104,7 +104,7 @@ NodePath DNAInteractiveProp::traverse(NodePath &parent, DNAStorage *store, int e
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAInteractiveProp::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAInteractiveProp::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "interactive_prop ";
   out << '"' << get_name() << '"' << " [\n";
 

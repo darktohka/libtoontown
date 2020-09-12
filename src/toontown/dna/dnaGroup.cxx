@@ -21,7 +21,7 @@ TypeHandle DNAGroup::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAGroup::DNAGroup(const string &initial_name) :
+DNAGroup::DNAGroup(const std::string &initial_name) :
   Namable(initial_name)
 {
   _parent = NULL;
@@ -128,7 +128,7 @@ void DNAGroup::remove(PT(DNAGroup) group) {
                                           _group_vector.end(), group);
   if (i == _group_vector.end()) {
     dna_cat.warning()
-      << "DNAGroup: group not found in map" << endl;
+      << "DNAGroup: group not found in map" << std::endl;
     return;
   }
 
@@ -146,7 +146,7 @@ void DNAGroup::remove(PT(DNAGroup) group) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAGroup::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAGroup::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "group ";
   out << '"' << get_name() << '"' << " [\n";
 
@@ -169,7 +169,7 @@ void DNAGroup::write(ostream &out, DNAStorage *store, int indent_level) const {
 //  Description: Writes the group and all children to cout (for debugging)
 ////////////////////////////////////////////////////////////////////
 void DNAGroup::ls() const {
-  write(cout, 0);
+  write(std::cout, 0);
 }
 
 ////////////////////////////////////////////////////////////////////

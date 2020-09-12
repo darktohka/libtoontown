@@ -37,7 +37,7 @@ Nametag(float chat_wordwrap) {
   _region_active = false;
 
   char buffer[128];
-  sprintf(buffer, "flash-%p", this);
+  sprintf_s(buffer, 128, "flash-%p", this);
   _flash_track_name = buffer;
 }
 
@@ -233,7 +233,7 @@ set_region(const LVecBase4f &frame, int sort) {
   NametagGroup *group = get_group();
   if (_region == (PopupMouseWatcherRegion *)NULL) {
     // Create a new region.
-    string name = get_type().get_name() + "-" + group->get_name();
+    std::string name = get_type().get_name() + "-" + group->get_name();
     _region = new PopupMouseWatcherRegion(this, name, frame);
 
   } else {
@@ -300,24 +300,24 @@ clear_region() {
 void Nametag::
 start_flash(NodePath &button) {
   stop_flash();
-  
+
   // Apparently, a gcc compiler bug compels us to pre-define these
   // LVecBase4f's.  Not a bad idea to do anyway.
   static const LVecBase4f solid(1.0f, 1.0f, 1.0f, 1.0f);
   static const LVecBase4f faded(1.0f, 1.0f, 1.0f, 0.5f);
 
-  PT(CLerpNodePathInterval) fade_out = 
+  PT(CLerpNodePathInterval) fade_out =
     new CLerpNodePathInterval("", 0.5, CLerpInterval::BT_ease_out,
                               true, false, button, NodePath());
   fade_out->set_start_color_scale(solid);
   fade_out->set_end_color_scale(faded);
 
-  PT(CLerpNodePathInterval) fade_in = 
+  PT(CLerpNodePathInterval) fade_in =
     new CLerpNodePathInterval("", 0.5, CLerpInterval::BT_ease_in,
                               true, false, button, NodePath());
   fade_in->set_start_color_scale(faded);
   fade_in->set_end_color_scale(solid);
-  
+
   PT(CMetaInterval) sequence = new CMetaInterval(_flash_track_name);
   sequence->add_c_interval(fade_out, 0.0, CMetaInterval::RS_previous_end);
   sequence->add_c_interval(fade_in, 0.0, CMetaInterval::RS_previous_end);

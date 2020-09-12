@@ -22,7 +22,7 @@ TypeHandle DNAStreet::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAStreet::DNAStreet(const string &initial_name) :
+DNAStreet::DNAStreet(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -107,7 +107,7 @@ NodePath DNAStreet::traverse(NodePath &parent, DNAStorage *store, int editing) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAStreet::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAStreet::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "street ";
   out << '"' << get_name() << '"' << " [\n";
 

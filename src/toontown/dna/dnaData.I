@@ -10,7 +10,7 @@
 //  Description:
 ////////////////////////////////////////////////////////////////////
 INLINE DNAData::
-DNAData(const string &initial_name) :
+DNAData(const std::string &initial_name) :
   DNAGroup(initial_name)
 {
   _coordsys = CS_default;
@@ -100,7 +100,3 @@ INLINE DNAStorage *DNAData::
 get_dna_storage() {
   return _dna_store;
 }
-
-
-
-

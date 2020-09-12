@@ -17,7 +17,7 @@ TypeHandle DNANode::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNANode::DNANode(const string &initial_name) :
+DNANode::DNANode(const std::string &initial_name) :
   DNAGroup(initial_name)
 {
   _pos.set(0.0, 0.0, 0.0);
@@ -75,7 +75,7 @@ NodePath DNANode::traverse(NodePath &parent, DNAStorage *store, int editing) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNANode::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNANode::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "node ";
   out << '"' << get_name() << '"' << " [\n";
 

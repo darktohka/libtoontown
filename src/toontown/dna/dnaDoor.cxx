@@ -19,7 +19,7 @@ TypeHandle DNAFlatDoor::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNADoor::DNADoor(const string &initial_name) :
+DNADoor::DNADoor(const std::string &initial_name) :
   DNAGroup(initial_name) {
   _code = "";
   _color.set(1.0, 1.0, 1.0, 1.0);
@@ -42,7 +42,7 @@ DNADoor::DNADoor(const DNADoor &door) :
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-void DNADoor::set_color(const Colorf &color) {
+void DNADoor::set_color(const LColorf &color) {
   _color = color;
 }
 
@@ -52,7 +52,7 @@ void DNADoor::set_color(const Colorf &color) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-Colorf DNADoor::get_color() const {
+LColorf DNADoor::get_color() const {
   return _color;
 }
 
@@ -62,7 +62,7 @@ Colorf DNADoor::get_color() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-void DNADoor::set_code(string code) {
+void DNADoor::set_code(std::string code) {
   _code = code;
 }
 
@@ -72,7 +72,7 @@ void DNADoor::set_code(string code) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-string DNADoor::get_code() const {
+std::string DNADoor::get_code() const {
   return _code;
 }
 
@@ -113,7 +113,7 @@ NodePath DNADoor::traverse(NodePath &parent, DNAStorage *store, int editing) {
   NodePath door_origin = parent.find("**/*door_origin");
   nassertr(!door_origin.is_empty(), parent);
 
-  string block=store->get_block(parent.node()->get_name());
+  std::string block=store->get_block(parent.node()->get_name());
   setup_door(door_node_path, parent, door_origin, store, block, _color);
   store->store_block_door_pos_hpr(block,
       door_origin.get_pos(NodePath()), door_origin.get_hpr(NodePath()));
@@ -130,7 +130,7 @@ NodePath DNADoor::traverse(NodePath &parent, DNAStorage *store, int editing) {
 
 void DNADoor::setup_door(NodePath& door_node_path,
     NodePath& parent, NodePath& door_origin, DNAStorage *store,
-    const string& block, const LVector4f& color) {
+    const std::string& block, const LVector4f& color) {
   // Place the door at the bottom center of the building,
   // three feet out from the origin where the wall is
   door_node_path.set_pos_hpr_scale(door_origin,
@@ -161,7 +161,7 @@ void DNADoor::setup_door(NodePath& door_node_path,
   NodePath doorFrame = door_node_path.find("door_*_flat");
   if ( doorFrame.is_empty() )
     {
-      // this door does not have a flat... always show the 
+      // this door does not have a flat... always show the
       // normal geometry
     }
   else
@@ -178,7 +178,7 @@ void DNADoor::setup_door(NodePath& door_node_path,
       // Hide the 3D door:
       rightDoor.hide();
       leftDoor.hide();
-    }      
+    }
 
   doorFrameHoleLeft.hide();
   doorFrameHoleRight.hide();
@@ -203,7 +203,7 @@ void DNADoor::setup_door(NodePath& door_node_path,
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNADoor::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNADoor::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "door [\n";
 
   // Write out all properties
@@ -231,7 +231,7 @@ DNAGroup* DNADoor::make_copy() {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAFlatDoor::DNAFlatDoor(const string &initial_name) :
+DNAFlatDoor::DNAFlatDoor(const std::string &initial_name) :
   DNADoor(initial_name) {
 }
 
@@ -277,7 +277,7 @@ NodePath DNAFlatDoor::traverse(NodePath &parent, DNAStorage *store, int editing)
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAFlatDoor::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAFlatDoor::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "flat_door [\n";
 
   // Write out all properties

@@ -34,7 +34,7 @@ float scale_jitter_div_2 = (scale_jitter / 2.0);
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAWindows::DNAWindows(const string &initial_name) :
+DNAWindows::DNAWindows(const std::string &initial_name) :
   DNAGroup(initial_name)
 {
   _code = "";
@@ -108,7 +108,7 @@ NodePath DNAWindows::traverse(NodePath &parent, DNAStorage *store, int editing) 
   // 2 windows, center them and mirror them to face each other
   else if (_window_count == 2) {
     int code_size = _code.size();
-    string mirror_code;
+    std::string mirror_code;
     for (int i=1; i <= _window_count; i++) {
       if (i == 1) {
         // left window
@@ -199,7 +199,7 @@ NodePath DNAWindows::traverse(NodePath &parent, DNAStorage *store, int editing) 
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAWindows::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAWindows::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "windows [\n";
 
   // Write out all properties

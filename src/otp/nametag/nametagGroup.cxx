@@ -136,7 +136,7 @@ remove_nametag(Nametag *tag) {
   tag->_group = (NametagGroup *)NULL;
   tag->update_contents();
 
-  PT(Nametag) ptag = tag;
+  Nametag *ptag = tag;
   Nametags::iterator ti =
     find(_nametags.begin(), _nametags.end(), ptag);
   nassertv(ti != _nametags.end());
@@ -255,7 +255,7 @@ set_color_code(ColorCode code) {
 //               set_name().
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
-set_display_name(const string &name) {
+set_display_name(const std::string &name) {
   _display_name = name;
 
   if (!_display_name.empty() && _name_font != (TextFont *)NULL) {
@@ -303,7 +303,7 @@ set_display_name(const string &name) {
 //               nametags in this group.
 ////////////////////////////////////////////////////////////////////
 void NametagGroup::
-set_chat(const string &chat, int chat_flags, int page_number) {
+set_chat(const std::string &chat, int chat_flags, int page_number) {
   _chat_flags = chat_flags;
   _page_number = page_number;
   double now = ClockObject::get_global_clock()->get_frame_time();
@@ -313,7 +313,7 @@ set_chat(const string &chat, int chat_flags, int page_number) {
     _chat_pages.clear();
     _chat_flags = 0;
 
-  } 
+  }
   else {
     _chat_pages.clear();
     _chat_stomp_accum++;
@@ -328,14 +328,14 @@ set_chat(const string &chat, int chat_flags, int page_number) {
       _chat_pages.clear();
       _chat_flags = 0;
     }
-    
+
   }
 
-  
+
 
   if (((_chat_flags & CF_timeout) != 0) && (_chat_timeblock < now)) {
     // If we requested a timeout, determine when that will happen.
-    double keep_for = max(min((double)chat.length() * 0.5, 12.0), 4.0);
+    double keep_for = std::max(std::min((double)chat.length() * 0.5, 12.0), 4.0);
     _chat_timeout = now + keep_for;
   }
 
@@ -494,8 +494,8 @@ update_regions() {
   if((_chat_timeblock < now) && _chat_stomp_accum > 1){
       _chat_stomp_accum = 0;
       set_chat(_chat_block_hold, _chat_flags_hold, _page_number);
-  }      
-  
+  }
+
   if ((_chat_flags & CF_timeout) != 0) {
     if (now >= _chat_timeout) {
       clear_chat();

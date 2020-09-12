@@ -9,7 +9,7 @@
 //       Access: Public
 //  Description: sets the code of the windows node
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAWindows::set_code(string code) {
+INLINE void DNAWindows::set_code(std::string code) {
   _code = code;
 }
 
@@ -19,7 +19,7 @@ INLINE void DNAWindows::set_code(string code) {
 //       Access: Public
 //  Description: returns the code of the windows node
 ////////////////////////////////////////////////////////////////////
-INLINE string DNAWindows::get_code() const {
+INLINE std::string DNAWindows::get_code() const {
   return _code;
 }
 
@@ -28,7 +28,7 @@ INLINE string DNAWindows::get_code() const {
 //       Access: Public
 //  Description: sets the color of the windows node
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAWindows::set_color(const Colorf &color) {
+INLINE void DNAWindows::set_color(const LColorf &color) {
   _color = color;
 }
 
@@ -38,7 +38,7 @@ INLINE void DNAWindows::set_color(const Colorf &color) {
 //       Access: Public
 //  Description: returns the color of the windows node
 ////////////////////////////////////////////////////////////////////
-INLINE Colorf DNAWindows::get_color() const {
+INLINE LColorf DNAWindows::get_color() const {
   return _color;
 }
 

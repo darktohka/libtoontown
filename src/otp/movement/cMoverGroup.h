@@ -15,7 +15,9 @@
 #include "cMover.h"
 #include "clockObject.h"
 
-/* 
+#include <string>
+
+/*
 This class allows multiple CMovers to be moved in one efficient pass.
 MoverGroup.py derives from this and allows multiple Python Movers to
 be moved in one pass.
@@ -26,8 +28,8 @@ PUBLISHED:
   CMoverGroup();
   ~CMoverGroup();
 
-  void add_c_mover(const string &name, CMover *mover);
-  bool remove_c_mover(const string &name);
+  void add_c_mover(const std::string &name, CMover *mover);
+  bool remove_c_mover(const std::string &name);
 
   INLINE float set_dt(float dt = -1);
   INLINE float get_dt() const;
@@ -41,7 +43,7 @@ private:
   float _dt;
   float _last_ft;
 
-  typedef pmap<string, PT(CMover) > MoverMap;
+  typedef pmap<std::string, PT(CMover) > MoverMap;
   MoverMap _movers;
 
 public:
@@ -50,7 +52,7 @@ public:
   }
   static void init_type() {
     TypedReferenceCount::init_type();
-    register_type(_type_handle, "CMoverGroup",
+    _type_handle = register_dynamic_type("CMoverGroup",
                   TypedReferenceCount::get_class_type());
   }
   virtual TypeHandle get_type() const {

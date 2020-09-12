@@ -28,7 +28,7 @@ PUBLISHED:
   INLINE int get_num_points() const;
   void copy(const DNASuitPath &path);
   INLINE int get_point_index(int i) const;
-  void output(ostream &out) const;
+  void output(std::ostream &out) const;
 
 public:
   INLINE void add_point(int index);
@@ -57,7 +57,7 @@ private:
 };
 
 
-INLINE ostream &operator << (ostream &out, const DNASuitPath &path) {
+INLINE std::ostream &operator << (std::ostream &out, const DNASuitPath &path) {
   path.output(out);
   return out;
 }

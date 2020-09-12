@@ -11,7 +11,7 @@ TypeHandle CPetChase::_type_handle;
 ////////////////////////////////////////////////////////////////////
 //     Function: CPetChase::Constructor
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CPetChase::
 CPetChase(NodePath *target, float min_dist, float move_angle) :
@@ -29,7 +29,7 @@ CPetChase(NodePath *target, float min_dist, float move_angle) :
 ////////////////////////////////////////////////////////////////////
 //     Function: CPetChase::Destructor
 //       Access: Public, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CPetChase::
 ~CPetChase() {
@@ -82,8 +82,8 @@ process(float dt) {
   // don't get too close
   const float distance_left = distance - _min_dist;
   /*
-  cerr << "distance " << distance << endl;
-  cerr << "distanceLeft " << distance_left << endl;
+  std::cerr << "distance " << distance << std::endl;
+  std::cerr << "distanceLeft " << distance_left << std::endl;
   */
   if ((distance > _min_dist) && ((v_forward * dt) > distance_left)) {
     v_forward = distance_left / dt;

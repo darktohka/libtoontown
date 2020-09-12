@@ -4,6 +4,7 @@
 ////////////////////////////////////////////////////////////////////
 
 #include "dnaStorage.h"
+#include "samplerState.h"
 #include <deque>
 
 DNAStorage::WorkingSuitPath *DNAStorage::WorkingSuitPath::_deleted_chain = (DNAStorage::WorkingSuitPath *)NULL;
@@ -23,23 +24,23 @@ DNAStorage::DNAStorage() {
 //  Description: Print out the key/pointer pairs
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::print_node_storage() const {
-  cout << "Model Pool Nodes" << endl;
+  std::cout << "Model Pool Nodes" << std::endl;
   for(NodeMap::const_iterator i = _node_map.begin();
       i != _node_map.end();
       ++i) {
-    cout << "\t(" << (*i).first << " " << (*i).second << ") " << endl;
+    std::cout << "\t(" << (*i).first << " " << (*i).second << ") " << std::endl;
   }
-  cout << "Hood Nodes" << endl;
+  std::cout << "Hood Nodes" << std::endl;
   for(NodeMap::const_iterator h = _hood_node_map.begin();
       h != _hood_node_map.end();
       ++h) {
-    cout << "\t(" << (*h).first << " " << (*h).second << ") " << endl;
+    std::cout << "\t(" << (*h).first << " " << (*h).second << ") " << std::endl;
   }
-  cout << "Place Nodes" << endl;
+  std::cout << "Place Nodes" << std::endl;
   for(NodeMap::const_iterator p = _place_node_map.begin();
       p != _place_node_map.end();
       ++p) {
-    cout << "\t(" << (*p).first << " " << (*p).second << ") " << endl;
+    std::cout << "\t(" << (*p).first << " " << (*p).second << ") " << std::endl;
   }
 }
 
@@ -53,7 +54,7 @@ void DNAStorage::print_texture_storage() const {
   for(TextureMap::const_iterator i = _texture_map.begin();
       i != _texture_map.end();
       ++i) {
-    cout << "\t(" << (*i).first << " " << (*i).second << ") " << endl;
+    std::cout << "\t(" << (*i).first << " " << (*i).second << ") " << std::endl;
   }
 }
 
@@ -66,7 +67,7 @@ void DNAStorage::print_font_storage() const {
   for(FontMap::const_iterator i = _font_map.begin();
       i != _font_map.end();
       ++i) {
-    cout << "\t(" << (*i).first << " " << (*i).second << ") " << endl;
+    std::cout << "\t(" << (*i).first << " " << (*i).second << ") " << std::endl;
   }
 }
 
@@ -77,23 +78,23 @@ void DNAStorage::print_font_storage() const {
 //  Description: Print out the key/pointer pairs
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::print_suit_point_storage() const {
-  cout << "Suit points" << endl;
+  std::cout << "Suit points" << std::endl;
   for(SuitPointVector::const_iterator i = _suit_point_vector.begin();
       i != _suit_point_vector.end();
       ++i) {
     // To output the actual point, we need to dereference the PointerTo
-    cout << "\t" << *(*i) << endl;
+    std::cout << "\t" << *(*i) << std::endl;
   }
-  cout << "Suit edges" << endl;
+  std::cout << "Suit edges" << std::endl;
   for(SuitStartPointMap::const_iterator si = _suit_start_point_map.begin();
       si != _suit_start_point_map.end();
       ++si) {
-    cout << "\tIndex: " << (*si).first << endl;
+    std::cout << "\tIndex: " << (*si).first << std::endl;
     for(SuitEdgeVector::const_iterator evi = ((*si).second).begin();
         evi != ((*si).second).end();
         ++evi) {
       // To output the actual edge, we need to dereference the PointerTo
-      cout << "\t  Edge: " << *((*evi)) << endl;
+      std::cout << "\t  Edge: " << *((*evi)) << std::endl;
       }
   }
 }
@@ -109,7 +110,7 @@ void DNAStorage::print_battle_cell_storage() const {
       i != _battle_cell_vector.end();
       ++i) {
     // To output the actual battle cell, we need to dereference the PointerTo
-    cout << "Battle cell: " << *(*i) << endl;
+    std::cout << "Battle cell: " << *(*i) << std::endl;
   }
 }
 
@@ -119,14 +120,14 @@ void DNAStorage::print_battle_cell_storage() const {
 //       Access: Public
 //  Description: Store a texture pointer in the texture map
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_texture(const string &code_string, PT(Texture) texture) {
+void DNAStorage::store_texture(const std::string &code_string, PT(Texture) texture) {
   nassertv(texture != (Texture *)NULL);
   // Assume all these textures are mipmap. Actually it should
   // match the textures.txa, but how do I know what is in there?
   // Note: take these out when we have a better solution for getting
   // and setting these parameters
-  texture->set_minfilter(Texture::FT_linear_mipmap_linear);
-  texture->set_magfilter(Texture::FT_linear);
+  texture->set_minfilter(SamplerState::FT_linear_mipmap_linear);
+  texture->set_magfilter(SamplerState::FT_linear);
   texture->set_anisotropic_degree(4);
   _texture_map[code_string] = texture;
 }
@@ -136,7 +137,7 @@ void DNAStorage::store_texture(const string &code_string, PT(Texture) texture) {
 //       Access: Public
 //  Description: Store a font pointer in the font map
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_font(const string &code_string, PT(TextFont) font) {
+void DNAStorage::store_font(const std::string &code_string, PT(TextFont) font) {
   nassertv(font != (TextFont *)NULL);
   _font_map[code_string] = font;
 }
@@ -237,7 +238,7 @@ int DNAStorage::fix_coincident_suit_points() {
       if ((point1 != point2) &&
           (point1->get_pos().almost_equal(point2->get_pos(), 0.9))) {
         dna_cat.info() << "found coincident points: " << point1->get_index() << ": " << point1->get_point_type()
-                       << ", " << point2->get_index() << ": " << point2->get_point_type() << endl;
+                       << ", " << point2->get_index() << ": " << point2->get_point_type() << std::endl;
 
         // TODO:
         // remove from the SuitPointMap
@@ -250,7 +251,7 @@ int DNAStorage::fix_coincident_suit_points() {
     }
   }
   // Return the number of matches we found
-  dna_cat.debug() << "fixed " << num_repeats << " suit points" << endl;
+  dna_cat.debug() << "fixed " << num_repeats << " suit points" << std::endl;
   return num_repeats;
 }
 
@@ -306,14 +307,14 @@ int DNAStorage::delete_unused_suit_points() {
 
     if (!used) {
       // Delete the point from the suit point vector
-      dna_cat.info() << "deleting unused point " << *point << endl;
+      dna_cat.info() << "deleting unused point " << *point << std::endl;
       _suit_point_vector.erase(i--);
       num_deleted++;
     }
   }
 
   // Return the number of matches we found
-  dna_cat.debug() << "deleted " << num_deleted << " suit points" << endl;
+  dna_cat.debug() << "deleted " << num_deleted << " suit points" << std::endl;
   return num_deleted;
 }
 
@@ -344,7 +345,7 @@ int DNAStorage::remove_suit_point(PT(DNASuitPoint) point) {
       // See if this point is in this edge. If it is, remove the edge
       if ((point == edge->get_start_point()) ||
           (point == edge->get_end_point())) {
-        dna_cat.warning() <<  "removing edge containing point " << *(edge) << endl;
+        dna_cat.warning() <<  "removing edge containing point " << *(edge) << std::endl;
 
         // Erase this edge from this vector, decrementing the iterator
         // so we do not invalidate it when erasing an element it was pointing to
@@ -355,7 +356,7 @@ int DNAStorage::remove_suit_point(PT(DNASuitPoint) point) {
             vi != _vis_group_vector.end();
             ++vi) {
           if ((*vi)->remove_suit_edge(edge)) {
-            dna_cat.debug() << "removed edge from vis group " << (*vi)->get_name() << endl;
+            dna_cat.debug() << "removed edge from vis group " << (*vi)->get_name() << std::endl;
           }
         }
       }
@@ -383,11 +384,11 @@ int DNAStorage::remove_suit_point(PT(DNASuitPoint) point) {
 //       Access: Public
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_block_number(const string& block, const string& zone_id) {
+void DNAStorage::store_block_number(const std::string& block, const std::string& zone_id) {
   nassertv(!block.empty());
   nassertv(!zone_id.empty());
   // Get the block number (e.g. in "tb22:blah_blah" the block number is "22").
-  string block_num = block.substr(2, block.find(':')-2);
+  std::string block_num = block.substr(2, block.find(':')-2);
   _block_map[atoi(block_num.c_str())]=atoi(zone_id.c_str());
 }
 
@@ -402,7 +403,7 @@ int DNAStorage::get_zone_from_block_number(int block_number) const {
   BlockToZoneMap::const_iterator i = _block_map.find(block_number);
   if (i == _block_map.end()) {
     dna_cat.error()
-      << "block number: " << block_number << " not found in map" << endl;
+      << "block number: " << block_number << " not found in map" << std::endl;
     return 0;
   }
   return (*i).second;
@@ -442,7 +443,7 @@ int DNAStorage::get_block_number_at(uint index) const {
 
   dna_cat.error()
     << "DNAStorage::get_block_number_at index not found, returning 0"
-    << endl;
+    << std::endl;
   return 0;
 }
 
@@ -452,7 +453,7 @@ int DNAStorage::get_block_number_at(uint index) const {
 //       Access: Public
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_block_door_pos_hpr(const string& block,
+void DNAStorage::store_block_door_pos_hpr(const std::string& block,
     const LPoint3f& pos,
     const LPoint3f& hpr) {
   nassertv(!block.empty());
@@ -470,7 +471,7 @@ const PosHpr& DNAStorage::get_door_pos_hpr_from_block_number(int block_number) c
   BlockToPosHprMap::const_iterator i = _block_door_pos_hpr_map.find(block_number);
   if (i == _block_door_pos_hpr_map.end()) {
     dna_cat.error()
-      << "block number: " << block_number << " not found in map" << endl;
+      << "block number: " << block_number << " not found in map" << std::endl;
     static PosHpr blank;
     return blank;
   }
@@ -511,7 +512,7 @@ int DNAStorage::get_door_pos_hpr_block_at(uint index) const {
 
   dna_cat.error()
     << "DNAStorage::get_door_pos_hpr_block_at index not found, returning 0"
-    << endl;
+    << std::endl;
   return 0;
 }
 
@@ -521,7 +522,7 @@ int DNAStorage::get_door_pos_hpr_block_at(uint index) const {
 //       Access: Public
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_block_sign_transform(const string& block,
+void DNAStorage::store_block_sign_transform(const std::string& block,
                                             const LMatrix4f& mat) {
   nassertv(!block.empty());
   _block_sign_transform_map[atoi(block.c_str())]=mat;
@@ -538,7 +539,7 @@ const LMatrix4f& DNAStorage::get_sign_transform_from_block_number(int block_numb
   BlockToTransformMap::const_iterator i = _block_sign_transform_map.find(block_number);
   if (i == _block_sign_transform_map.end()) {
     dna_cat.error()
-      << "block number: " << block_number << " not found in map" << endl;
+      << "block number: " << block_number << " not found in map" << std::endl;
     return LMatrix4f::ident_mat();
   }
   return (*i).second;
@@ -578,7 +579,7 @@ int DNAStorage::get_sign_transform_block_at(uint index) const {
 
   dna_cat.error()
     << "DNAStorage::get_sign_transform_block_at index not found, returning 0"
-    << endl;
+    << std::endl;
   return 0;
 }
 
@@ -588,8 +589,8 @@ int DNAStorage::get_sign_transform_block_at(uint index) const {
 //       Access: Public
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_block_title(const string& block,
-    const string& title) {
+void DNAStorage::store_block_title(const std::string& block,
+    const std::string& title) {
   nassertv(!block.empty());
   _block_title_map[atoi(block.c_str())]=title;
 }
@@ -602,12 +603,12 @@ void DNAStorage::store_block_title(const string& block,
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_title_from_block_number(int block_number) const {
+std::string DNAStorage::get_title_from_block_number(int block_number) const {
   // Try to find this code in the map
   BlockToTitleMap::const_iterator i = _block_title_map.find(block_number);
   if (i == _block_title_map.end()) {
     dna_cat.error()
-      << "block number: " << block_number << " not found in title map" << endl;
+      << "block number: " << block_number << " not found in title map" << std::endl;
     return "";
   }
   return (*i).second;
@@ -618,8 +619,8 @@ string DNAStorage::get_title_from_block_number(int block_number) const {
 //       Access: Public
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_block_article(const string& block,
-    const string& article) {
+void DNAStorage::store_block_article(const std::string& block,
+    const std::string& article) {
   nassertv(!block.empty());
   _block_article_map[atoi(block.c_str())]=article;
 }
@@ -629,12 +630,12 @@ void DNAStorage::store_block_article(const string& block,
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_article_from_block_number(int block_number) const {
+std::string DNAStorage::get_article_from_block_number(int block_number) const {
   // Try to find this code in the map
   BlockToArticleMap::const_iterator i = _block_article_map.find(block_number);
   if (i == _block_article_map.end()) {
     dna_cat.error()
-      << "block number: " << block_number << " not found in article map" << endl;
+      << "block number: " << block_number << " not found in article map" << std::endl;
     return "";
   }
   return (*i).second;
@@ -646,12 +647,12 @@ string DNAStorage::get_article_from_block_number(int block_number) const {
 //  Description: Store a block and zone
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::
-store_block_building_type(const string& block, const string& type) {
+store_block_building_type(const std::string& block, const std::string& type) {
   nassertv(!block.empty());
   // Get the block number (e.g. in "tb22:blah_blah" the block number is "22").
-  string block_num = block.substr(2, block.find(':')-2);
+  std::string block_num = block.substr(2, block.find(':')-2);
   dna_cat.debug()
-    << "block: " << block << "blocknum: " << block_num << " type:" << type << endl;
+    << "block: " << block << "blocknum: " << block_num << " type:" << type << std::endl;
   _block_building_type_map[atoi(block_num.c_str())]=type;
 }
 
@@ -660,13 +661,13 @@ store_block_building_type(const string& block, const string& type) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_block_building_type(int block_number) const {
+std::string DNAStorage::get_block_building_type(int block_number) const {
   // Try to find this code in the map
   BlockToBuildingTypeMap::const_iterator i = _block_building_type_map.find(block_number);
   // If it is not found, consider it false
   if (i == _block_building_type_map.end()) {
     dna_cat.debug()
-      << "block number: " << block_number << " not found in building type map" << endl;
+      << "block number: " << block_number << " not found in building type map" << std::endl;
     return "";
   }
   return (*i).second;
@@ -705,7 +706,7 @@ int DNAStorage::get_title_block_at(uint index) const {
 
   dna_cat.error()
     << "DNAStorage::get_title_block_at index not found, returning 0"
-    << endl;
+    << std::endl;
   return 0;
 }
 
@@ -749,7 +750,7 @@ int DNAStorage::remove_battle_cell(PT(DNABattleCell) cell) {
 ////////////////////////////////////////////////////////////////////
 PT(DNASuitEdge) DNAStorage::store_suit_edge(int start_index,
                                             int end_index,
-                                            string zone_id) {
+                                            std::string zone_id) {
   PT(DNASuitPoint) start_point = get_suit_point_with_index(start_index);
   nassertr(start_point != (DNASuitPoint *)NULL, (DNASuitEdge *)NULL);
 
@@ -788,7 +789,7 @@ PT(DNASuitEdge) DNAStorage::store_suit_edge(PT(DNASuitEdge) edge) {
       return (*ei);
     }
   }
-  
+
   sev.push_back(edge);
   return edge;
 }
@@ -815,7 +816,7 @@ int DNAStorage::remove_suit_edge(PT(DNASuitEdge) edge) {
                                        edge);
     if (ei != (*i).second.end()) {
       // Erase him out of our vector
-      dna_cat.debug() << "removed edge from suit edge vector" << endl;
+      dna_cat.debug() << "removed edge from suit edge vector" << std::endl;
       (*i).second.erase(ei);
       found = 1;
     }
@@ -826,7 +827,7 @@ int DNAStorage::remove_suit_edge(PT(DNASuitEdge) edge) {
       vi != _vis_group_vector.end();
       ++vi) {
     if ((*vi)->remove_suit_edge(edge)) {
-      dna_cat.debug() << "removed edge from vis group " << (*vi)->get_name() << endl;
+      dna_cat.debug() << "removed edge from vis group " << (*vi)->get_name() << std::endl;
     }
   }
 
@@ -841,12 +842,12 @@ int DNAStorage::remove_suit_edge(PT(DNASuitEdge) edge) {
 //  Description: A convenient interface if you only know the codes
 //               by name, not by number
 ////////////////////////////////////////////////////////////////////
-PT(Texture) DNAStorage::find_texture(const string &dna_string) const {
+PT(Texture) DNAStorage::find_texture(const std::string &dna_string) const {
   // Try to find this code in the map
   TextureMap::const_iterator i = _texture_map.find(dna_string);
   if (i == _texture_map.end()) {
     dna_cat.error()
-      << "texture: " << dna_string << " not found in map" << endl;
+      << "texture: " << dna_string << " not found in map" << std::endl;
     return (Texture *)NULL;
   }
   return (*i).second;
@@ -859,7 +860,7 @@ PT(Texture) DNAStorage::find_texture(const string &dna_string) const {
 //  Description: A convenient interface if you only know the codes
 //               by name, not by number
 ////////////////////////////////////////////////////////////////////
-NodePath DNAStorage::find_node(const string &dna_string) const {
+NodePath DNAStorage::find_node(const std::string &dna_string) const {
   // Try to find this code in the map
   NodeMap::const_iterator i = _node_map.find(dna_string);
   if (i == _node_map.end()) {
@@ -874,7 +875,7 @@ NodePath DNAStorage::find_node(const string &dna_string) const {
 
         dna_cat.debug()
           << "node: " << dna_string
-          << " not found in pool, hood, or place map, returning empty NodePath" << endl;
+          << " not found in pool, hood, or place map, returning empty NodePath" << std::endl;
         return NodePath();
       }
     }
@@ -888,12 +889,12 @@ NodePath DNAStorage::find_node(const string &dna_string) const {
 //  Description: A convenient interface if you only know the codes
 //               by name, not by number
 ////////////////////////////////////////////////////////////////////
-PT(TextFont) DNAStorage::find_font(const string &dna_string) const {
+PT(TextFont) DNAStorage::find_font(const std::string &dna_string) const {
   // Try to find this code in the map
   FontMap::const_iterator i = _font_map.find(dna_string);
   if (i == _font_map.end()) {
     dna_cat.error()
-      << "font: " << dna_string << " not found in map" << endl;
+      << "font: " << dna_string << " not found in map" << std::endl;
     return (TextFont *)NULL;
   }
   return (*i).second;
@@ -903,9 +904,9 @@ PT(TextFont) DNAStorage::find_font(const string &dna_string) const {
 ////////////////////////////////////////////////////////////////////
 //     Function: store_catalog_string
 //       Access: Public
-//  Description: Add a string
+//  Description: Add a std::string
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::store_catalog_string(const string &catalog_string, const string &dna_string) {
+void DNAStorage::store_catalog_string(const std::string &catalog_string, const std::string &dna_string) {
 
   // Try to find this catalog in the map
   CodeCatalog::iterator i = _code_catalog.find(catalog_string);
@@ -916,7 +917,7 @@ void DNAStorage::store_catalog_string(const string &catalog_string, const string
     cs.insert(dna_string);
     _code_catalog[catalog_string] = cs;
   } else {
-    // If we did find the catalog string in the catalog, see if the specified dna string is already in the code map
+    // If we did find the catalog std::string in the catalog, see if the specified dna std::string is already in the code map
     CodeSet::iterator csi = ((*i).second).find(dna_string);
     if (csi == ((*i).second).end()) {
       // Not in the code vector, add it
@@ -934,7 +935,7 @@ void DNAStorage::store_catalog_string(const string &catalog_string, const string
 //  Description: Return the number of entries in this catalog
 //               Return -1 if the catalog is not found
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_num_catalog_codes(const string &catalog_string) const {
+int DNAStorage::get_num_catalog_codes(const std::string &catalog_string) const {
 
   // Try to find this catalog in the map
   CodeCatalog::const_iterator i = _code_catalog.find(catalog_string);
@@ -955,7 +956,7 @@ int DNAStorage::get_num_catalog_codes(const string &catalog_string) const {
 //  Description: Return the number of entries in this catalog
 //               Return empty string if the catalog is not found
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_catalog_code(const string &catalog_string, int index) const {
+std::string DNAStorage::get_catalog_code(const std::string &catalog_string, int index) const {
 
   // Try to find this catalog in the map
   CodeCatalog::const_iterator i = _code_catalog.find(catalog_string);
@@ -986,20 +987,20 @@ string DNAStorage::get_catalog_code(const string &catalog_string, int index) con
 //  Description: print the catalog
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::print_catalog() const {
-  cout << "Category" << endl;
+  std::cout << "Category" << std::endl;
 
   // Loop over the categories
   for(CodeCatalog::const_iterator i = _code_catalog.begin();
       i != _code_catalog.end();
       ++i) {
 
-    cout << "Category: " << (*i).first << endl;
+    std::cout << "Category: " << (*i).first << std::endl;
 
     // Loop over the items in this category
     for(CodeSet::const_iterator csi = ((*i).second).begin();
         csi != ((*i).second).end();
         ++csi) {
-      cout << "\t" << (*csi) << endl;
+      std::cout << "\t" << (*csi) << std::endl;
     }
   }
 }
@@ -1030,7 +1031,7 @@ PT(DNAGroup) DNAStorage::find_DNAGroup(PT(PandaNode) rr) const {
   Node2GroupMap::const_iterator i = _n2group_map.find(rr);
   if (i == _n2group_map.end()) {
     dna_cat.debug()
-      << "PandaNode not found in Node2GroupMap" << endl;
+      << "PandaNode not found in Node2GroupMap" << std::endl;
     return (DNAGroup *)NULL;
   }
   nassertr((*i).second != (DNAGroup *)NULL, (DNAGroup *)NULL);
@@ -1073,7 +1074,7 @@ PT(PandaNode) DNAStorage::find_PandaNode(PT(DNAGroup) group) const {
   dna_cat.error()
     << "DNAStorage::find_PandaNode: DNAGroup <"
     << group->get_name() << " type: " << group->get_type()
-    << "> not found in Node2GroupMap or Node2VisGroupMap" << endl;
+    << "> not found in Node2GroupMap or Node2VisGroupMap" << std::endl;
   return (PandaNode *)NULL;
 }
 
@@ -1092,7 +1093,7 @@ int DNAStorage::remove_DNAGroup(PT(PandaNode) rr) {
   PT(DNAGroup) group = find_DNAGroup(rr);
   if (group == (DNAGroup *)NULL) {
     dna_cat.warning()
-      << "Render relation did not point to any DNAGroups in the storage" << endl;
+      << "Render relation did not point to any DNAGroups in the storage" << std::endl;
     return 0;
   } else {
     return remove_DNAGroup(group);
@@ -1137,7 +1138,7 @@ PT(DNAVisGroup) DNAStorage::find_DNAVisGroup(PT(PandaNode) rr) const {
   Node2VisGroupMap::const_iterator i = _n2visgroup_map.find(rr);
   if (i == _n2visgroup_map.end()) {
     dna_cat.error()
-      << "DNAStorage::find_DNAVisGroup: NodePath not found in Node2VisGroupMap" << endl;
+      << "DNAStorage::find_DNAVisGroup: NodePath not found in Node2VisGroupMap" << std::endl;
     return (DNAVisGroup *)NULL;
   }
 
@@ -1169,7 +1170,7 @@ PT(DNAVisGroup) DNAStorage::get_DNAVisGroup(uint i) const {
 
   dna_cat.error()
     << "DNAStorage::get_DNAVisGroup: vis group not found, returning NULL"
-    << endl;
+    << std::endl;
   return (DNAVisGroup *)NULL;
 }
 
@@ -1188,7 +1189,7 @@ int DNAStorage::get_num_visibles_in_DNAVisGroup(uint i) const {
   else {
     dna_cat.error()
       << "DNAStorage::get_num_visibles_in_DNAVisGroup: vis group not found"
-      << " returning -1" << endl;
+      << " returning -1" << std::endl;
     return -1;
   }
 }
@@ -1199,7 +1200,7 @@ int DNAStorage::get_num_visibles_in_DNAVisGroup(uint i) const {
 //       Access: Public
 //  Description: Ask for the name of the nth DNAVisGroup in the map
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_DNAVisGroup_name(uint i) const {
+std::string DNAStorage::get_DNAVisGroup_name(uint i) const {
   PT(DNAVisGroup) group;
   group = get_DNAVisGroup(i);
   if (group != (DNAVisGroup *)NULL) {
@@ -1208,7 +1209,7 @@ string DNAStorage::get_DNAVisGroup_name(uint i) const {
   else {
     dna_cat.error()
       << "DNAStorage::get_DNAVisGroup_name: vis group not found,"
-      << " returning empty string" << endl;
+      << " returning empty string" << std::endl;
     return "";
   }
 }
@@ -1219,7 +1220,7 @@ string DNAStorage::get_DNAVisGroup_name(uint i) const {
 //       Access: Public
 //  Description: Ask for the name of the nth visible in the nth DNAVisGroup
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_visible_name(uint visgroup_index, uint visible_index) const {
+std::string DNAStorage::get_visible_name(uint visgroup_index, uint visible_index) const {
   PT(DNAVisGroup) group;
   group = get_DNAVisGroup(visgroup_index);
   if (group != (DNAVisGroup *)NULL) {
@@ -1228,7 +1229,7 @@ string DNAStorage::get_visible_name(uint visgroup_index, uint visible_index) con
   else {
     dna_cat.error()
       << "DNAStorage::get_num_visibles_in_DNAVisGroup: vis group not found,"
-      << " returning empty string" << endl;
+      << " returning empty string" << std::endl;
     return "";
   }
 }
@@ -1270,7 +1271,7 @@ PT(PandaNode) DNAStorage::get_PandaNode_at(uint i) const {
 
   dna_cat.error()
     << "DNAStorage::get_PandaNode_at PandaNode not found, returning NULL"
-    << endl;
+    << std::endl;
   return (PandaNode *)NULL;
 }
 
@@ -1280,17 +1281,17 @@ void DNAStorage::print_PandaNodes() const {
   for(Node2GroupMap::const_iterator it = _n2group_map.begin();
       it != _n2group_map.end();
       ++it) {
-    cout << "PandaNode " << (void *)(*it).first
+    std::cout << "PandaNode " << (void *)(*it).first
          << " DNAGroup " << (void *)(*it).second
-         << " " << ((*it).second)->get_name() << endl;
+         << " " << ((*it).second)->get_name() << std::endl;
   }
   // Don't forget the vis groups
   for(Node2VisGroupMap::const_iterator vit = _n2visgroup_map.begin();
       vit != _n2visgroup_map.end();
       ++vit) {
-    cout << "PandaNode " << (void *)(*vit).first
+    std::cout << "PandaNode " << (void *)(*vit).first
          << " DNAVisGroup " << (void *)(*vit).second
-         << " " << ((*vit).second)->get_name() <<  endl;
+         << " " << ((*vit).second)->get_name() << std::endl;
   }
 }
 
@@ -1306,7 +1307,7 @@ PT(DNASuitEdge) DNAStorage::get_suit_edge(int start_index, int end_index) const 
   if (i == _suit_start_point_map.end()) {
     dna_cat.error()
       << "DNASuitStartPoint index: " << start_index
-      << " not found in map" << endl;
+      << " not found in map" << std::endl;
     return (DNASuitEdge *)NULL;
   } else {
     // Ok, found the start index, lets see if it connects directly to
@@ -1324,7 +1325,7 @@ PT(DNASuitEdge) DNAStorage::get_suit_edge(int start_index, int end_index) const 
     // Did not find the end point connected to this start point
     dna_cat.error()
       << "DNASuitStartPoint start index: " << start_index
-      << " not connected to end index: " << end_index << endl;
+      << " not connected to end index: " << end_index << std::endl;
     return (DNASuitEdge *)NULL;
   }
 }
@@ -1336,7 +1337,7 @@ PT(DNASuitEdge) DNAStorage::get_suit_edge(int start_index, int end_index) const 
 //  Description: Ask for the zone that this edge is in
 //               Returns -1 if there is no edge between these points
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_suit_edge_zone(int start_index, int end_index) const {
+std::string DNAStorage::get_suit_edge_zone(int start_index, int end_index) const {
   // First find the edge that connects these two points
   PT(DNASuitEdge) edge = get_suit_edge(start_index, end_index);
   // Make sure the edge is valid, if not, return empty string
@@ -1406,29 +1407,29 @@ get_suit_path(const DNASuitPoint *start_point, const DNASuitPoint *end_point,
     dna_cat.debug()
       << "get_suit_path: About to look for path from "
       << (*start_point)
-      << " to " << (*end_point) 
-      << " min_length = " << min_length << ", max_length = " 
+      << " to " << (*end_point)
+      << " min_length = " << min_length << ", max_length = "
       << max_length << "\n";
   }
 
-  PT(DNASuitPath) path = 
+  PT(DNASuitPath) path =
     get_suit_path_breadth_first(start_point, end_point, min_length, max_length);
   if (path != (DNASuitPath *)NULL) {
     if (dna_cat.is_debug()) {
       dna_cat.debug()
         << "get_suit_path: Path from " << (*start_point)
         << " to " << (*end_point) << " is "
-        << (*path) << endl;
+        << (*path) << std::endl;
       dna_cat.debug()
         << "get_suit_path: Path contains " << path->get_num_points()
-        << " points " << endl;
+        << " points " << std::endl;
     }
 
   } else {
     dna_cat.warning()
-      << "get_suit_path: could not find path" << endl
-      << "  from: " << (*start_point) << endl
-      << "    to: " << (*end_point)   << endl;
+      << "get_suit_path: could not find path" << std::endl
+      << "  from: " << (*start_point) << std::endl
+      << "    to: " << (*end_point)   << std::endl;
   }
 
   return path;
@@ -1493,7 +1494,7 @@ discover_continuity() {
       r_discover_connections(point, graph_id);
     }
   }
-  
+
   return graph_id;
 }
 
@@ -1517,15 +1518,15 @@ r_discover_connections(DNASuitPoint *point, int graph_id) {
 
   SuitStartPointMap::const_iterator si =
     _suit_start_point_map.find(point_index);
-  
+
   if (si == _suit_start_point_map.end()) {
     dna_cat.warning()
       << "Could not find point " << point_index << " in map.\n";
-    
+
   } else {
     const SuitEdgeVector &edge_list = (*si).second;
     for(SuitEdgeVector::const_iterator evi = edge_list.begin();
-        evi != edge_list.end(); 
+        evi != edge_list.end();
         ++evi) {
       DNASuitEdge *edge = (*evi);
       r_discover_connections(edge->get_end_point(), graph_id);
@@ -1582,8 +1583,8 @@ get_suit_path_breadth_first(const DNASuitPoint *start_point,
     if (dna_cat.is_debug()) {
       // Count up the number of paths on the chain for debug output.
       int num_paths = 0;
-      for (WorkingSuitPath *p = chain; 
-           p != (WorkingSuitPath *)NULL; 
+      for (WorkingSuitPath *p = chain;
+           p != (WorkingSuitPath *)NULL;
            p = p->_next_in_chain) {
         num_paths++;
       }
@@ -1604,8 +1605,8 @@ get_suit_path_breadth_first(const DNASuitPoint *start_point,
     if (dna_cat.is_debug()) {
       // Count up the number of paths on the chain for debug output.
       int num_paths = 0;
-      for (WorkingSuitPath *p = chain; 
-           p != (WorkingSuitPath *)NULL; 
+      for (WorkingSuitPath *p = chain;
+           p != (WorkingSuitPath *)NULL;
            p = p->_next_in_chain) {
         num_paths++;
       }
@@ -1667,28 +1668,28 @@ generate_next_suit_path_chain(PT(DNAStorage::WorkingSuitPath) &chain) const {
       // Look over each edge connecting to current point index
       const SuitEdgeVector &edge_list = (*si).second;
       for(SuitEdgeVector::const_iterator evi = edge_list.begin();
-          evi != edge_list.end(); 
+          evi != edge_list.end();
           ++evi) {
         DNASuitEdge *edge = (*evi);
         int next_point_index = edge->get_end_point()->get_index();
-        
+
         if (dna_cat.is_spam()) {
           dna_cat.spam()
             << "get_suit_path_breadth_first: Examining edge: "
-            << (*edge) << endl;
+            << (*edge) << std::endl;
         }
 
         // We don't step off the street points unless it is onto our
         // final, solution point.
         if (!edge->get_end_point()->is_terminal()) {
-          if (next_point_index == current_point_index || 
+          if (next_point_index == current_point_index ||
               next_point_index == prev_point_index) {
             dna_cat.warning()
               << "Invalid edge detected in dna: " << (*edge) << "\n";
           } else {
             // Extend the path by the current point and save it on the
             // new chain.
-            PT(WorkingSuitPath) new_path = 
+            PT(WorkingSuitPath) new_path =
               new WorkingSuitPath(current_path, next_point_index);
             new_path->_next_in_chain = next_chain;
             next_chain = new_path;
@@ -1751,23 +1752,23 @@ consider_next_suit_path_chain(PT(DNAStorage::WorkingSuitPath) &chain,
       // Look over each edge connecting to current point index
       const SuitEdgeVector &edge_list = (*si).second;
       for(SuitEdgeVector::const_iterator evi = edge_list.begin();
-          evi != edge_list.end(); 
+          evi != edge_list.end();
           ++evi) {
         DNASuitEdge *edge = (*evi);
         int next_point_index = edge->get_end_point()->get_index();
-        
+
         if (dna_cat.is_spam()) {
           dna_cat.spam()
             << "get_suit_path_breadth_first: Examining edge: "
-            << (*edge) << endl;
+            << (*edge) << std::endl;
         }
-        
+
         // See if this is the one we are looking for
         if (next_point_index == end_point->get_index()) {
           // Add this final point
-          PT(WorkingSuitPath) new_path = 
+          PT(WorkingSuitPath) new_path =
             new WorkingSuitPath(current_path, next_point_index);
-            
+
           if (dna_cat.is_debug()) {
             dna_cat.debug()
               << "Found solution:\n";
@@ -1780,7 +1781,7 @@ consider_next_suit_path_chain(PT(DNAStorage::WorkingSuitPath) &chain,
         // We don't step off the street points unless it is onto our
         // final, solution point.
         if (!edge->get_end_point()->is_terminal()) {
-          if (next_point_index == current_point_index || 
+          if (next_point_index == current_point_index ||
               next_point_index == prev_point_index) {
             dna_cat.warning()
               << "Invalid edge detected in dna: " << (*edge) << "\n";
@@ -1789,7 +1790,7 @@ consider_next_suit_path_chain(PT(DNAStorage::WorkingSuitPath) &chain,
             if (visited_points.insert(next_point_index).second) {
               // Extend the path by the current point and save it on the
               // new chain.
-              PT(WorkingSuitPath) new_path = 
+              PT(WorkingSuitPath) new_path =
                 new WorkingSuitPath(current_path, next_point_index);
               new_path->_next_in_chain = next_chain;
               next_chain = new_path;
@@ -1820,11 +1821,11 @@ consider_next_suit_path_chain(PT(DNAStorage::WorkingSuitPath) &chain,
 //  Description: Get the block number as a string from the building
 //               name.
 ////////////////////////////////////////////////////////////////////
-string DNAStorage::get_block(const string& name) const {
+std::string DNAStorage::get_block(const std::string& name) const {
   // The block number is in the parent name, between "tb" and ":"
   // (e.g. "tb22:blah_blah").
   size_t pos=name.find(':');
-  string block=name.substr(2, pos-2);
+  std::string block=name.substr(2, pos-2);
   return block;
 }
 
@@ -1848,7 +1849,7 @@ void DNAStorage::fixup() {
 //  Description: Write out to the dna file whatever the storage
 //               feels it needs to. For instance, the suit points.
 ////////////////////////////////////////////////////////////////////
-void DNAStorage::write(ostream &out, int indent_level) const {
+void DNAStorage::write(std::ostream &out, int indent_level) const {
   for(SuitPointVector::const_iterator i = _suit_point_vector.begin();
       i != _suit_point_vector.end();
       ++i) {
@@ -1874,10 +1875,10 @@ get_path(DNASuitPath *path) const {
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAStorage::WorkingSuitPath::output
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::WorkingSuitPath::
-output(ostream &out) const {
+output(std::ostream &out) const {
   if (_next_in_path != (WorkingSuitPath *)NULL) {
     _next_in_path->output(out);
     out << " " << get_point_index();
@@ -1889,10 +1890,10 @@ output(ostream &out) const {
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAStorage::WorkingSuitPath::write
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 void DNAStorage::WorkingSuitPath::
-write(ostream &out) const {
+write(std::ostream &out) const {
   out << "[ ";
   output(out);
   out << " ]\n";

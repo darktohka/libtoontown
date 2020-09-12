@@ -19,24 +19,24 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAProp : public DNANode  {
 PUBLISHED:
-  DNAProp(const string &initial_name = "");
+  DNAProp(const std::string &initial_name = "");
   DNAProp(const DNAProp &prop);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_code(string code);
-  INLINE string get_code() const;
+  INLINE void set_code(std::string code);
+  INLINE std::string get_code() const;
 
-  INLINE void set_color(const Colorf &color);
-  INLINE Colorf get_color() const;
+  INLINE void set_color(const LColorf &color);
+  INLINE LColorf get_color() const;
 
 private:
   virtual DNAGroup* make_copy();
 
 protected:
-  string _code;
-  Colorf _color;
+  std::string _code;
+  LColorf _color;
 
 public:
   static TypeHandle get_class_type() {

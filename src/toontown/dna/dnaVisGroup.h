@@ -34,16 +34,16 @@ class DNAStorage;
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAVisGroup : public DNAGroup {
 PUBLISHED:
-  DNAVisGroup(const string &initial_name = "");
+  DNAVisGroup(const std::string &initial_name = "");
   DNAVisGroup(const DNAVisGroup &group);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  void add_visible(const string &vis_group_name);
-  int remove_visible(const string &vis_group_name);
+  void add_visible(const std::string &vis_group_name);
+  int remove_visible(const std::string &vis_group_name);
   int get_num_visibles() const;
-  string get_visible_name(uint i) const;
+  std::string get_visible_name(uint i) const;
 
   void add_suit_edge(PT(DNASuitEdge) edge);
   int remove_suit_edge(PT(DNASuitEdge) edge);
@@ -59,7 +59,7 @@ private:
   virtual DNAGroup* make_copy();
 
 protected:
-  pvector< string > _vis_vector;
+  pvector< std::string > _vis_vector;
   pvector< PT(DNASuitEdge) > _suit_edge_vector;
   pvector< PT(DNABattleCell) > _battle_cell_vector;
 

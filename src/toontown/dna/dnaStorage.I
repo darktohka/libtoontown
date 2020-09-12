@@ -12,7 +12,7 @@
 //       Access: Public
 //  Description: Store a node pointer in the node map
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAStorage::store_node(const string &code_string, NodePath node, const string &code_category) {
+INLINE void DNAStorage::store_node(const std::string &code_string, NodePath node, const std::string &code_category) {
   if ((code_category == "holiday_prop") && !(node.node()->is_of_type(ModelNode::get_class_type()))) {
     // These should not be flattened
     NodePath modelNode(new ModelNode(node.get_name()));
@@ -31,7 +31,7 @@ INLINE void DNAStorage::store_node(const string &code_string, NodePath node, con
 //  Description: Store a neighborhood specific node pointer in the
 //               hood node map
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAStorage::store_hood_node(const string &code_string, NodePath node, const string &code_category) {
+INLINE void DNAStorage::store_hood_node(const std::string &code_string, NodePath node, const std::string &code_category) {
   if ((code_category == "holiday_prop") && !(node.node()->is_of_type(ModelNode::get_class_type()))) {
     // These should not be flattened
     NodePath modelNode(new ModelNode(node.get_name()));
@@ -49,7 +49,7 @@ INLINE void DNAStorage::store_hood_node(const string &code_string, NodePath node
 //  Description: Store a neighborhood specific node pointer in the
 //               place node map
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAStorage::store_place_node(const string &code_string, NodePath node, const string &code_category) {
+INLINE void DNAStorage::store_place_node(const std::string &code_string, NodePath node, const std::string &code_category) {
   if ((code_category == "holiday_prop") && !(node.node()->is_of_type(ModelNode::get_class_type()))) {
     // These should not be flattened
     NodePath modelNode(new ModelNode(node.get_name()));
@@ -347,7 +347,7 @@ WorkingSuitPath(WorkingSuitPath *next, int point_index) {
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAStorage::WorkingSuitPath::Destructor
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 INLINE DNAStorage::WorkingSuitPath::
 ~WorkingSuitPath() {
@@ -405,7 +405,7 @@ operator delete(void *ptr) {
   // have already been destructed.  We use _next_deleted instead,
   // which is set aside for just this purpose.  Yeah, it's a small
   // waste of memory; deal with it.
-  
+
   obj->_next_deleted = _deleted_chain;
   _deleted_chain = obj;
 }

@@ -10,13 +10,14 @@
 #include "popupMouseWatcherRegion.h"
 #include "clickablePopup.h"
 
-#include "referenceCount.h"
 #include "pointerTo.h"
 #include "pgButton.h"
 #include "updateSeq.h"
 #include "nodePath.h"
 #include "cInterval.h"
 #include "mouseWatcher.h"
+
+#include <string>
 
 class NametagGroup;
 class MouseWatcherParameter;
@@ -31,7 +32,7 @@ class MarginManager;
 //               name and/or his chat messages, and can be clicked on
 //               to select the avatar.
 ////////////////////////////////////////////////////////////////////
-class EXPCL_OTP Nametag : virtual public ReferenceCount, public ClickablePopup {
+class EXPCL_OTP Nametag : public ClickablePopup {
 public:
   Nametag(float chat_wordwrap);
   virtual ~Nametag();
@@ -99,7 +100,7 @@ private:
   float _chat_wordwrap;
   NodePath _avatar;
 
-  string _flash_track_name;
+  std::string _flash_track_name;
   PT(CInterval) _flash_track;
 
   PT(PopupMouseWatcherRegion) _region;
@@ -113,9 +114,7 @@ public:
     return _type_handle;
   }
   static void init_type() {
-    ReferenceCount::init_type();
-    register_type(_type_handle, "Nametag",
-                  ReferenceCount::get_class_type());
+    register_type(_type_handle, "Nametag");
   }
 
 PUBLISHED:

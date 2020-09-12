@@ -36,7 +36,7 @@ NodePath DNABattleCell::traverse(NodePath &parent, DNAStorage *store, int editin
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNABattleCell::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNABattleCell::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "battle_cell [ "
                             << _width << " " << _height << " "
                             << _pos[0] << " " << _pos[1] << " " << _pos[2]
@@ -49,7 +49,7 @@ void DNABattleCell::write(ostream &out, DNAStorage *store, int indent_level) con
 //       Access: Public
 //  Description: Writes the cell properties to output
 ////////////////////////////////////////////////////////////////////
-void DNABattleCell::output(ostream &out) const {
+void DNABattleCell::output(std::ostream &out) const {
   out << "Width: " << _width
       << " Height: " << _height
       << " Pos: " << _pos;

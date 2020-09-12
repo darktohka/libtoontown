@@ -174,7 +174,6 @@ get_cell_available(int cell_index) const {
   return _cells[cell_index]._is_available;
 }
 
-#ifndef NDEBUG
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::show_cells
 //       Access: Published
@@ -218,7 +217,6 @@ void MarginManager::
 hide_cells() {
   _show_cells.remove_node();
 }
-#endif
 
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::manage_popup
@@ -365,7 +363,7 @@ update() {
       // If the popup wants to hide itself, we can oblige it right
       // away.
       hide(info._cell_index);
-      
+
     } else if (info._wants_visible && !popup->is_visible()) {
       // This popup wants to reveal itself; we'll have to defer that
       // request for a bit until we've looked at all the popups.
@@ -391,14 +389,13 @@ update() {
     popup->frame_callback();
   }
 
-#ifndef NDEBUG
+  // TODO: This was commented out, not sure if it should stay or not.
   // Update the visualization of the MouseWatcherRegions, if this
   // happens to be enabled.
   MouseWatcher *mouse_watcher = NametagGlobals::get_mouse_watcher();
   if (mouse_watcher != (MouseWatcher *)NULL) {
     mouse_watcher->update_regions();
   }
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -453,10 +450,10 @@ is_renderable() const {
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::write
 //       Access: Published, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 void MarginManager::
-write(ostream &out, int indent_level) const {
+write(std::ostream &out, int indent_level) const {
   PandaNode::write(out, indent_level);
 
   Popups::const_iterator pi;

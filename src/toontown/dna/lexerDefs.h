@@ -12,15 +12,15 @@
 
 #include <string>
 
-void dna_init_lexer(istream &in, ostream &err, const string &filename);
+void dna_init_lexer(std::istream &in, std::ostream &err, const std::string &filename);
 int dna_error_count();
 int dna_warning_count();
 
-void dnayyerror(const string &msg);
-void dnayyerror(ostringstream &strm);
+void dnayyerror(const std::string &msg);
+void dnayyerror(std::ostringstream &strm);
 
-void dnayywarning(const string &msg);
-void dnayywarning(ostringstream &strm);
+void dnayywarning(const std::string &msg);
+void dnayywarning(std::ostringstream &strm);
 
 int dnayylex();
 
@@ -28,4 +28,3 @@ int dnayylex();
 #define YY_NEVER_INTERACTIVE 1
 
 #endif
-

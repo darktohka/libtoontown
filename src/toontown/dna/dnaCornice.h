@@ -13,30 +13,32 @@
 #include "luse.h"
 #include "pvector.h"
 
+#include <string>
+
 ////////////////////////////////////////////////////////////////////
 //       Class : DNACornice
 // Description : A cornice at the top of a flat building
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNACornice : public DNAGroup  {
 PUBLISHED:
-  DNACornice(const string &initial_name = "");
+  DNACornice(const std::string &initial_name = "");
   DNACornice(const DNACornice &cornice);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  void set_code(string code);
-  string get_code() const;
+  void set_code(std::string code);
+  std::string get_code() const;
 
-  void set_color(const Colorf &color);
-  Colorf get_color() const;
+  void set_color(const LColorf &color);
+  LColorf get_color() const;
 
 private:
   virtual DNAGroup* make_copy();
 
 private:
-  string _code;
-  Colorf _color;
+  std::string _code;
+  LColorf _color;
 
 public:
   static TypeHandle get_class_type() {

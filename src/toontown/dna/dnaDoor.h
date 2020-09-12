@@ -19,28 +19,28 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNADoor : public DNAGroup  {
 PUBLISHED:
-  DNADoor(const string &initial_name = "");
+  DNADoor(const std::string &initial_name = "");
   DNADoor(const DNADoor &door);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  void set_code(string code);
-  string get_code() const;
+  void set_code(std::string code);
+  std::string get_code() const;
 
-  void set_color(const Colorf &color);
-  Colorf get_color() const;
+  void set_color(const LColorf &color);
+  LColorf get_color() const;
 
   static void setup_door(NodePath& door_node_path,
       NodePath& parent, NodePath& door_origin, DNAStorage *store,
-      const string& block, const LVector4f& color);
+      const std::string& block, const LVector4f& color);
 
 private:
   virtual DNAGroup* make_copy();
 
 protected:
-  string _code;
-  Colorf _color;
+  std::string _code;
+  LColorf _color;
 
 public:
   static TypeHandle get_class_type() {
@@ -69,11 +69,11 @@ private:
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAFlatDoor : public DNADoor {
 PUBLISHED:
-  DNAFlatDoor(const string &initial_name = "");
+  DNAFlatDoor(const std::string &initial_name = "");
   DNAFlatDoor(const DNAFlatDoor &door);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
 private:
   virtual DNAGroup* make_copy();

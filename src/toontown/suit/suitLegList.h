@@ -46,8 +46,8 @@ PUBLISHED:
   bool is_point_in_range(const DNASuitPoint *point, double begin,
                          double end) const;
 
-  void output(ostream &out) const;
-  void write(ostream &out) const;
+  void output(std::ostream &out) const;
+  void write(std::ostream &out) const;
 
 private:
   static SuitLeg::Type get_first_leg_type(const DNASuitPoint *point);
@@ -61,9 +61,8 @@ private:
   Legs _legs;
 };
 
-INLINE ostream &operator << (ostream &out, const SuitLegList &list);
+INLINE std::ostream &operator << (std::ostream &out, const SuitLegList &list);
 
 #include "suitLegList.I"
 
 #endif
-

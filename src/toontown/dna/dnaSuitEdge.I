@@ -17,10 +17,10 @@ INLINE PT(DNASuitPoint) DNASuitEdge::get_end_point() const {
   return _end_point;
 }
 
-INLINE string DNASuitEdge::get_zone_id() const {
+INLINE std::string DNASuitEdge::get_zone_id() const {
   return _zone_id;
 }
 
-INLINE void DNASuitEdge::set_zone_id(string zone_id) {
+INLINE void DNASuitEdge::set_zone_id(std::string zone_id) {
   _zone_id = zone_id;
 }

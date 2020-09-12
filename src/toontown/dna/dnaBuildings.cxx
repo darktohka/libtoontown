@@ -5,6 +5,7 @@
 
 #include "dnaBuildings.h"
 #include "dnaStorage.h"
+#include "dnaDoor.h"
 #include "modelNode.h"
 #include "pandaNode.h"
 #include "compose_matrix.h"
@@ -34,7 +35,7 @@ float current_wall_height = 0.0;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAWall::DNAWall(const string &initial_name) :
+DNAWall::DNAWall(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -98,7 +99,7 @@ NodePath DNAWall::traverse(NodePath &parent, DNAStorage *store, int editing) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAWall::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAWall::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "wall [\n";
 
 
@@ -139,7 +140,7 @@ DNAGroup* DNAWall::make_copy() {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAFlatBuilding::DNAFlatBuilding(const string &initial_name) :
+DNAFlatBuilding::DNAFlatBuilding(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _width = 10.0;
@@ -188,11 +189,11 @@ bool DNAFlatBuilding::has_door(PT(DNAGroup) parent_group) {
 void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
       DNAStorage *store) {
   // Get the toon building name:
-  string name = get_name();
+  std::string name = get_name();
   if (!(name[0]=='t' &&
       name[1]=='b' &&
       isdigit(name[2]) &&
-      name.find(':')!=string::npos)) {
+      name.find(':')!=std::string::npos)) {
     // ...this building is not setup to taken over.
     // Skip it:
     return;
@@ -274,7 +275,7 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
   // For some reason the dna has some flat buildings with no walls
   // we should fix them as we find them
   if (current_wall_height == 0.0) {
-    dna_cat.warning() << "empty flat building with no walls" << endl;
+    dna_cat.warning() << "empty flat building with no walls" << std::endl;
     return parent;
   }
 
@@ -302,7 +303,7 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
         "**/door_*/+CollisionNode");
     if (!door_sphere_node_path.is_empty()) {
       // Rename the collision sphere:
-      string block=store->get_block(get_name());
+      std::string block=store->get_block(get_name());
       door_sphere_node_path.node()->set_name("KnockKnockDoorSphere_"+block);
     }
 
@@ -372,7 +373,7 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAFlatBuilding::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAFlatBuilding::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "flat_building ";
   out << '"' << get_name() << '"' << " [\n";
 
@@ -415,7 +416,7 @@ DNAGroup* DNAFlatBuilding::make_copy() {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNALandmarkBuilding::DNALandmarkBuilding(const string &initial_name) :
+DNALandmarkBuilding::DNALandmarkBuilding(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -447,11 +448,11 @@ DNALandmarkBuilding::DNALandmarkBuilding(const DNALandmarkBuilding &building) :
 void DNALandmarkBuilding::setup_suit_building_origin(NodePath &parent,
     NodePath &building_node_path) {
   // Copy the name from the toon building:
-  string name = get_name();
+  std::string name = get_name();
   if (!(name[0]=='t' &&
       name[1]=='b' &&
       isdigit(name[2]) &&
-      name.find(':')!=string::npos)) {
+      name.find(':')!=std::string::npos)) {
     // ...this building is not setup to taken over.
     // Skip it:
     return;
@@ -467,7 +468,7 @@ void DNALandmarkBuilding::setup_suit_building_origin(NodePath &parent,
     np.node()->set_name(name);
   } else {
     dna_cat.warning() << "DNALandmarkBuilding " << name
-                      << " did not find **/*suit_building_origin" << endl;
+                      << " did not find **/*suit_building_origin" << std::endl;
     // Create the node to hang suit buildings on:
     NodePath suit_building_node_path = parent.attach_new_node(name);
     // Size and place it correctly:
@@ -496,7 +497,7 @@ NodePath DNALandmarkBuilding::traverse(NodePath &parent, DNAStorage *store, int 
   building_node_path.set_pos_hpr_scale(_pos, _hpr, _scale);
 
   // Remember the article and title of the building, for later:
-  string block=store->get_block(get_name());
+  std::string block=store->get_block(get_name());
   store->store_block_title(block, _title);
   store->store_block_article(block, _article);
 
@@ -524,7 +525,7 @@ NodePath DNALandmarkBuilding::traverse(NodePath &parent, DNAStorage *store, int 
     gr.flatten(building_node_path.node(), ~0);
 
     // HQs need the door_origins around because they do not have dnaDoors
-    if (get_building_type() != string("hq")) {
+    if (get_building_type() != std::string("hq")) {
       // Get rid of these placement origins since we do not need them anymore
       NodePath door_origin = building_node_path.find("**/*door_origin");
       if (!door_origin.is_empty()) {
@@ -545,7 +546,7 @@ NodePath DNALandmarkBuilding::traverse(NodePath &parent, DNAStorage *store, int 
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNALandmarkBuilding::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNALandmarkBuilding::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "landmark_building ";
   out << '"' << get_name() << '"' << " [\n";
 
@@ -556,10 +557,10 @@ void DNALandmarkBuilding::write(ostream &out, DNAStorage *store, int indent_leve
     indent(out, indent_level + 1) << "building_type [ " << '"' << get_building_type() << '"' << " ]\n";
   }
 
-  // Whoops, the titles were entered as iso8859 and we need to convert them to utf8 
+  // Whoops, the titles were entered as iso8859 and we need to convert them to utf8
   // We only want to run this when we need to fix an improper encoding
   // Note - you need to change the indent function below too
-  // string utf8title = TextNode::reencode_text(_title, TextNode::E_iso8859, TextNode::E_utf8);
+  // std::string utf8title = TextNode::reencode_text(_title, TextNode::E_iso8859, TextNode::E_utf8);
   if (!_article.empty()) {
     indent(out, indent_level + 1) << "article [ " << '"' <<
       _article << '"' << " ]\n";
@@ -601,4 +602,3 @@ void DNALandmarkBuilding::write(ostream &out, DNAStorage *store, int indent_leve
 DNAGroup* DNALandmarkBuilding::make_copy() {
   return new DNALandmarkBuilding(*this);
 }
-

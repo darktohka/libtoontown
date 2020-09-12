@@ -16,7 +16,7 @@ TypeHandle DNACornice::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNACornice::DNACornice(const string &initial_name) :
+DNACornice::DNACornice(const std::string &initial_name) :
   DNAGroup(initial_name)
 {
   _code = "";
@@ -41,7 +41,7 @@ DNACornice::DNACornice(const DNACornice &cornice) :
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-void DNACornice::set_color(const Colorf &color) {
+void DNACornice::set_color(const LColorf &color) {
   _color = color;
 }
 
@@ -51,7 +51,7 @@ void DNACornice::set_color(const Colorf &color) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-Colorf DNACornice::get_color() const {
+LColorf DNACornice::get_color() const {
   return _color;
 }
 
@@ -61,7 +61,7 @@ Colorf DNACornice::get_color() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-void DNACornice::set_code(string code) {
+void DNACornice::set_code(std::string code) {
   _code = code;
 }
 
@@ -71,7 +71,7 @@ void DNACornice::set_code(string code) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-string DNACornice::get_code() const {
+std::string DNACornice::get_code() const {
   return _code;
 }
 
@@ -138,7 +138,7 @@ NodePath DNACornice::traverse(NodePath &parent, DNAStorage *store, int editing) 
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNACornice::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNACornice::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "cornice [\n";
 
   // Write out all properties

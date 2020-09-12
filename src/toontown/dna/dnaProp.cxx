@@ -19,7 +19,7 @@ TypeHandle DNAProp::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAProp::DNAProp(const string &initial_name) :
+DNAProp::DNAProp(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -99,7 +99,7 @@ NodePath DNAProp::traverse(NodePath &parent, DNAStorage *store, int editing) {
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAProp::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAProp::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "prop ";
   out << '"' << get_name() << '"' << " [\n";
 

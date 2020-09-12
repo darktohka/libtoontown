@@ -23,7 +23,7 @@ TypeHandle WhisperPopup::_type_handle;
 //  Description:
 ////////////////////////////////////////////////////////////////////
 WhisperPopup::
-WhisperPopup(const string &text, TextFont *font,
+WhisperPopup(const std::string &text, TextFont *font,
              WhisperPopup::WhisperType whisper_type) :
   _text(text),
   _font(font),
@@ -65,7 +65,7 @@ WhisperPopup::
 //               with the two supplied parameters.
 ////////////////////////////////////////////////////////////////////
 void WhisperPopup::
-set_clickable(const string &avatar_name, int avatar_id, int is_player_id) {
+set_clickable(const std::string &avatar_name, int avatar_id, int is_player_id) {
   //had to add is player to tell avIds from playerIds input is int because it's coming from python
   _clickable = true;
   _avatar_name = avatar_name;
@@ -280,7 +280,7 @@ set_visible(bool flag) {
 //               popup.
 ////////////////////////////////////////////////////////////////////
 void WhisperPopup::
-generate_text(ChatBalloon *balloon, const string &text, TextFont *font) {
+generate_text(ChatBalloon *balloon, const std::string &text, TextFont *font) {
   if (nametag_cat.is_debug()) {
     nametag_cat.debug()
       << "Generating text for " << *this << "\n";
@@ -293,10 +293,10 @@ generate_text(ChatBalloon *balloon, const string &text, TextFont *font) {
   const NametagGlobals::Colors &colors =
     NametagGlobals::get_whisper_colors(_whisper_type, ClickablePopup::get_state());
 
-  Colorf text_color = colors._chat_fg;
-  Colorf balloon_color = colors._chat_bg;
+  LColorf text_color = colors._chat_fg;
+  LColorf balloon_color = colors._chat_bg;
   balloon_color[3] =
-    max(min(balloon_color[3], NametagGlobals::get_max_2d_alpha()),
+    std::max(std::min(balloon_color[3], NametagGlobals::get_max_2d_alpha()),
         NametagGlobals::get_min_2d_alpha());
 
   float wordwrap = NametagGlobals::chat_2d_wordwrap;
@@ -356,7 +356,7 @@ void WhisperPopup::
 set_region(const LVecBase4f &frame, int sort) {
   if (_region == (PopupMouseWatcherRegion *)NULL) {
     // Create a new region.
-    string name = "Whisper from " + _avatar_name;
+    std::string name = "Whisper from " + _avatar_name;
     _region = new PopupMouseWatcherRegion(this, name, frame);
 
   } else {

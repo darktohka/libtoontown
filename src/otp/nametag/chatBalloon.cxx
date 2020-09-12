@@ -59,8 +59,8 @@ ChatBalloon::
 //               draw_order.
 ////////////////////////////////////////////////////////////////////
 PT(PandaNode) ChatBalloon::
-generate(const string &text, TextFont *font, float wordwrap,
-         const Colorf &text_color, const Colorf &balloon_color,
+generate(const std::string &text, TextFont *font, float wordwrap,
+         const LColorf &text_color, const LColorf &balloon_color,
          bool for_3d, bool has_draw_order, int draw_order,
          const NodePath &page_button, bool space_for_button,
          bool reversed, NodePath &new_button) {
@@ -108,7 +108,7 @@ generate(const string &text, TextFont *font, float wordwrap,
     button_space = 0.2f;
   }
 
-  int num_lines = max(text_node->get_num_rows(), 1);
+  int num_lines = std::max(text_node->get_num_rows(), 1);
   float line_height = text_node->get_line_height();
   _text_height = num_lines * line_height + button_space;
   float text_height_below = (num_lines - 1) * line_height + button_space;
@@ -263,7 +263,7 @@ scan_balloon(PandaNode *node) {
   int num_children = _parent->get_num_children();
   for (int i = 0; i < num_children; i++) {
     PandaNode *child = _parent->get_child(i);
-    const string &name = child->get_name();
+    const std::string &name = child->get_name();
 
     if (name == "top") {
       _top_node = child;
@@ -300,7 +300,7 @@ find_middle_geom(PandaNode *parent) {
   int num_children = parent->get_num_children();
   for (int i = 0; i < num_children; i++) {
     PandaNode *child = parent->get_child(i);
-    const string &name = child->get_name();
+    const std::string &name = child->get_name();
 
     if (name == "middle") {
       // Here's a child named "middle"; now let's go down to the first

@@ -19,20 +19,20 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAAnimProp : public DNAProp  {
 PUBLISHED:
-  DNAAnimProp(const string &initial_name = "");
+  DNAAnimProp(const std::string &initial_name = "");
   DNAAnimProp(const DNAAnimProp &anim_prop);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_anim(string anim);
-  INLINE string get_anim() const;
+  INLINE void set_anim(std::string anim);
+  INLINE std::string get_anim() const;
 
 private:
   virtual DNAGroup* make_copy();
 
 protected:
-  string _anim;
+  std::string _anim;
 
 public:
   static TypeHandle get_class_type() {

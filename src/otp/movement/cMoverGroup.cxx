@@ -18,13 +18,13 @@ CMoverGroup()
 CMoverGroup::
 ~CMoverGroup() {
   while (!_movers.empty()) {
-    cerr << "removing C++ movers: " << (*_movers.begin()).first << endl;
+    std::cerr << "removing C++ movers: " << (*_movers.begin()).first << std::endl;
     remove_c_mover((*_movers.begin()).first);
   }
 }
 
 void CMoverGroup::
-add_c_mover(const string &name, CMover *mover) {
+add_c_mover(const std::string &name, CMover *mover) {
   // if there is already a mover of this name, make sure it's removed
   // first
   remove_c_mover(name);
@@ -32,7 +32,7 @@ add_c_mover(const string &name, CMover *mover) {
 }
 
 bool CMoverGroup::
-remove_c_mover(const string &name) {
+remove_c_mover(const std::string &name) {
   MoverMap::iterator mi = _movers.find(name);
   if (mi != _movers.end()) {
     _movers.erase(mi);

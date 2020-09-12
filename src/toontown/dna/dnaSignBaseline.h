@@ -24,17 +24,17 @@ class DNASignText;
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNASignBaseline : public DNANode  {
 PUBLISHED:
-  DNASignBaseline(const string &initial_name = "");
+  DNASignBaseline(const std::string &initial_name = "");
   DNASignBaseline(const DNASignBaseline &Sign);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_code(string code);
-  INLINE string get_code() const;
+  INLINE void set_code(std::string code);
+  INLINE std::string get_code() const;
 
-  INLINE void set_color(const Colorf &color);
-  INLINE Colorf get_color() const;
+  INLINE void set_color(const LColorf &color);
+  INLINE LColorf get_color() const;
 
   INLINE void set_font(TextFont *font);
   INLINE TextFont *get_font() const;
@@ -64,10 +64,10 @@ PUBLISHED:
   INLINE void set_height(float height);
   INLINE float get_height() const;
 
-  INLINE void set_flags(string flags);
-  INLINE string get_flags() const;
+  INLINE void set_flags(std::string flags);
+  INLINE std::string get_flags() const;
 
-  bool isFirstLetterOfWord(string letter);
+  bool isFirstLetterOfWord(std::string letter);
 
   void reset_counter();
   void inc_counter();
@@ -77,9 +77,9 @@ PUBLISHED:
     const LVector3f &size);
 
 protected:
-  string _code;
-  string _flags;
-  Colorf _color;
+  std::string _code;
+  std::string _flags;
+  LColorf _color;
   PT(TextFont) _font;
   LVector3f _next_pos;
   LVector3f _next_hpr;

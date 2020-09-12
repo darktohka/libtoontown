@@ -24,21 +24,21 @@ class EXPCL_TOONTOWN DNASuitEdge : public TypedReferenceCount {
 PUBLISHED:
   DNASuitEdge(PT(DNASuitPoint) start_point,
               PT(DNASuitPoint) end_point,
-              string zone_id);
+              std::string zone_id);
   INLINE bool operator == (const DNASuitEdge &other) const;
 
   INLINE PT(DNASuitPoint) get_start_point() const;
   INLINE PT(DNASuitPoint) get_end_point() const;
-  INLINE string get_zone_id() const;
-  INLINE void set_zone_id(string zone_id);
-  void output(ostream &out) const;
+  INLINE std::string get_zone_id() const;
+  INLINE void set_zone_id(std::string zone_id);
+  void output(std::ostream &out) const;
 
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
 private:
   PT(DNASuitPoint) _start_point;
   PT(DNASuitPoint) _end_point;
-  string _zone_id;
+  std::string _zone_id;
 
 public:
   static TypeHandle get_class_type() {
@@ -60,7 +60,7 @@ private:
 };
 
 
-INLINE ostream &operator << (ostream &out, const DNASuitEdge &edge) {
+INLINE std::ostream &operator << (std::ostream &out, const DNASuitEdge &edge) {
   edge.output(out);
   return out;
 }

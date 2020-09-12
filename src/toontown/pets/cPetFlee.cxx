@@ -11,7 +11,7 @@ TypeHandle CPetFlee::_type_handle;
 ////////////////////////////////////////////////////////////////////
 //     Function: CPetFlee::Constructor
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CPetFlee::
 CPetFlee(NodePath *chaser, float max_dist, float move_angle) :
@@ -29,7 +29,7 @@ CPetFlee(NodePath *chaser, float max_dist, float move_angle) :
 ////////////////////////////////////////////////////////////////////
 //     Function: CPetFlee::Destructor
 //       Access: Public, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CPetFlee::
 ~CPetFlee() {
@@ -83,8 +83,8 @@ process(float dt) {
   // don't get too far away
   const float distance_left = _max_dist - distance;
   /*
-  cerr << "distance " << distance << endl;
-  cerr << "distanceLeft " << distance_left << endl;
+  std::cerr << "distance " << distance << std::endl;
+  std::cerr << "distanceLeft " << distance_left << std::endl;
   */
   if ((distance_left > 0.) && ((v_forward * dt) > distance_left)) {
     v_forward = distance_left / dt;

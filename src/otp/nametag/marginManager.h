@@ -16,6 +16,8 @@
 #include "vector_int.h"
 #include "nodePath.h"
 
+#include <iostream>
+
 ////////////////////////////////////////////////////////////////////
 //       Class : MarginManager
 // Description : This class manages the collection of MarginPopup
@@ -36,10 +38,8 @@ PUBLISHED:
   void set_cell_available(int cell_index, bool available);
   bool get_cell_available(int cell_index) const;
 
-#ifndef NDEBUG
   void show_cells();
   void hide_cells();
-#endif
 
 public:
   void manage_popup(MarginPopup *popup);
@@ -51,7 +51,7 @@ public:
   virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
   virtual bool is_renderable() const;
 
-  virtual void write(ostream &out, int indent_level) const;
+  virtual void write(std::ostream &out, int indent_level) const;
 
 private:
   void show_visible_no_conflict();
@@ -102,9 +102,7 @@ private:
   Cells _cells;
   int _num_available_cells;
 
-#ifndef NDEBUG
   NodePath _show_cells;
-#endif
 
   // This STL function object is used to sort a vector of Popups
   // iterators in descending order by the score, for placing just the

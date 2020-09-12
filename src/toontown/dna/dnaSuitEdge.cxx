@@ -19,7 +19,7 @@ TypeHandle DNASuitEdge::_type_handle;
 ////////////////////////////////////////////////////////////////////
 DNASuitEdge::DNASuitEdge(PT(DNASuitPoint) start_point,
                          PT(DNASuitPoint) end_point,
-                         string zone_id) {
+                         std::string zone_id) {
   _start_point = start_point;
   _end_point = end_point;
   _zone_id = zone_id;
@@ -29,9 +29,9 @@ DNASuitEdge::DNASuitEdge(PT(DNASuitPoint) start_point,
 ////////////////////////////////////////////////////////////////////
 //     Function: DNASuitEdge::output
 //       Access: Public
-//  Description: Outputs all the properties to ostream
+//  Description: Outputs all the properties to std::ostream
 ////////////////////////////////////////////////////////////////////
-void DNASuitEdge::output(ostream &out) const {
+void DNASuitEdge::output(std::ostream &out) const {
   out << "<" << _start_point->get_index()
       << " " << _end_point->get_index()
       << " zone " << _zone_id << ">";
@@ -43,7 +43,7 @@ void DNASuitEdge::output(ostream &out) const {
 //       Access: Public
 //  Description: Writes the edge and properties
 ////////////////////////////////////////////////////////////////////
-void DNASuitEdge::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNASuitEdge::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level)
     << "suit_edge [ "
     << _start_point->get_index() << " "

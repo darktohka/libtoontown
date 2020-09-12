@@ -28,7 +28,7 @@ class DNAStorage;
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAGroup : public TypedReferenceCount, public Namable {
 PUBLISHED:
-  DNAGroup(const string &initial_name = "");
+  DNAGroup(const std::string &initial_name = "");
   DNAGroup(const DNAGroup &group);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
@@ -41,7 +41,7 @@ PUBLISHED:
   INLINE int get_num_children();
   INLINE PT(DNAGroup) get_parent() const;
 
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
   void ls() const;
 

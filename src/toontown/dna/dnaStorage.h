@@ -40,17 +40,17 @@ private:
   LPoint3f _pos;
   LPoint3f _hpr;
 };
-typedef pset< string > CodeSet;
-typedef pmap< string, CodeSet > CodeCatalog;
-typedef pmap< string, PT(Texture) > TextureMap;
-typedef pmap< string, PT(TextFont) > FontMap;
+typedef pset< std::string > CodeSet;
+typedef pmap< std::string, CodeSet > CodeCatalog;
+typedef pmap< std::string, PT(Texture) > TextureMap;
+typedef pmap< std::string, PT(TextFont) > FontMap;
 typedef pmap< int, int > BlockToZoneMap;
 typedef pmap< int, PosHpr > BlockToPosHprMap;
 typedef pmap< int, LMatrix4f > BlockToTransformMap;
-typedef pmap< int, string > BlockToTitleMap;
-typedef pmap< int, string > BlockToArticleMap;
-typedef pmap< int, string > BlockToBuildingTypeMap;
-typedef pmap< string, NodePath > NodeMap;
+typedef pmap< int, std::string > BlockToTitleMap;
+typedef pmap< int, std::string > BlockToArticleMap;
+typedef pmap< int, std::string > BlockToBuildingTypeMap;
+typedef pmap< std::string, NodePath > NodeMap;
 typedef pmap< PT(PandaNode), PT(DNAGroup) > Node2GroupMap;
 typedef pmap< PT(PandaNode), PT(DNAVisGroup) > Node2VisGroupMap;
 
@@ -86,23 +86,23 @@ PUBLISHED:
   void print_font_storage() const;
   void print_suit_point_storage() const;
   void print_battle_cell_storage() const;
-  void store_texture(const string &code_string, PT(Texture) texture);
-  void store_font(const string &code_string, PT(TextFont) font);
-  INLINE void store_node(const string &code_string, NodePath node, const string &code_category = "");
-  INLINE void store_hood_node(const string &code_string, NodePath node, const string &code_category = "");
-  INLINE void store_place_node(const string &code_string, NodePath node, const string &code_category = "");
+  void store_texture(const std::string &code_string, PT(Texture) texture);
+  void store_font(const std::string &code_string, PT(TextFont) font);
+  INLINE void store_node(const std::string &code_string, NodePath node, const std::string &code_category = "");
+  INLINE void store_hood_node(const std::string &code_string, NodePath node, const std::string &code_category = "");
+  INLINE void store_place_node(const std::string &code_string, NodePath node, const std::string &code_category = "");
   PT(DNASuitPoint) store_suit_point(DNASuitPoint::DNASuitPointType type, LPoint3f pos);
   int store_suit_point(PT(DNASuitPoint));
   int get_highest_suit_point_index();
   int remove_suit_point(PT(DNASuitPoint));
-  void store_block_number(const string& block, const string& zone_id);
-  void store_block_door_pos_hpr(const string& block, const LPoint3f& pos, const LPoint3f& hpr);
-  void store_block_sign_transform(const string& block, const LMatrix4f& mat);
-  void store_block_title(const string& block, const string& title);
-  void store_block_article(const string& block, const string& article);
+  void store_block_number(const std::string& block, const std::string& zone_id);
+  void store_block_door_pos_hpr(const std::string& block, const LPoint3f& pos, const LPoint3f& hpr);
+  void store_block_sign_transform(const std::string& block, const LMatrix4f& mat);
+  void store_block_title(const std::string& block, const std::string& title);
+  void store_block_article(const std::string& block, const std::string& article);
   void store_battle_cell(PT(DNABattleCell));
   int remove_battle_cell(PT(DNABattleCell));
-  PT(DNASuitEdge) store_suit_edge(int start_index, int end_index, string zone_id);
+  PT(DNASuitEdge) store_suit_edge(int start_index, int end_index, std::string zone_id);
   PT(DNASuitEdge) store_suit_edge(PT(DNASuitEdge));
   int remove_suit_edge(PT(DNASuitEdge));
   int delete_unused_suit_points();
@@ -127,14 +127,14 @@ PUBLISHED:
   INLINE void reset_block_article();
 
   // Searching functions
-  PT(Texture) find_texture(const string &dna_string) const;
-  NodePath find_node(const string &dna_string) const;
-  PT(TextFont) find_font(const string &dna_string) const;
+  PT(Texture) find_texture(const std::string &dna_string) const;
+  NodePath find_node(const std::string &dna_string) const;
+  PT(TextFont) find_font(const std::string &dna_string) const;
 
   // Catalog functions
-  int get_num_catalog_codes(const string &catalog_string) const;
-  string get_catalog_code(const string &catalog_string, int i) const ;
-  void store_catalog_string(const string &catalog_string, const string &dna_string);
+  int get_num_catalog_codes(const std::string &catalog_string) const;
+  std::string get_catalog_code(const std::string &catalog_string, int i) const ;
+  void store_catalog_string(const std::string &catalog_string, const std::string &dna_string);
   void print_catalog() const;
 
   // DNAGroup functions
@@ -162,16 +162,16 @@ PUBLISHED:
   INLINE void reset_DNAGroups();
 
   // Block title functions
-  string get_title_from_block_number(int block_number) const;
+  std::string get_title_from_block_number(int block_number) const;
   int get_title_block_at(uint index) const;
   int get_num_block_titles() const;
 
   // Block article functions
-  string get_article_from_block_number(int block_number) const;
+  std::string get_article_from_block_number(int block_number) const;
 
   // Block building type functions
-  void store_block_building_type(const string& block, const string& type);
-  string get_block_building_type(int block_number) const;
+  void store_block_building_type(const std::string& block, const std::string& type);
+  std::string get_block_building_type(int block_number) const;
 
   // VisGroup functions
   INLINE void store_DNAVisGroup(PT(PandaNode), PT(DNAVisGroup));
@@ -181,8 +181,8 @@ PUBLISHED:
   INLINE int get_num_DNAVisGroups() const;
   PT(DNAVisGroup) get_DNAVisGroup(uint i) const;
   int get_num_visibles_in_DNAVisGroup(uint i) const;
-  string get_DNAVisGroup_name(uint i) const;
-  string get_visible_name(uint visgroup_index, uint visible_index) const;
+  std::string get_DNAVisGroup_name(uint i) const;
+  std::string get_visible_name(uint visgroup_index, uint visible_index) const;
 
   // For the AI, he does not traverse but still needs vis groups
   void store_DNAVisGroupAI(PT(DNAVisGroup));
@@ -196,7 +196,7 @@ PUBLISHED:
   void print_PandaNodes() const;
 
   // Suit point functions
-  string get_suit_edge_zone(int start_index, int end_index) const;
+  std::string get_suit_edge_zone(int start_index, int end_index) const;
   float get_suit_edge_travel_time(int start_index, int end_index, float rate) const;
   INLINE int get_num_suit_points() const;
   INLINE PT(DNASuitPoint) get_suit_point_at_index(int index) const;
@@ -207,10 +207,10 @@ PUBLISHED:
   PT(DNASuitPath) get_adjacent_points(PT(DNASuitPoint) start_point) const;
   int discover_continuity();
 
-  string get_block(const string& name) const;
+  std::string get_block(const std::string& name) const;
 
   void fixup();
-  void write(ostream &out, int indent_level) const;
+  void write(std::ostream &out, int indent_level) const;
 
 public:
 
@@ -222,8 +222,8 @@ public:
     INLINE int get_point_index() const;
 
     void get_path(DNASuitPath *path) const;
-    void output(ostream &out) const;
-    void write(ostream &out) const;
+    void output(std::ostream &out) const;
+    void write(std::ostream &out) const;
 
     // We will allocate and destroy many of these a each time we compute
     // a new suit path.  As an optimization, then, we implement operator
@@ -285,4 +285,3 @@ private:
 #include "dnaStorage.I"
 
 #endif
-

@@ -24,28 +24,28 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAWindows : public DNAGroup  {
 PUBLISHED:
-  DNAWindows(const string &initial_name = "");
+  DNAWindows(const std::string &initial_name = "");
   DNAWindows(const DNAWindows &window);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_code(string code);
-  INLINE string get_code() const;
+  INLINE void set_code(std::string code);
+  INLINE std::string get_code() const;
 
   INLINE void set_window_count(int count);
   INLINE int get_window_count() const;
 
-  INLINE void set_color(const Colorf &color);
-  INLINE Colorf get_color() const;
+  INLINE void set_color(const LColorf &color);
+  INLINE LColorf get_color() const;
 
 private:
   virtual DNAGroup* make_copy();
 
 private:
-  string _code;
+  std::string _code;
   int _window_count;
-  Colorf _color;
+  LColorf _color;
 
 public:
   static TypeHandle get_class_type() {

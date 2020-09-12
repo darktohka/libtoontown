@@ -19,28 +19,28 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNASignText : public DNANode  {
 PUBLISHED:
-  DNASignText(const string &initial_name = "");
+  DNASignText(const std::string &initial_name = "");
   DNASignText(const DNASignText &signText);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_code(string code);
-  INLINE string get_code() const;
+  INLINE void set_code(std::string code);
+  INLINE std::string get_code() const;
 
-  INLINE void set_color(const Colorf &color);
-  INLINE Colorf get_color() const;
+  INLINE void set_color(const LColorf &color);
+  INLINE LColorf get_color() const;
 
-  INLINE void set_letters(string letters);
-  INLINE string get_letters() const;
+  INLINE void set_letters(std::string letters);
+  INLINE std::string get_letters() const;
 
 private:
   virtual DNAGroup* make_copy();
 
 protected:
-  string _code;
-  Colorf _color;
-  string _letters;
+  std::string _code;
+  LColorf _color;
+  std::string _letters;
   bool _use_baseline_color;
 
 public:

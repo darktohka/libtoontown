@@ -519,7 +519,7 @@ get_global_nametag_scale() {
 //       Access: Published, Static
 //  Description: Returns the color of the indicated type of nametag.
 ////////////////////////////////////////////////////////////////////
-INLINE const Colorf &NametagGlobals::
+INLINE const LColorf &NametagGlobals::
 get_name_fg(NametagGroup::ColorCode color_code, PGButton::State state) {
   return get_colors(color_code, state)._name_fg;
 }
@@ -529,7 +529,7 @@ get_name_fg(NametagGroup::ColorCode color_code, PGButton::State state) {
 //       Access: Published, Static
 //  Description: Returns the color of the indicated type of nametag.
 ////////////////////////////////////////////////////////////////////
-INLINE const Colorf &NametagGlobals::
+INLINE const LColorf &NametagGlobals::
 get_name_bg(NametagGroup::ColorCode color_code, PGButton::State state) {
   return get_colors(color_code, state)._name_bg;
 }
@@ -539,7 +539,7 @@ get_name_bg(NametagGroup::ColorCode color_code, PGButton::State state) {
 //       Access: Public, Static
 //  Description: Returns the balloon modulation color.
 ////////////////////////////////////////////////////////////////////
-const Colorf &NametagGlobals::
+const LColorf &NametagGlobals::
 get_balloon_modulation_color() {
   return NametagGlobals::balloon_modulation_color;
 }
@@ -550,6 +550,6 @@ get_balloon_modulation_color() {
 //  Description: Sets the balloon modulation color.
 ////////////////////////////////////////////////////////////////////
 void NametagGlobals::
-set_balloon_modulation_color(const Colorf &color) {
+set_balloon_modulation_color(const LColorf &color) {
   NametagGlobals::balloon_modulation_color = color;
 }

@@ -20,7 +20,7 @@
 class EXPCL_TOONTOWN DNASuitPoint : public TypedReferenceCount {
 
 PUBLISHED:
-  enum DNASuitPointType { 
+  enum DNASuitPointType {
     STREET_POINT,
     FRONT_DOOR_POINT,
     SIDE_DOOR_POINT,
@@ -42,9 +42,9 @@ PUBLISHED:
 
   INLINE bool is_terminal() const;
 
-  void output(ostream &out) const;
+  void output(std::ostream &out) const;
 
-  virtual void write(ostream &out, int indent_level = 0) const;
+  virtual void write(std::ostream &out, int indent_level = 0) const;
 
 private:
   int _index;
@@ -76,12 +76,12 @@ private:
 };
 
 
-INLINE ostream &operator << (ostream &out, const DNASuitPoint &point) {
+INLINE std::ostream &operator << (std::ostream &out, const DNASuitPoint &point) {
   point.output(out);
   return out;
 }
 
-ostream &operator << (ostream &out, DNASuitPoint::DNASuitPointType type);
+std::ostream &operator << (std::ostream &out, DNASuitPoint::DNASuitPointType type);
 
 #include "dnaSuitPoint.I"
 

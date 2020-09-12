@@ -13,5 +13,7 @@
 #include "pandabase.h"
 #include "toontownsymbols.h"
 
-#endif
+// Panda3D no longer has this set.
+#define temp_hpr_fix 1
 
+#endif

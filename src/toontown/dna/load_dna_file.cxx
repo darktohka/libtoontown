@@ -8,7 +8,7 @@
 #include "dnaLoader.h"
 #include "dnaData.h"
 #include "dnaStorage.h"
-#include "config_util.h"
+#include "config_putil.h"
 #include "virtualFileSystem.h"
 
 ////////////////////////////////////////////////////////////////////
@@ -24,7 +24,7 @@
 ////////////////////////////////////////////////////////////////////
 PT(PandaNode)
 load_DNA_file(DNAStorage *dna_store,
-              const string &filename,
+              const std::string &filename,
               CoordinateSystem cs,
               int editing) {
   // We use binary mode to avoid Windows' end-of-line convention.
@@ -49,8 +49,8 @@ load_DNA_file(DNAStorage *dna_store,
   bool ok_flag;
 
   VirtualFileSystem *vfs = VirtualFileSystem::get_global_ptr();
-  istream *istr = vfs->open_read_file(dna_filename, true);
-  if (istr == (istream *)NULL) {
+  std::istream *istr = vfs->open_read_file(dna_filename, true);
+  if (istr == (std::istream *)NULL) {
     dna_cat.error()
       << "Could not open " << dna_filename << " for reading.\n";
     return (PandaNode *)NULL;
@@ -76,7 +76,7 @@ load_DNA_file(DNAStorage *dna_store,
 ////////////////////////////////////////////////////////////////////
 PT(DNAData)
 load_DNA_file_AI(DNAStorage *dna_store,
-              const string &filename,
+              const std::string &filename,
               CoordinateSystem cs) {
   Filename dna_filename = Filename::text_filename(filename);
   if (!DNAData::resolve_dna_filename(dna_filename)) {
@@ -97,8 +97,8 @@ load_DNA_file_AI(DNAStorage *dna_store,
   bool ok_flag;
 
   VirtualFileSystem *vfs = VirtualFileSystem::get_global_ptr();
-  istream *istr = vfs->open_read_file(dna_filename, true);
-  if (istr == (istream *)NULL) {
+  std::istream *istr = vfs->open_read_file(dna_filename, true);
+  if (istr == (std::istream *)NULL) {
     dna_cat.error()
       << "Could not open " << dna_filename << " for reading.\n";
     return NULL;

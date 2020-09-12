@@ -19,7 +19,7 @@ TypeHandle DNAAnimProp::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAAnimProp::DNAAnimProp(const string &initial_name) :
+DNAAnimProp::DNAAnimProp(const std::string &initial_name) :
   DNAProp(initial_name)
 {
   _anim = "";
@@ -100,7 +100,7 @@ NodePath DNAAnimProp::traverse(NodePath &parent, DNAStorage *store, int editing)
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAAnimProp::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAAnimProp::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "anim_prop ";
   out << '"' << get_name() << '"' << " [\n";
 

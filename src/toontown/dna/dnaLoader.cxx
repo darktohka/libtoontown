@@ -36,7 +36,7 @@ build_graph(DNAStorage *dna_store, int editing) {
   }
   else {
     dna_cat.debug()
-      << "DNA File contained no geometry, returning empty node" << endl;
+      << "DNA File contained no geometry, returning empty node" << std::endl;
     return (PandaNode *)NULL;
   }
 }
@@ -44,4 +44,3 @@ build_graph(DNAStorage *dna_store, int editing) {
 PT(DNAData) DNALoader::get_data() {
   return _data;
 }
-

@@ -11,7 +11,7 @@ TypeHandle CImpulse::_type_handle;
 ////////////////////////////////////////////////////////////////////
 //     Function: CImpulse::Constructor
 //       Access: Public
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CImpulse::
 CImpulse() :
@@ -22,7 +22,7 @@ CImpulse() :
 ////////////////////////////////////////////////////////////////////
 //     Function: CImpulse::Destructor
 //       Access: Public, Virtual
-//  Description: 
+//  Description:
 ////////////////////////////////////////////////////////////////////
 CImpulse::
 ~CImpulse() {
@@ -59,8 +59,8 @@ void CImpulse::
 clear_mover(CMover &mover) {
   if (_mover == &mover) {
     _mover = 0;
-    _node_path = 0;
+    _node_path.clear();
   } else {
-    cerr << "clear_mover: unknown CMover" << endl;
+    std::cerr << "clear_mover: unknown CMover" << std::endl;
   }
 }

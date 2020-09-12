@@ -14,6 +14,8 @@
 #include "pmap.h"
 #include "cImpulse.h"
 
+#include <string>
+
 class EXPCL_OTP CMover : public TypedReferenceCount {
 PUBLISHED:
   CMover(NodePath &objNodePath, float fwd_speed = 1, float rot_speed = 1);
@@ -24,8 +26,8 @@ PUBLISHED:
   INLINE float get_fwd_speed() const;
   INLINE float get_rot_speed() const;
 
-  void add_c_impulse(const string &name, CImpulse *impulse);
-  bool remove_c_impulse(const string &name);
+  void add_c_impulse(const std::string &name, CImpulse *impulse);
+  bool remove_c_impulse(const std::string &name);
 
   void process_c_impulses(float dt = -1);
   void integrate();
@@ -59,7 +61,7 @@ private:
   LVector3f _shove;
   LVector3f _rot_shove;
 
-  typedef pmap<string, PT(CImpulse) > ImpulseMap;
+  typedef pmap<std::string, PT(CImpulse) > ImpulseMap;
   ImpulseMap _impulses;
 
 public:
@@ -68,7 +70,7 @@ public:
   }
   static void init_type() {
     TypedReferenceCount::init_type();
-    register_type(_type_handle, "CMover",
+    _type_handle = register_dynamic_type("CMover",
                   TypedReferenceCount::get_class_type());
   }
   virtual TypeHandle get_type() const {

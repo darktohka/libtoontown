@@ -11,6 +11,8 @@
 #include "configVariableString.h"
 #include "configVariableBool.h"
 
+#include "dconfig.h"
+
 ConfigureDecl(config_nametag, EXPCL_OTP, EXPTP_OTP);
 NotifyCategoryDecl(nametag, EXPCL_OTP, EXPTP_OTP);
 

@@ -80,11 +80,11 @@ get_pos_at_time(double time) const {
 ////////////////////////////////////////////////////////////////////
 //     Function: SuitLeg::get_type_name
 //       Access: Published, Static
-//  Description: Returns the string name associated with the indicated
+//  Description: Returns the std::string name associated with the indicated
 //               type.  This is also the name that corresponds to a
 //               state in DistributedSuit.
 ////////////////////////////////////////////////////////////////////
-string SuitLeg::
+std::string SuitLeg::
 get_type_name(SuitLeg::Type type) {
   switch (type) {
   case T_walk_from_street:
@@ -130,10 +130,8 @@ get_type_name(SuitLeg::Type type) {
 //  Description:
 ////////////////////////////////////////////////////////////////////
 void SuitLeg::
-output(ostream &out) const {
+output(std::ostream &out) const {
   out << "(" << _type << ", " << _start_time << " (" << _leg_time
       << "), " << _zone_id << ", " << _point_a << ", "
       << _point_b << ")";
 }
-
-

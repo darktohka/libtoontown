@@ -31,10 +31,10 @@ PUBLISHED:
   INLINE float get_height() const;
   INLINE void set_pos(LPoint3f pos);
   INLINE LPoint3f get_pos() const;
-  void output(ostream &out) const;
+  void output(std::ostream &out) const;
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
 private:
   float _width;
@@ -61,7 +61,7 @@ private:
 };
 
 
-INLINE ostream &operator << (ostream &out, const DNABattleCell &cell) {
+INLINE std::ostream &operator << (std::ostream &out, const DNABattleCell &cell) {
   cell.output(out);
   return out;
 }

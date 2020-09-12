@@ -26,7 +26,7 @@ BEGIN_PUBLISH
 ////////////////////////////////////////////////////////////////////
 EXPCL_TOONTOWN PT(PandaNode)
 load_DNA_file(DNAStorage *dna_store,
-              const string &filename,
+              const std::string &filename,
               CoordinateSystem cs = CS_default,
               int editing = 0);
 
@@ -42,7 +42,7 @@ load_DNA_file(DNAStorage *dna_store,
 ////////////////////////////////////////////////////////////////////
 EXPCL_TOONTOWN PT(DNAData)
 load_DNA_file_AI(DNAStorage *dna_store,
-                 const string &filename,
+                 const std::string &filename,
                  CoordinateSystem cs = CS_default);
 
 END_PUBLISH

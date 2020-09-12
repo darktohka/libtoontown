@@ -5,22 +5,22 @@
 
 
 INLINE void DNASignGraphic::
-set_code(string code) {
+set_code(std::string code) {
   _code = code;
 }
 
-INLINE string DNASignGraphic::
+INLINE std::string DNASignGraphic::
 get_code() const {
   return _code;
 }
 
 INLINE void DNASignGraphic::
-set_color(const Colorf &color) {
+set_color(const LColorf &color) {
   _use_baseline_color = false;
   _color = color;
 }
 
-INLINE Colorf DNASignGraphic::
+INLINE LColorf DNASignGraphic::
 get_color() const {
   return _color;
 }

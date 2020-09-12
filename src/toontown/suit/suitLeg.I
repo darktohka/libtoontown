@@ -106,12 +106,12 @@ get_pos_b() const {
   return _pos_b;
 }
 
-INLINE ostream &
-operator << (ostream &out, const SuitLeg &leg) {
+INLINE std::ostream &
+operator << (std::ostream &out, const SuitLeg &leg) {
   leg.output(out);
   return out;
 }
 
-INLINE ostream &operator << (ostream &out, SuitLeg::Type type) {
+INLINE std::ostream &operator << (std::ostream &out, SuitLeg::Type type) {
   return out << SuitLeg::get_type_name(type);
 }

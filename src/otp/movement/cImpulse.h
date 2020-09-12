@@ -38,7 +38,7 @@ public:
   }
   static void init_type() {
     TypedReferenceCount::init_type();
-    register_type(_type_handle, "CImpulse",
+    _type_handle = register_dynamic_type("CImpulse",
                   TypedReferenceCount::get_class_type());
   }
   virtual TypeHandle get_type() const {

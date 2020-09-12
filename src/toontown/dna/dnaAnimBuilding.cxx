@@ -19,7 +19,7 @@ TypeHandle DNAAnimBuilding::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAAnimBuilding::DNAAnimBuilding(const string &initial_name) :
+DNAAnimBuilding::DNAAnimBuilding(const std::string &initial_name) :
   DNALandmarkBuilding(initial_name)
 {
   _anim = "";
@@ -63,14 +63,14 @@ NodePath DNAAnimBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
   building_node_path.set_tag("DNAAnim", _anim);
 
   // Remember the article and title of the building, for later:
-  string block=store->get_block(get_name());
+  std::string block=store->get_block(get_name());
   store->store_block_title(block, _title);
   store->store_block_article(block, _article);
 
   // Copy the suit building origin to the parent:
   // our type is animbldg,we must have this
   setup_suit_building_origin(parent, building_node_path);
-  
+
   // Traverse each node in our vector
   pvector<PT(DNAGroup)>::iterator i = _group_vector.begin();
   for(; i != _group_vector.end(); ++i) {
@@ -90,7 +90,7 @@ NodePath DNAAnimBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
 
     // We do not have dna doors too
     // HQs need the door_origins around because they do not have dnaDoors
-    //if (get_building_type() != string("hq")) {
+    //if (get_building_type() != std::string("hq")) {
       // Get rid of these placement origins since we do not need them anymore
     //  NodePath door_origin = building_node_path.find("**/*door_origin");
     //  if (!door_origin.is_empty()) {
@@ -112,7 +112,7 @@ NodePath DNAAnimBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAAnimBuilding::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAAnimBuilding::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "anim_building ";
   out << '"' << get_name() << '"' << " [\n";
 
@@ -123,10 +123,10 @@ void DNAAnimBuilding::write(ostream &out, DNAStorage *store, int indent_level) c
     indent(out, indent_level + 1) << "building_type [ " << '"' << get_building_type() << '"' << " ]\n";
   }
 
-  // Whoops, the titles were entered as iso8859 and we need to convert them to utf8 
+  // Whoops, the titles were entered as iso8859 and we need to convert them to utf8
   // We only want to run this when we need to fix an improper encoding
   // Note - you need to change the indent function below too
-  // string utf8title = TextNode::reencode_text(_title, TextNode::E_iso8859, TextNode::E_utf8);
+  // std::string utf8title = TextNode::reencode_text(_title, TextNode::E_iso8859, TextNode::E_utf8);
   if (!_article.empty()) {
     indent(out, indent_level + 1) << "article [ " << '"' <<
       _article << '"' << " ]\n";

@@ -16,11 +16,11 @@
 
 class EXPCL_TOONTOWN DNANode : public DNAGroup {
 PUBLISHED:
-  DNANode(const string &initial_name);
+  DNANode(const std::string &initial_name);
   DNANode(const DNANode &node);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
   INLINE void set_pos(const LVecBase3f &pos);
   INLINE LVecBase3f get_pos() const;
@@ -61,6 +61,3 @@ private:
 #include "dnaNode.I"
 
 #endif
-
-
-

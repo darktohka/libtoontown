@@ -28,7 +28,7 @@ INLINE float DNAWall::get_height() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAWall::set_color(const Colorf &color) {
+INLINE void DNAWall::set_color(const LColorf &color) {
   _color = color;
 }
 
@@ -38,7 +38,7 @@ INLINE void DNAWall::set_color(const Colorf &color) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE Colorf DNAWall::get_color() const {
+INLINE LColorf DNAWall::get_color() const {
   return _color;
 }
 
@@ -48,7 +48,7 @@ INLINE Colorf DNAWall::get_color() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAWall::set_code(string code) {
+INLINE void DNAWall::set_code(std::string code) {
   _code = code;
 }
 
@@ -58,7 +58,7 @@ INLINE void DNAWall::set_code(string code) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE string DNAWall::get_code() const {
+INLINE std::string DNAWall::get_code() const {
   return _code;
 }
 
@@ -102,7 +102,7 @@ INLINE float DNAFlatBuilding::get_width() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNALandmarkBuilding::set_code(string code) {
+INLINE void DNALandmarkBuilding::set_code(std::string code) {
   _code = code;
 }
 
@@ -112,7 +112,7 @@ INLINE void DNALandmarkBuilding::set_code(string code) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE string DNALandmarkBuilding::get_code() const {
+INLINE std::string DNALandmarkBuilding::get_code() const {
   return _code;
 }
 
@@ -121,7 +121,7 @@ INLINE string DNALandmarkBuilding::get_code() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNALandmarkBuilding::set_title(const string &title) {
+INLINE void DNALandmarkBuilding::set_title(const std::string &title) {
   _title = title;
 }
 
@@ -131,7 +131,7 @@ INLINE void DNALandmarkBuilding::set_title(const string &title) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE string DNALandmarkBuilding::get_title() const {
+INLINE std::string DNALandmarkBuilding::get_title() const {
   return _title;
 }
 
@@ -140,7 +140,7 @@ INLINE string DNALandmarkBuilding::get_title() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNALandmarkBuilding::set_article(const string &article) {
+INLINE void DNALandmarkBuilding::set_article(const std::string &article) {
   _article = article;
 }
 
@@ -150,7 +150,7 @@ INLINE void DNALandmarkBuilding::set_article(const string &article) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE string DNALandmarkBuilding::get_article() const {
+INLINE std::string DNALandmarkBuilding::get_article() const {
   return _article;
 }
 
@@ -160,7 +160,7 @@ INLINE string DNALandmarkBuilding::get_article() const {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNALandmarkBuilding::set_wall_color(const Colorf &color) {
+INLINE void DNALandmarkBuilding::set_wall_color(const LColorf &color) {
   _wall_color = color;
 }
 
@@ -170,7 +170,7 @@ INLINE void DNALandmarkBuilding::set_wall_color(const Colorf &color) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE Colorf DNALandmarkBuilding::get_wall_color() const {
+INLINE LColorf DNALandmarkBuilding::get_wall_color() const {
   return _wall_color;
 }
 
@@ -179,7 +179,7 @@ INLINE Colorf DNALandmarkBuilding::get_wall_color() const {
 //       Access: Public
 //  Description: Set the flag for Toon Headquarters
 ////////////////////////////////////////////////////////////////////
-INLINE void DNALandmarkBuilding::set_building_type(const string& type) {
+INLINE void DNALandmarkBuilding::set_building_type(const std::string& type) {
   _building_type = type;
 }
 
@@ -189,6 +189,6 @@ INLINE void DNALandmarkBuilding::set_building_type(const string& type) {
 //       Access: Public
 //  Description: Is this a Headquarters building?
 ////////////////////////////////////////////////////////////////////
-INLINE string DNALandmarkBuilding::get_building_type() const {
+INLINE std::string DNALandmarkBuilding::get_building_type() const {
   return _building_type;
 }

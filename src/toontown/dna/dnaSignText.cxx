@@ -23,7 +23,7 @@ TypeHandle DNASignText::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNASignText::DNASignText(const string &initial_name) :
+DNASignText::DNASignText(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -78,7 +78,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
     PT(PandaNode) font_node = (store->find_node(_code)).node();
     if (!font_node) {
       dna_cat.error()
-        << "unable to find SignText font " << _code << endl;
+        << "unable to find SignText font " << _code << std::endl;
     } else {
       font = new StaticTextFont(font_node);
     }
@@ -87,7 +87,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
     font = TextNode::get_default_font();
     if (font == (TextFont *)NULL) {
       dna_cat.error()
-        << "no font specified for '" << _letters 
+        << "no font specified for '" << _letters
         << "', and no default font available.\n";
     } else {
       dna_cat.warning()
@@ -96,7 +96,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
   }
 
   // Use the baseline color, if available:
-  Colorf color = _color;
+  LColorf color = _color;
   if (_use_baseline_color) {
     color = baseline->get_color();
   }
@@ -105,10 +105,10 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
   PT(TextNode) text_node = new TextNode("sign");
   text_node->set_text_color(color);
   text_node->set_font(font);
-  string letters = _letters;
+  std::string letters = _letters;
   // Check for upper case flag:
 
-  if (baseline->get_flags().find('c') != string::npos) {
+  if (baseline->get_flags().find('c') != std::string::npos) {
     // We have to uppercase this carefully, allowing for encoded text.
     TextEncoder encoder;
     encoder.set_text(letters);
@@ -120,7 +120,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
   }
 
   // Check for drop shadow flag:
-  if (baseline->get_flags().find('d') != string::npos) {
+  if (baseline->get_flags().find('d') != std::string::npos) {
     // A black shadow is too harsh: text_node->set_shadow_color(0.0, 0.0, 0.0, 1.0);
     text_node->set_shadow_color(
       color[0]*0.3, color[1]*0.3, color[2]*0.3, color[3]*0.7);
@@ -131,7 +131,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
   LVector3f bl_pos = _pos;
   LVector3f bl_hpr = _hpr;
   LVector3f bl_scale = _scale;
-  if ((baseline->get_flags().find('b') != string::npos)
+  if ((baseline->get_flags().find('b') != std::string::npos)
       && (baseline->isFirstLetterOfWord(letters))) {
     bl_scale[0]*=1.5;
     bl_scale[2]*=1.5;
@@ -172,7 +172,7 @@ NodePath DNASignText::traverse(NodePath &parent, DNAStorage *store, int editing)
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNASignText::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNASignText::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "text [\n";
 
   // Write out all properties

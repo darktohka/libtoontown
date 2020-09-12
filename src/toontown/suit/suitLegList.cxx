@@ -96,7 +96,7 @@ SuitLegList(const DNASuitPath *path, const DNAStorage &storage,
     type = get_next_leg_type(point, next_point);
     leg_time = storage.get_suit_edge_travel_time(pi, next_pi, suit_walk_speed);
 
-    _legs.push_back(SuitLeg(type, time, leg_time, zone_id, 
+    _legs.push_back(SuitLeg(type, time, leg_time, zone_id,
                             0, point, next_point));
     time += leg_time;
 
@@ -238,7 +238,7 @@ is_point_in_range(const DNASuitPoint *point, double begin,
 //  Description:
 ////////////////////////////////////////////////////////////////////
 void SuitLegList::
-output(ostream &out) const {
+output(std::ostream &out) const {
   out << "SuitLegList, " << _legs.size() << " legs.";
 }
 
@@ -248,7 +248,7 @@ output(ostream &out) const {
 //  Description:
 ////////////////////////////////////////////////////////////////////
 void SuitLegList::
-write(ostream &out) const {
+write(std::ostream &out) const {
   out << "SuitLegList:\n";
   for (size_t i = 0; i < _legs.size(); i++) {
     out << "  " << i << ". " << _legs[i] << "\n";
@@ -330,11 +330,11 @@ get_last_leg_type(const DNASuitPoint *point) {
 ////////////////////////////////////////////////////////////////////
 int SuitLegList::
 get_zone_id(const DNAStorage &storage, int pi_a, int pi_b) {
-  string name = storage.get_suit_edge_zone(pi_a, pi_b);
+  std::string name = storage.get_suit_edge_zone(pi_a, pi_b);
 
   // Get the part of the name before the first colon, if any.
   size_t colon = name.find(':');
-  if (colon != string::npos) {
+  if (colon != std::string::npos) {
     name = name.substr(0, colon);
   }
 

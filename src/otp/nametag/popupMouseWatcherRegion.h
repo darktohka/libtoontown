@@ -10,6 +10,8 @@
 
 #include "mouseWatcherRegion.h"
 
+#include <string>
+
 class ClickablePopup;
 
 ////////////////////////////////////////////////////////////////////
@@ -19,7 +21,7 @@ class ClickablePopup;
 ////////////////////////////////////////////////////////////////////
 class EXPCL_OTP PopupMouseWatcherRegion : public MouseWatcherRegion {
 public:
-  PopupMouseWatcherRegion(ClickablePopup *popup, const string &name,
+  PopupMouseWatcherRegion(ClickablePopup *popup, const std::string &name,
                           const LVecBase4f &frame);
   virtual ~PopupMouseWatcherRegion();
 

@@ -9,7 +9,7 @@
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE void DNAAnimBuilding::set_anim(string anim) {
+INLINE void DNAAnimBuilding::set_anim(std::string anim) {
   _anim = anim;
 }
 
@@ -19,7 +19,6 @@ INLINE void DNAAnimBuilding::set_anim(string anim) {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-INLINE string DNAAnimBuilding::get_anim() const {
+INLINE std::string DNAAnimBuilding::get_anim() const {
   return _anim;
 }
-

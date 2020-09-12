@@ -29,6 +29,8 @@
 #include "cullBinManager.h"
 #include "dcast.h"
 
+#include <string>
+
 TypeHandle Nametag3d::_type_handle;
 
 #ifndef CPPPARSER
@@ -85,7 +87,7 @@ Nametag3d::
       << "Destructing Nametag3d " << (void *)this << ": "
       << get_name() << "\n";
   }
-  
+
   stop_flash();
   _top.remove_node();
   _name.remove_node();
@@ -152,7 +154,7 @@ cull_callback(CullTraverser *, CullTraverserData &data) {
 
     if (group->is_managed()) {
       PStatTimer timer(_adjust_pcollector);
-      NodePath this_np = data._node_path.get_node_path();
+      NodePath this_np = data.get_node_path();
 
       // We need to know the sorting property of the bin in which the
       // nametag is rendered.
@@ -284,8 +286,8 @@ generate_name() {
   const NametagGlobals::Colors &colors =
     NametagGlobals::get_colors(group->get_color_code(), Nametag::get_state());
 
-  Colorf text_color = colors._name_fg;
-  Colorf card_color = colors._name_bg;
+  LColorf text_color = colors._name_fg;
+  LColorf card_color = colors._name_bg;
 
   // Get the size of the generated name, and expand it a bit to make
   // the card aesthetically pleasing.
@@ -376,13 +378,13 @@ generate_chat(ChatBalloon *balloon) {
   const NametagGlobals::Colors &colors =
     NametagGlobals::get_colors(group->get_color_code(), Nametag::get_state());
 
-  Colorf text_color = colors._chat_fg;
-  Colorf balloon_color = colors._chat_bg;
+  LColorf text_color = colors._chat_fg;
+  LColorf balloon_color = colors._chat_bg;
 
   if ((group->get_chat_flags() & CF_quicktalker) != 0) {
     // It's a quicktalker message; therefore, modify it by the QT
     // background color.
-    const Colorf &qt = group->get_qt_color();
+    const LColorf &qt = group->get_qt_color();
     text_color.set(text_color[0] * qt[0],
                    text_color[1] * qt[1],
                    text_color[2] * qt[2],
@@ -393,7 +395,7 @@ generate_chat(ChatBalloon *balloon) {
                       balloon_color[3] * qt[3]);
   }
 
-  const Colorf &balloon_modulation_color = group->get_balloon_modulation_color();
+  const LColorf &balloon_modulation_color = group->get_balloon_modulation_color();
   balloon_color.set(balloon_color[0] * balloon_modulation_color [0],
                     balloon_color[1] * balloon_modulation_color [1],
                     balloon_color[2] * balloon_modulation_color [2],
@@ -402,7 +404,7 @@ generate_chat(ChatBalloon *balloon) {
   TextFont *font = group->get_chat_font();
   nassertv(font != (TextFont *)NULL);
 
-  string text = group->get_chat();
+  std::string text = group->get_chat();
   nassertv(!text.empty());
 
   NodePath page_button;
@@ -470,7 +472,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
         return;
       }
 
-      const LMatrix4f &this_to_top = transform->get_mat();   
+      const LMatrix4f &this_to_top = transform->get_mat();
 
       LPoint3f ll(_frame[0] - 0.5f, 0.0f, _frame[2] - 1.0f);
       LPoint3f ur(_frame[1] + 0.5f, 0.0f, _frame[3] + 1.0f);
@@ -481,7 +483,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
       // artificially high to 10000) with the bin sort.  Logic copied
       // from pgItem.cxx.
       int sort = (bin_sort << 16) | 10000;
-      
+
       LVecBase4f nametag_frame(ll[0], ur[0], ll[2], ur[2]);
       set_region(nametag_frame, sort);
     }
@@ -504,7 +506,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
   if (!transform1->has_mat()) {
     return;
   }
-  const LMatrix4f &cam_to_this = transform1->get_mat();   
+  const LMatrix4f &cam_to_this = transform1->get_mat();
 
   LVector3f up = LVector3f::up() * cam_to_this;
   LVector3f rel_pos = LVector3f::forward() * cam_to_this;
@@ -515,11 +517,11 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
   // Now compute the appropriate scale based on the distance from the
   // camera plane.  For this we need the inverse matrix.
   CPT(TransformState) transform2 = this_np.get_transform(camera);
-  const LMatrix4f &this_to_cam = transform2->get_mat();   
+  const LMatrix4f &this_to_cam = transform2->get_mat();
 
   float distance = this_to_cam(3, 1);
 
-  float norm_distance = max(distance, 0.1f) / NametagGlobals::far_distance;
+  float norm_distance = std::max(distance, 0.1f) / NametagGlobals::far_distance;
   float scale = pow(norm_distance, NametagGlobals::scale_exponent) *
     NametagGlobals::far_scale * NametagGlobals::get_global_nametag_scale();
 
@@ -618,7 +620,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
     if (!transform3->has_mat()) {
       return;
     }
-    const LMatrix4f &this_to_av = transform3->get_mat();   
+    const LMatrix4f &this_to_av = transform3->get_mat();
     ul = ul * this_to_av;
     ur = ur * this_to_av;
 
@@ -632,7 +634,7 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
     if (!transform4->has_mat()) {
       return;
     }
-    const LMatrix4f &av_to_cam = transform4->get_mat();   
+    const LMatrix4f &av_to_cam = transform4->get_mat();
     ur = ur * av_to_cam;
     ll = ll * av_to_cam;
 
@@ -693,10 +695,10 @@ adjust_to_camera(const NodePath &this_np, int bin_sort) {
       // And our resulting clickable frame is the union of the two
       // frames.
       if (computed_frame) {
-        frame.set(min(frame[0], nametag_frame[0]),
-                  max(frame[1], nametag_frame[1]),
-                  min(frame[2], nametag_frame[2]),
-                  max(frame[3], nametag_frame[3]));
+        frame.set(std::min(frame[0], nametag_frame[0]),
+                  std::max(frame[1], nametag_frame[1]),
+                  std::min(frame[2], nametag_frame[2]),
+                  std::max(frame[3], nametag_frame[3]));
       } else {
         frame = nametag_frame;
         computed_frame = true;

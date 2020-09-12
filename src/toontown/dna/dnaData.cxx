@@ -4,13 +4,13 @@
 ////////////////////////////////////////////////////////////////////
 #include "dnaData.h"
 #include "config_dna.h"
-#include "config_util.h"
+#include "config_putil.h"
 
 #include "string_utils.h"
 #include "coordinateSystem.h"
 #include "luse.h"
 #include "dSearchPath.h"
-#include "config_util.h"
+#include "config_putil.h"
 #include "virtualFileSystem.h"
 
 extern int dnayyparse(void);
@@ -21,7 +21,6 @@ extern int dnayyparse(void);
 // Static variables
 ////////////////////////////////////////////////////////////////////
 TypeHandle DNAData::_type_handle;
-
 
 ////////////////////////////////////////////////////////////////////
 //     Function: DnaData::resolve_dna_filename
@@ -35,7 +34,7 @@ TypeHandle DNAData::_type_handle;
 bool DNAData::
 resolve_dna_filename(Filename &dna_filename, const DSearchPath &searchpath) {
   VirtualFileSystem *vfs = VirtualFileSystem::get_global_ptr();
-  
+
   vfs->resolve_filename(dna_filename, searchpath, "dna") ||
     vfs->resolve_filename(dna_filename, get_dna_path(), "dna") ||
     vfs->resolve_filename(dna_filename, get_model_path(), "dna");
@@ -56,7 +55,7 @@ resolve_dna_filename(Filename &dna_filename, const DSearchPath &searchpath) {
 //               messages.
 ////////////////////////////////////////////////////////////////////
 bool DNAData::
-read(Filename filename, ostream &error) {
+read(Filename filename, std::ostream &error) {
   if (!resolve_dna_filename(filename)) {
     error << "Could not find " << filename << "\n";
     return false;
@@ -79,13 +78,28 @@ read(Filename filename, ostream &error) {
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAData::read
 //       Access: Public
+//  Description: Opens the indicated filename and reads the DNA data
+//               contents from it.  Returns true if the file was
+//               successfully opened and read, false if there were
+//               some errors, in which case the data may be partially
+//               read.
+////////////////////////////////////////////////////////////////////
+bool DNAData::
+read(Filename filename) {
+  return read(filename, nout);
+}
+
+
+////////////////////////////////////////////////////////////////////
+//     Function: DNAData::read
+//       Access: Public
 //  Description: Parses the DNA syntax contained in the indicated
 //               input stream.  Returns true if the stream was a
 //               completely valid DNA file, false if there were some
 //               errors, in which case the data may be partially read.
 ////////////////////////////////////////////////////////////////////
 bool DNAData::
-read(istream &in, ostream &error) {
+read(std::istream &in, std::ostream &error) {
   // First, dispense with any children we had previously.  We will
   // replace them with the new data.
   dna_cat.debug() << "start of dnData.read\n";
@@ -103,6 +117,20 @@ read(istream &in, ostream &error) {
 
 
 ////////////////////////////////////////////////////////////////////
+//     Function: DNAData::read
+//       Access: Public
+//  Description: Parses the DNA syntax contained in the indicated
+//               input stream.  Returns true if the stream was a
+//               completely valid DNA file, false if there were some
+//               errors, in which case the data may be partially read.
+////////////////////////////////////////////////////////////////////
+bool DNAData::
+read(std::istream &in) {
+  return read(in, nout);
+}
+
+
+////////////////////////////////////////////////////////////////////
 //     Function: DNAData::resolve_externals
 //       Access: Public
 //  Description: Loads up all the dna files referenced by <File>
@@ -114,10 +142,28 @@ read(istream &in, ostream &error) {
 //               successfully, false otherwise.
 ////////////////////////////////////////////////////////////////////
 bool DNAData::
-resolve_externals(const string &searchpath, ostream &error) {
+resolve_externals(const std::string &searchpath, std::ostream &error) {
   //return r_resolve_externals(searchpath, error, get_coordinate_system());
   return false;
 }
+
+
+////////////////////////////////////////////////////////////////////
+//     Function: DNAData::resolve_externals
+//       Access: Public
+//  Description: Loads up all the dna files referenced by <File>
+//               entries within the dna structure, and inserts their
+//               contents in place of the <File> entries.  Searches
+//               for files in the searchpath, if not found directly,
+//               and writes error messages to the indicated output
+//               stream.  Returns true if all externals were loaded
+//               successfully, false otherwise.
+////////////////////////////////////////////////////////////////////
+bool DNAData::
+resolve_externals(const std::string &searchpath) {
+  return resolve_externals(searchpath, nout);
+}
+
 
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAData::write_dna
@@ -125,7 +171,7 @@ resolve_externals(const string &searchpath, ostream &error) {
 //  Description: The main interface for writing complete dna files.
 ////////////////////////////////////////////////////////////////////
 bool DNAData::
-write_dna(Filename filename, ostream &error, DNAStorage *store) {
+write_dna(Filename filename, std::ostream &error, DNAStorage *store) {
   // We use binary mode to avoid Windows' end-of-line convention.
   filename.set_binary();
   filename.unlink();
@@ -145,7 +191,7 @@ write_dna(Filename filename, ostream &error, DNAStorage *store) {
 //  Description: The main interface for writing complete dna files.
 ////////////////////////////////////////////////////////////////////
 bool DNAData::
-write_dna(ostream &out, ostream &, DNAStorage *store) {
+write_dna(std::ostream &out, std::ostream &, DNAStorage *store) {
   pre_write();
   write(out, store, 0);
   return true;
@@ -186,7 +232,7 @@ set_coordinate_system(CoordinateSystem new_coordsys) {
 //               the data in from an dna file.
 ////////////////////////////////////////////////////////////////////
 void DNAData::
-post_read(ostream &error) {
+post_read(std::ostream &error) {
 
   // Resolve filenames that are relative to the dna file.
   //resolve_filenames(get_dna_filename().get_dirname());
@@ -210,7 +256,7 @@ pre_write() {
 //               stream.
 ////////////////////////////////////////////////////////////////////
 void DNAData::
-write(ostream &out, DNAStorage *store, int indent_level) const {
+write(std::ostream &out, DNAStorage *store, int indent_level) const {
   // Write out anything the store wants to write
   store->fixup();
   store->write(out, indent_level);
@@ -225,7 +271,7 @@ write(ostream &out, DNAStorage *store, int indent_level) const {
     group->write(out, store, indent_level);
   }
 
-  out << flush;
+  out.flush();
 }
 
 

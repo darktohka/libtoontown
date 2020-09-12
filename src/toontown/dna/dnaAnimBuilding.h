@@ -19,18 +19,18 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAAnimBuilding : public DNALandmarkBuilding  {
 PUBLISHED:
-  DNAAnimBuilding(const string &initial_name = "");
+  DNAAnimBuilding(const std::string &initial_name = "");
   DNAAnimBuilding(const DNAAnimBuilding &anim_building);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
 
-  INLINE void set_anim(string anim);
-  INLINE string get_anim() const;
+  INLINE void set_anim(std::string anim);
+  INLINE std::string get_anim() const;
 
 private:
   virtual DNAGroup* make_copy();
-  string _anim;
+  std::string _anim;
 
 public:
   static TypeHandle get_class_type() {

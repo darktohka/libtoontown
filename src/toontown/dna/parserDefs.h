@@ -20,9 +20,9 @@
 #include "dnaSuitPoint.h"
 
 
-typedef pvector< string > StringVector;
+typedef pvector< std::string > StringVector;
 
-void dna_init_parser(istream &in, ostream &err, const string &filename, DNAData *top_node);
+void dna_init_parser(std::istream &in, std::ostream &err, const std::string &filename, DNAData *top_node);
 
 void dna_cleanup_parser();
 
@@ -38,11 +38,11 @@ void dna_cleanup_parser();
 class YYSTYPE {
 public:
   double _number;
-  string _string;
+  std::string _string;
   StringVector _string_vector;
   PTA_double _number_list;
   LVecBase3f _v3;
-  Colorf _color;
+  LColorf _color;
   bool _bool;
   PT(DNAGroup) _dna_group;
   DNASuitPoint::DNASuitPointType _suit_point_type;
@@ -50,5 +50,3 @@ public:
 
 
 #endif
-
-

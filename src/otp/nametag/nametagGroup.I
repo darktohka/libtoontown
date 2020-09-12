@@ -143,7 +143,7 @@ get_color_code() const {
 //               messages from this avatar.
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
-set_qt_color(const Colorf &color) {
+set_qt_color(const LColorf &color) {
   _qt_color = color;
 }
 
@@ -153,7 +153,7 @@ set_qt_color(const Colorf &color) {
 //  Description: Returns the background color set for quicktalker
 //               (SpeedChat) messages from this avatar.
 ////////////////////////////////////////////////////////////////////
-INLINE const Colorf &NametagGroup::
+INLINE const LColorf &NametagGroup::
 get_qt_color() const {
   return _qt_color;
 }
@@ -163,7 +163,7 @@ get_qt_color() const {
 //       Access: Published
 //  Description: Returns the balloon modulation color.
 ////////////////////////////////////////////////////////////////////
-INLINE const Colorf &NametagGroup::
+INLINE const LColorf &NametagGroup::
 get_balloon_modulation_color() const {
   return _balloon_modulation_color;
 }
@@ -227,7 +227,7 @@ get_shadow() const {
 //               that is displayed on the Nametags.
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
-set_name(const string &name) {
+set_name(const std::string &name) {
   _name = name;
   set_display_name(name);
 }
@@ -237,7 +237,7 @@ set_name(const string &name) {
 //       Access: Published
 //  Description: Returns the name that was set on this group.
 ////////////////////////////////////////////////////////////////////
-INLINE const string &NametagGroup::
+INLINE const std::string &NametagGroup::
 get_name() const {
   return _name;
 }
@@ -247,7 +247,7 @@ get_name() const {
 //       Access: Published
 //  Description: Returns the display_name that was set on this group.
 ////////////////////////////////////////////////////////////////////
-INLINE const string &NametagGroup::
+INLINE const std::string &NametagGroup::
 get_display_name() const {
   return _display_name;
 }
@@ -259,7 +259,7 @@ get_display_name() const {
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
 clear_chat() {
-  set_chat(string(), 0);
+  set_chat(std::string(), 0);
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -267,10 +267,10 @@ clear_chat() {
 //       Access: Published
 //  Description: Returns the current page of the chat message.
 ////////////////////////////////////////////////////////////////////
-INLINE string NametagGroup::
+INLINE std::string NametagGroup::
 get_chat() const {
   if (_chat_pages.empty()) {
-    return string();
+    return std::string();
   }
   return get_chat(_page_number);
 }
@@ -280,10 +280,10 @@ get_chat() const {
 //       Access: Published
 //  Description: Returns the current page of the chat message.
 ////////////////////////////////////////////////////////////////////
-INLINE string NametagGroup::
+INLINE std::string NametagGroup::
 get_stomp_text() const {
   if (_chat_stomp_accum < 1) {
-    return string();
+    return std::string();
   }
   return _chat_block_hold;
 }
@@ -293,12 +293,10 @@ get_stomp_text() const {
 //       Access: Published
 //  Description: Returns the nth page of the chat message.
 ////////////////////////////////////////////////////////////////////
-INLINE const string &NametagGroup::
+INLINE const std::string &NametagGroup::
 get_chat(int page_number) const {
-#ifndef NDEBUG
-  static string empty_string;
+  static std::string empty_string;
   nassertr(page_number >= 0 && page_number < (int)_chat_pages.size(), empty_string);
-#endif
   return _chat_pages[page_number];
 }
 
@@ -367,7 +365,7 @@ get_stomp_delay() const {
 //               user.
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
-set_unique_id(const string &event) {
+set_unique_id(const std::string &event) {
   _unique_id = event;
 }
 
@@ -380,7 +378,7 @@ set_unique_id(const string &event) {
 //               string by default, but it may be redefined by the
 //               user.
 ////////////////////////////////////////////////////////////////////
-INLINE const string &NametagGroup::
+INLINE const std::string &NametagGroup::
 get_unique_id() const {
   return _unique_id;
 }
@@ -596,7 +594,7 @@ set_nametag3d_flag(NametagGroup::Nametag3dFlag flag) {
 ////////////////////////////////////////////////////////////////////
 INLINE void NametagGroup::
 increment_nametag3d_flag(NametagGroup::Nametag3dFlag flag) {
-  _nametag3d_flag = max(_nametag3d_flag, flag);
+  _nametag3d_flag = std::max(_nametag3d_flag, flag);
 }
 
 ////////////////////////////////////////////////////////////////////

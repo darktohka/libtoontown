@@ -11,8 +11,8 @@
 ////////////////////////////////////////////////////////////////////
 TypeHandle DNASuitPoint::_type_handle;
 
-ostream &
-operator << (ostream &out, DNASuitPoint::DNASuitPointType type) {
+std::ostream &
+operator << (std::ostream &out, DNASuitPoint::DNASuitPointType type) {
   switch (type) {
   case DNASuitPoint::STREET_POINT:
     return out << "STREET_POINT";
@@ -52,7 +52,7 @@ DNASuitPoint::DNASuitPoint(int index, DNASuitPointType type, LPoint3f pos, int l
 //       Access: Public
 //  Description: Output all the properties to the stream
 ////////////////////////////////////////////////////////////////////
-void DNASuitPoint::output(ostream &out) const {
+void DNASuitPoint::output(std::ostream &out) const {
   out << "<" << _index << ", " << _type << ", " << _pos;
   if (_lb_index >= 0) {
     out << ", " << _lb_index;
@@ -65,7 +65,7 @@ void DNASuitPoint::output(ostream &out) const {
 //       Access: Public
 //  Description: write the suit point back out to the dna
 ////////////////////////////////////////////////////////////////////
-void DNASuitPoint::write(ostream &out, int indent_level) const {
+void DNASuitPoint::write(std::ostream &out, int indent_level) const {
   if (_lb_index >= 0) {
     indent(out, indent_level) << "store_suit_point [ "
                               << _index << ", "

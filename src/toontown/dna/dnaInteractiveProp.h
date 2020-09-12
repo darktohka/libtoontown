@@ -19,11 +19,11 @@
 ////////////////////////////////////////////////////////////////////
 class EXPCL_TOONTOWN DNAInteractiveProp : public DNAAnimProp  {
 PUBLISHED:
-  DNAInteractiveProp(const string &initial_name = "");
+  DNAInteractiveProp(const std::string &initial_name = "");
   DNAInteractiveProp(const DNAInteractiveProp &interactive_prop);
 
   virtual NodePath traverse(NodePath &parent, DNAStorage *store, int editing=0);
-  virtual void write(ostream &out, DNAStorage *store, int indent_level = 0) const;
+  virtual void write(std::ostream &out, DNAStorage *store, int indent_level = 0) const;
   INLINE void set_cell_id(int cell_id);
   INLINE int get_cell_id() const;
 

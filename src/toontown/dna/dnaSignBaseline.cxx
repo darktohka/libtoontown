@@ -20,7 +20,7 @@ TypeHandle DNASignBaseline::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNASignBaseline::DNASignBaseline(const string &initial_name) :
+DNASignBaseline::DNASignBaseline(const std::string &initial_name) :
   DNANode(initial_name)
 {
   _code = "";
@@ -112,7 +112,7 @@ void DNASignBaseline::reset() {
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-bool DNASignBaseline::isFirstLetterOfWord(string letter) {
+bool DNASignBaseline::isFirstLetterOfWord(std::string letter) {
   if (letter[0] == ' ') {
     _priorCharWasBlank = true;
     return false;
@@ -140,7 +140,7 @@ NodePath DNASignBaseline::traverse(NodePath &parent, DNAStorage *store, int edit
     _font = store->find_font(_code);
     if (_font.is_null()) {
       dna_cat.error()
-        << "unable to find baseline font " << _code << endl;
+        << "unable to find baseline font " << _code << std::endl;
     }
   }
 
@@ -192,7 +192,7 @@ NodePath DNASignBaseline::traverse(NodePath &parent, DNAStorage *store, int edit
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNASignBaseline::write(ostream &out,
+void DNASignBaseline::write(std::ostream &out,
     DNAStorage *store, int indent_level) const {
   if (_group_vector.empty()) {
     // ...no text or graphics.
@@ -419,7 +419,7 @@ void DNASignBaseline::circle_next_pos_hpr_scale(
     _prior_cursor = radian_cursor*radians_to_degrees;
   }
   float scaled_width = scale[0]*size[0];
-  radian_cursor = radian_cursor-2.0*asin(min(scaled_width/(2.0f*hypot), 1.0f));
+  radian_cursor = radian_cursor-2.0*std::asin(std::min(scaled_width/(2.0f*hypot), 1.0f));
   if (_width >= 0.0) {
     _prior_cursor = radian_cursor*radians_to_degrees;
   }
@@ -427,7 +427,7 @@ void DNASignBaseline::circle_next_pos_hpr_scale(
   // We subtract the get_current_stumble() so that it will more closely
   // match the stumble on a DNASignBaselineLine.
   float gap_width = get_kern()-get_current_stumble();
-  radian_cursor = radian_cursor-2.0*asin(gap_width/(2.0*hypot));
+  radian_cursor = radian_cursor-2.0*std::asin(gap_width/(2.0*hypot));
   float temp_cursor = _cursor;
   nassertv(!cnan(_cursor));
   _cursor = radian_cursor*radians_to_degrees;

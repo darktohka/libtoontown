@@ -69,9 +69,9 @@ PUBLISHED:
   INLINE LPoint3f get_pos_b() const;
   LPoint3f get_pos_at_time(double time) const;
 
-  static string get_type_name(Type type);
+  static std::string get_type_name(Type type);
 
-  void output(ostream &out) const;
+  void output(std::ostream &out) const;
 
 private:
   Type _type;
@@ -87,10 +87,9 @@ private:
   friend class SuitLegList;
 };
 
-INLINE ostream &operator << (ostream &out, const SuitLeg &leg);
-INLINE ostream &operator << (ostream &out, SuitLeg::Type type);
+INLINE std::ostream &operator << (std::ostream &out, const SuitLeg &leg);
+INLINE std::ostream &operator << (std::ostream &out, SuitLeg::Type type);
 
 #include "suitLeg.I"
 
 #endif
-

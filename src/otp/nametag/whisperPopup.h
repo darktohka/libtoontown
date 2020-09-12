@@ -17,6 +17,8 @@
 #include "nodePath.h"
 #include "mouseWatcher.h"
 
+#include <string>
+
 class ChatBalloon;
 class MarginManager;
 
@@ -39,10 +41,10 @@ PUBLISHED:
 	WT_toontown_boarding_group
   };
 
-  WhisperPopup(const string &text, TextFont *font, WhisperType whisper_type);
+  WhisperPopup(const std::string &text, TextFont *font, WhisperType whisper_type);
   virtual ~WhisperPopup();
 
-  void set_clickable(const string &avatar_name, int avatar_id, int is_player_id = 0);
+  void set_clickable(const std::string &avatar_name, int avatar_id, int is_player_id = 0);
 
   void manage(MarginManager *manager);
   void unmanage(MarginManager *manager);
@@ -65,20 +67,20 @@ protected:
   virtual void set_visible(bool flag);
 
 private:
-  void generate_text(ChatBalloon *balloon, const string &text, TextFont *font);
+  void generate_text(ChatBalloon *balloon, const std::string &text, TextFont *font);
   void set_region(const LVecBase4f &frame, int sort = 0);
 
   bool _has_rendered;
   double _first_appeared;
 
-  string _text;
+  std::string _text;
   PT(TextFont) _font;
   WhisperType _whisper_type;
 
   NodePath _balloon;
 
   bool _clickable;
-  string _avatar_name;
+  std::string _avatar_name;
   int _avatar_id;
   bool _is_player_id;
 

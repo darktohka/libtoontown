@@ -21,7 +21,7 @@ TypeHandle DNAVisGroup::_type_handle;
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
-DNAVisGroup::DNAVisGroup(const string &initial_name) :
+DNAVisGroup::DNAVisGroup(const std::string &initial_name) :
   DNAGroup(initial_name)
 {
 
@@ -36,7 +36,7 @@ DNAVisGroup::DNAVisGroup(const string &initial_name) :
 DNAVisGroup::DNAVisGroup(const DNAVisGroup &copy) :
   DNAGroup(copy)
 {
-  pvector<string>::const_iterator i = copy._vis_vector.begin();
+  pvector<std::string>::const_iterator i = copy._vis_vector.begin();
   for(; i != copy._vis_vector.end(); ++i) {
     // Push in a copy of the vis string
     _vis_vector.push_back(*i);
@@ -49,7 +49,7 @@ DNAVisGroup::DNAVisGroup(const DNAVisGroup &copy) :
 //       Access: Public
 //  Description: Add a vis group name to this group's list
 ////////////////////////////////////////////////////////////////////
-void DNAVisGroup::add_visible(const string &vis_group_name) {
+void DNAVisGroup::add_visible(const std::string &vis_group_name) {
   _vis_vector.push_back(vis_group_name);
 }
 
@@ -59,13 +59,13 @@ void DNAVisGroup::add_visible(const string &vis_group_name) {
 //       Access: Public
 //  Description: Remove a vis group name to this group's list
 ////////////////////////////////////////////////////////////////////
-int DNAVisGroup::remove_visible(const string &vis_group_name) {
-  pvector<string>::iterator i = find(_vis_vector.begin(),
+int DNAVisGroup::remove_visible(const std::string &vis_group_name) {
+  pvector<std::string>::iterator i = find(_vis_vector.begin(),
                                     _vis_vector.end(),
                                     vis_group_name);
   if (i == _vis_vector.end()) {
     dna_cat.warning()
-      << "DNAVisGroup: vis group not found in map: " << vis_group_name << endl;
+      << "DNAVisGroup: vis group not found in map: " << vis_group_name << std::endl;
     return 0;
   }
 
@@ -91,7 +91,7 @@ int DNAVisGroup::get_num_visibles() const {
 //       Access: Public
 //  Description: Return the string name of the ith visible
 ////////////////////////////////////////////////////////////////////
-string DNAVisGroup::get_visible_name(uint i) const {
+std::string DNAVisGroup::get_visible_name(uint i) const {
   nassertr(i < _vis_vector.size(), "");
   return _vis_vector[i];
 }
@@ -133,7 +133,7 @@ int DNAVisGroup::remove_suit_edge(PT(DNASuitEdge) edge) {
                                     edge);
   if (i == _suit_edge_vector.end()) {
     dna_cat.debug()
-      << "DNASuitEdge: edge not found in vector: " << (*edge) << endl;
+      << "DNASuitEdge: edge not found in vector: " << (*edge) << std::endl;
     return 0;
   }
 
@@ -186,7 +186,7 @@ int DNAVisGroup::remove_battle_cell(PT(DNABattleCell) cell) {
                                                  cell);
   if (i == _battle_cell_vector.end()) {
     dna_cat.warning()
-      << "DNABattleCell: cell not found in vector: " << (*cell) << endl;
+      << "DNABattleCell: cell not found in vector: " << (*cell) << std::endl;
     return 0;
   }
 
@@ -256,13 +256,13 @@ NodePath DNAVisGroup::traverse(NodePath &parent, DNAStorage *store, int editing)
 //       Access: Public
 //  Description: Writes the group and all children to output
 ////////////////////////////////////////////////////////////////////
-void DNAVisGroup::write(ostream &out, DNAStorage *store, int indent_level) const {
+void DNAVisGroup::write(std::ostream &out, DNAStorage *store, int indent_level) const {
   indent(out, indent_level) << "visgroup ";
   out << '"' << get_name() << '"' << " [\n";
 
   // Write the vis info
   indent(out, indent_level + 1) << "vis [ ";
-  pvector<string>::const_iterator i = _vis_vector.begin();
+  pvector<std::string>::const_iterator i = _vis_vector.begin();
   for(; i != _vis_vector.end(); ++i) {
     // Traverse each vis string in our vis vector
     indent(out, indent_level + 1) << '"' << (*i) << '"' << " ";
