@@ -27,7 +27,7 @@ initTable(PyObject* pathData, PyObject* connections) {
   std::vector<unsigned short> neighbors;
   PyObject *obj = NULL;
   PyObject *obj2 = NULL;
-  unsigned short num
+  unsigned short num;
 #if PY_MAJOR_VERSION >= 3
   bool unicode;
 #endif
