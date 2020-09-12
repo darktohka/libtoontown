@@ -6,7 +6,7 @@ Thanks to the project, it is now possible to use libotp and libtoontown in the n
 
 Currently, it supports Python 2.7, but Python 3 support will be added soon.
 
-**Major thanks to satire6 for releasing the [https://github.com/satire6/Anesidora](Anesidora) cache that made this project possible! Keep it up, and thank you so much!**
+**Major thanks to satire6 for releasing the [Anesidora](https://github.com/satire6/Anesidora) cache that made this project possible! Keep it up, and thank you so much!**
 
 Usage
 =====
