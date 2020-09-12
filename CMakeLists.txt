@@ -3,22 +3,27 @@ project(libdisney)
 
 # Thanks to loblao's libpandadna for the base interrogate CMake project
 
-find_package (Python2 COMPONENTS Interpreter Development)
-if(NOT Python2_Development_FOUND)
-    message(FATAL_ERROR "Python libs not found.")
-endif()
-if(NOT Python2_Interpreter_FOUND)
-    message(FATAL_ERROR "Python interpreter not found.")
-endif()
 
 ### Panda3D dir ###
 if(APPLE)
     SET(PANDA_DIR "/Developer/Panda3D" CACHE STRING "Panda3D directory.")
 endif()
 if(WIN32)
-    SET(PANDA_DIR "C:/Panda3D-1.11.0-old" CACHE STRING "Panda3D directory.")
+    SET(PANDA_DIR "C:/Panda3D-1.11.0-x64" CACHE STRING "Panda3D directory.")
+    SET(Python_ROOT_DIR "${PANDA_DIR}/python")
 endif()
 SET(BUILD_STATIC_LIB OFF CACHE BOOL "If true, will build a static lib")
+SET(Python_USE_STATIC_LIBS ${BUILD_STATIC_LIB})
+
+find_package(Python COMPONENTS Interpreter Development)
+
+if(NOT Python_Development_FOUND)
+    message(FATAL_ERROR "Python libs not found.")
+endif()
+
+if(NOT Python_Interpreter_FOUND)
+    message(FATAL_ERROR "Python interpreter not found.")
+endif()
 
 set(LIBPFX "")
 if(MSVC)

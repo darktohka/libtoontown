@@ -90,6 +90,8 @@ set(TT_IGATE_FILES
     ${CMAKE_SOURCE_DIR}/src/libtoontown_module.cxx
 )
 
+set_property(SOURCE ${TT_IGATE_FILES} PROPERTY GENERATED TRUE)
+
 include_directories(${CMAKE_SOURCE_DIR}/src/toontown/dna)
 include_directories(${CMAKE_SOURCE_DIR}/src/toontown/pets)
 include_directories(${CMAKE_SOURCE_DIR}/src/toontown/suit)
@@ -97,9 +99,11 @@ include_directories(${CMAKE_SOURCE_DIR}/src/toontown/toontownbase)
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/movement)
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/otpbase)
 include_directories(${PANDA_DIR}/include)
-include_directories(${Python2_INCLUDE_DIRS})
+include_directories(${Python_INCLUDE_DIRS})
 include_directories(/usr/include/eigen3)
 link_directories(${PANDA_DIR}/lib)
+
+add_definitions(-DBUILDING_TOONTOWN)
 
 if(NOT BUILD_STATIC_LIB)
     set(PANDA_LIBS
@@ -144,7 +148,7 @@ if(NOT BUILD_STATIC_LIB)
             ${TT_IGATE_FILES}
         )
         SET_TARGET_PROPERTIES(libtoontown PROPERTIES SUFFIX ".pyd")
-        target_link_libraries(libtoontown ${PANDA_LIBS} C:/Panda3D-1.11.0-old/python/libs/python27.lib)
+        target_link_libraries(libtoontown ${PANDA_LIBS} "${Python_LIBRARIES}")
 
     else()
         add_library(toontown MODULE
@@ -153,7 +157,7 @@ if(NOT BUILD_STATIC_LIB)
             ${SUIT_FILES}
             ${TT_IGATE_FILES}
         )
-        target_link_libraries(toontown ${PANDA_LIBS} ${PYTHON2_LIBRARIES} otp)
+        target_link_libraries(toontown ${PANDA_LIBS} "${Python_LIBRARIES}")
     endif()
 
 else()

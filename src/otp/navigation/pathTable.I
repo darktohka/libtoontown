@@ -33,7 +33,11 @@ findRoute(unsigned short startNode, unsigned short goalNode) {
   PyObject *num;
   unsigned short currNode = startNode;
 
+#if PY_MAJOR_VERSION >= 3
+  num = PyLong_FromLong((long)startNode);
+#else
   num = PyInt_FromLong((long)startNode);
+#endif
 
   PyList_Append(route,num);
   Py_DECREF(num);
@@ -43,8 +47,12 @@ findRoute(unsigned short startNode, unsigned short goalNode) {
 
     assert(currNode != 65535);
 
+#if PY_MAJOR_VERSION >= 3
+    num = PyLong_FromLong((long)currNode);
+#else
     num = PyInt_FromLong((long)currNode);
-  
+#endif
+
     PyList_Append(route,num);
     Py_DECREF(num);
   }

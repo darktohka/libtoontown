@@ -54,14 +54,18 @@ set(OTP_IGATE_FILES
     ${CMAKE_SOURCE_DIR}/src/libotp_module.cxx
 )
 
+set_property(SOURCE ${OTP_IGATE_FILES} PROPERTY GENERATED TRUE)
+
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/nametag)
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/movement)
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/navigation)
 include_directories(${CMAKE_SOURCE_DIR}/src/otp/otpbase)
 include_directories(${PANDA_DIR}/include)
-include_directories(${Python2_INCLUDE_DIRS})
+include_directories(${Python_INCLUDE_DIRS})
 include_directories(/usr/include/eigen3)
 link_directories(${PANDA_DIR}/lib)
+
+add_definitions(-DBUILDING_OTP)
 
 if(NOT BUILD_STATIC_LIB)
     set(PANDA_LIBS
@@ -106,10 +110,10 @@ if(NOT BUILD_STATIC_LIB)
             ${OTP_IGATE_FILES}
         )
         SET_TARGET_PROPERTIES(libotp PROPERTIES SUFFIX ".pyd")
-        target_link_libraries(libotp ${PANDA_LIBS} C:/Panda3D-1.11.0-old/python/libs/python27.lib)
+        target_link_libraries(libotp ${PANDA_LIBS} "${Python_LIBRARIES}")
         add_custom_command(TARGET libotp
                            PRE_BUILD
-                           COMMAND ${Python2_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
+                           COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
                            COMMENT "Interrogate")
 
     else()
@@ -119,10 +123,10 @@ if(NOT BUILD_STATIC_LIB)
             ${NAVIGATION_FILES}
             ${OTP_IGATE_FILES}
         )
-        target_link_libraries(otp ${PANDA_LIBS} ${PYTHON2_LIBRARIES})
+        target_link_libraries(otp ${PANDA_LIBS} "${Python_LIBRARIES}")
         add_custom_command(TARGET otp
                            PRE_BUILD
-                           COMMAND ${PYTHON2_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
+                           COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
                            COMMENT "Interrogate")
     endif()
 
@@ -137,7 +141,7 @@ else()
         )
         add_custom_command(TARGET libotp
                            PRE_BUILD
-                           COMMAND ${PYTHON2_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
+                           COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
                            COMMENT "Interrogate")
 
     else()
@@ -149,7 +153,7 @@ else()
         )
         add_custom_command(TARGET pandadna
                            PRE_BUILD
-                           COMMAND ${PYTHON2_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
+                           COMMAND ${Python_EXECUTABLE} "${CMAKE_SOURCE_DIR}/src/run_interrogate.py" "${PANDA_DIR}"
                            COMMENT "Interrogate")
     endif()
 

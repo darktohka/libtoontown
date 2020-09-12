@@ -27,7 +27,10 @@ initTable(PyObject* pathData, PyObject* connections) {
   std::vector<unsigned short> neighbors;
   PyObject *obj = NULL;
   PyObject *obj2 = NULL;
-  unsigned short num;
+  unsigned short num
+#if PY_MAJOR_VERSION >= 3
+  bool unicode;
+#endif
 
   // Init _pathData from received values (list of strings)
   _pathData.clear();
@@ -42,6 +45,29 @@ initTable(PyObject* pathData, PyObject* connections) {
   for(int i=0; i<len; ++i) {
     obj = PyList_GetItem(pathData,i);
 
+#if PY_MAJOR_VERSION >= 3
+    unicode = PyUnicode_Check(obj);
+
+    if(unicode) {
+      obj = PyUnicode_AsEncodedString(obj, "UTF-8", "strict");
+
+      if(obj == NULL) {
+        PyErr_SetString(PyExc_TypeError, "pathData: Could not decode UTF-8 string!");
+        return;
+      }
+    } else if(!PyBytes_Check(obj)) {
+      PyErr_SetString(PyExc_TypeError, "pathData: Non-string encountered in list!");
+      return;
+    }
+
+    strlen = PyBytes_Size(obj);
+
+    str.assign((unsigned char*)PyBytes_AsString(obj), strlen);
+
+    if(unicode) {
+      Py_DECREF(obj);
+    }
+#else
     if(!PyString_Check(obj)) {
       PyErr_SetString(PyExc_TypeError, "pathData: Non-string encountered in list!");
       return;
@@ -49,7 +75,8 @@ initTable(PyObject* pathData, PyObject* connections) {
 
     strlen = PyString_Size(obj);
 
-    str.assign((unsigned char*)PyString_AsString(obj),strlen);
+    str.assign((unsigned char*)PyString_AsString(obj), strlen);
+#endif
 
     _pathData.push_back(str);
   }
@@ -79,7 +106,11 @@ initTable(PyObject* pathData, PyObject* connections) {
     for(int j=0; j<numNeighbors; ++j) {
       obj2 = PyList_GetItem(obj,j);
 
+#if PY_MAJOR_VERSION >= 3
+      if(!PyLong_Check(obj2)) {
+#else
       if(!PyInt_Check(obj2)) {
+#endif
         if(obj2 != Py_None) {
           PyErr_SetString(PyExc_TypeError, "connections: Invalid sub-element encountered!");
           return;
@@ -87,7 +118,11 @@ initTable(PyObject* pathData, PyObject* connections) {
         num = 65535;
       }
       else {
+#if PY_MAJOR_VERSION >= 3
+        num = (unsigned short)PyLong_AsUnsignedLongMask(obj2);
+#else
         num = (unsigned short)PyInt_AsUnsignedLongMask(obj2);
+#endif
       }
 
       neighbors.push_back(num);
