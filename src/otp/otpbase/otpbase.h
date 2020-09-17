@@ -13,6 +13,7 @@
 #include "pandabase.h"
 #include "otpsymbols.h"
 
+// Fix modern Panda's text rendering
 #define PANDA_DEPTH_FIX 1
 
 #endif
