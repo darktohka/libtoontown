@@ -16,4 +16,7 @@
 // Panda3D no longer has this set.
 #define temp_hpr_fix 1
 
+// Fix modern Panda's text rendering
+#define PANDA_DEPTH_FIX 1
+
 #endif
