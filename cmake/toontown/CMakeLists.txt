@@ -59,7 +59,7 @@ set(DNA_FILES
     ${CMAKE_SOURCE_DIR}/src/toontown/dna/loaderFileTypeDNA.h
     ${CMAKE_SOURCE_DIR}/src/toontown/dna/lexer.cxx
     ${CMAKE_SOURCE_DIR}/src/toontown/dna/parser.cxx
-    ${CMAKE_SOURCE_DIR}/src/toontown/dna/parser.h
+    ${CMAKE_SOURCE_DIR}/src/toontown/dna/parser.hxx
 )
 set(PET_FILES
     ${CMAKE_SOURCE_DIR}/src/otp/movement/cImpulse.cxx

@@ -8,7 +8,7 @@
 %{
 #include "lexerDefs.h"
 #include "parserDefs.h"
-#include "parser.h"
+#include "parser.hxx"
 
 #include "indent.h"
 #include "pnotify.h"
@@ -93,7 +93,7 @@ dnayyerror(const std::string &msg) {
     << " at line " << line_number << ", column " << col_number << ":\n"
     << current_line << "\n";
   indent(*errp, col_number-1)
-    << "^\n" << msg << "\n\n" << flush;
+    << "^\n" << msg << "\n\n" << std::flush;
   error_count++;
 }
 
@@ -109,7 +109,7 @@ dnayywarning(const std::string &msg) {
     << "\nWarning at line " << line_number << ", column " << col_number << ":\n"
     << current_line << "\n";
   indent(*errp, col_number-1)
-    << "^\n" << msg << "\n\n" << flush;
+    << "^\n" << msg << "\n\n" << std::flush;
   warning_count++;
 }
 
