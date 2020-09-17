@@ -340,6 +340,11 @@ generate_name() {
     _name = group->copy_name_to(decal_node);
     _name.set_depth_write(false);
 
+#ifdef PANDA_DEPTH_FIX
+    // Fix for modern Panda's text rendering
+    _name.set_y(-0.01);
+#endif
+
     decal_node.node()->set_effect(DecalEffect::make());
 
   } else {

@@ -193,8 +193,14 @@ generate(const std::string &text, TextFont *font, float wordwrap,
   NodePath text_parent(text_parent_node);
   NodePath text_geom = text_parent.attach_new_node(text_geom_node);
 
+#ifdef PANDA_DEPTH_FIX
+    // Fix for modern Panda's text rendering
+    text_trans[1] -= 0.01;
+#endif
+
   text_geom.set_pos(text_trans);
   text_geom.set_color(text_color);
+
   if (text_color[3] != 1.0f) {
     text_geom.set_transparency(TransparencyAttrib::M_alpha);
   }
@@ -213,6 +219,11 @@ generate(const std::string &text, TextFont *font, float wordwrap,
       button.set_pos(balloon_width, 0.0f, 1.8f);
     }
     button.set_scale(8.0f);
+
+#ifdef PANDA_DEPTH_FIX
+    // Fix for modern Panda's text rendering
+    button.set_y(-0.01);
+#endif
   }
 
   // Apply the transforms to the text vertices too, and flatten once more.

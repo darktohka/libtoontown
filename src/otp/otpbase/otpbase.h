@@ -13,5 +13,6 @@
 #include "pandabase.h"
 #include "otpsymbols.h"
 
-#endif
+#define PANDA_DEPTH_FIX 1
 
+#endif
