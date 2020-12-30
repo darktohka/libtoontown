@@ -207,6 +207,11 @@ PUBLISHED:
   PT(DNASuitPath) get_adjacent_points(PT(DNASuitPoint) start_point) const;
   int discover_continuity();
 
+  // Wall height functions
+  INLINE float get_current_wall_height() const;
+  INLINE void set_current_wall_height(float current_wall_height);
+  INLINE void add_wall_height(float wall_height);
+
   std::string get_block(const std::string& name) const;
 
   void fixup();
@@ -279,6 +284,7 @@ private:
   SuitStartPointMap _suit_start_point_map;
   BattleCellVector _battle_cell_vector;
   VisGroupVectorAI _vis_group_vector;
+  float _current_wall_height = 0.0;
 
 };
 

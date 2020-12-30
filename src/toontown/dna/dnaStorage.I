@@ -368,6 +368,39 @@ get_point_index() const {
 }
 
 ////////////////////////////////////////////////////////////////////
+//     Function: DNAStorage::get_current_wall_height
+//       Access: Public
+//  Description: current_wall_height represents the current wall
+//               height to allow the next wall to be stacked properly
+//               on top. The return value is the current wall height.
+////////////////////////////////////////////////////////////////////
+INLINE float DNAStorage::
+get_current_wall_height() const {
+  return _current_wall_height;
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: DNAStorage::set_current_wall_height
+//       Access: Public
+//  Description: Sets the current wall height value to a specified value.
+////////////////////////////////////////////////////////////////////
+INLINE void DNAStorage::
+set_current_wall_height(float current_wall_height) {
+  _current_wall_height = current_wall_height;
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: DNAStorage::add_wall_height
+//       Access: Public
+//  Description: Adds a specific wall height value to the current
+//               wall height.
+////////////////////////////////////////////////////////////////////
+INLINE void DNAStorage::
+add_wall_height(float wall_height) {
+  _current_wall_height += wall_height;
+}
+
+////////////////////////////////////////////////////////////////////
 //     Function: DNAStorage::WorkingSuitPath::operator new
 //       Access: Public
 //  Description: Allocates the memory for a new WorkingSuitPath.  This

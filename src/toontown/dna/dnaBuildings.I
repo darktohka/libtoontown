@@ -63,19 +63,6 @@ INLINE std::string DNAWall::get_code() const {
 }
 
 
-
-
-
-
-////////////////////////////////////////////////////////////////////
-//     Function: DNAFlatBuilding::get_current_wall_height
-//       Access: Public
-//  Description:
-////////////////////////////////////////////////////////////////////
-INLINE float DNAFlatBuilding::get_current_wall_height() {
-  return current_wall_height;
-}
-
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAFlatBuilding::set_width
 //       Access: Public

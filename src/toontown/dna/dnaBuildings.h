@@ -15,15 +15,6 @@
 #include "luse.h"
 #include "pvector.h"
 
-
-////////////////////////////////////////////////////////////////////
-// Description : current_wall_height represents the current wall
-//               height to allow the next wall to be stacked properly
-//               on top
-////////////////////////////////////////////////////////////////////
-extern float current_wall_height;
-
-
 ////////////////////////////////////////////////////////////////////
 //       Class : DNAWall
 // Description : A stackable wall.
@@ -90,8 +81,6 @@ PUBLISHED:
 
   INLINE void set_width(float width);
   INLINE float get_width() const;
-
-  INLINE float get_current_wall_height();
 
 protected:
   bool has_door(PT(DNAGroup) group_vector);

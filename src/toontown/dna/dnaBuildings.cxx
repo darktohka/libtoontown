@@ -27,9 +27,6 @@ TypeHandle DNAWall::_type_handle;
 TypeHandle DNAFlatBuilding::_type_handle;
 TypeHandle DNALandmarkBuilding::_type_handle;
 
-float current_wall_height = 0.0;
-
-
 ////////////////////////////////////////////////////////////////////
 //     Function: DNAWall::Constructor
 //       Access: Public
@@ -66,7 +63,7 @@ NodePath DNAWall::traverse(NodePath &parent, DNAStorage *store, int editing) {
   NodePath wall_node_path = (store->find_node(_code)).copy_to(parent);
 
   // Move the wall to the current height to stack on the previous one
-  _pos.set_z(current_wall_height);
+  _pos.set_z(store->get_current_wall_height());
 
   // Scale it up, set properties
   _scale.set_z(_height);
@@ -88,7 +85,7 @@ NodePath DNAWall::traverse(NodePath &parent, DNAStorage *store, int editing) {
   }
 
   // Update the current_wall_height so the next wall will be on top
-  current_wall_height += _height;
+  store->add_wall_height(_height);
 
   return wall_node_path;
 }
@@ -208,7 +205,7 @@ void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
   NodePath suit_building_node_path = parent.attach_new_node(suit_node);
   // Size and place it correctly:
   LVector3f scale = get_scale();
-  scale[2]*=current_wall_height;
+  scale[2]*=store->get_current_wall_height();
   suit_building_node_path.set_pos_hpr_scale(get_pos(), get_hpr(), scale);
   // Pick a suit wall:
   int count=store->get_num_catalog_codes("suit_wall");
@@ -244,7 +241,7 @@ void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
 ////////////////////////////////////////////////////////////////////
 NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int editing) {
   // Clear the current_wall_height so the first wall will be on the ground
-  current_wall_height = 0;
+  store->set_current_wall_height(0.0);
 
   // Make a new building node
   NodePath building_node_path = parent.attach_new_node(get_name());
@@ -274,7 +271,7 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
 
   // For some reason the dna has some flat buildings with no walls
   // we should fix them as we find them
-  if (current_wall_height == 0.0) {
+  if (store->get_current_wall_height() == 0.0) {
     dna_cat.warning() << "empty flat building with no walls" << std::endl;
     return parent;
   }
@@ -283,7 +280,7 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
   NodePath wall_camera_barrier_node_path =
     (store->find_node("wall_camera_barrier")).copy_to(internal_node_path);
   // Scale the camera collide geometry up to cover the entire wall
-  wall_camera_barrier_node_path.set_scale(1.0, 1.0, current_wall_height);
+  wall_camera_barrier_node_path.set_scale(1.0, 1.0, store->get_current_wall_height());
 
   // Build origin for suit flat building:
   setup_suit_flat_building(parent, store);
