@@ -150,8 +150,8 @@ public:
 private:
   void update_contents_all();
 
-  Nametag2d *_nametag2d;
-  Nametag3d *_nametag3d;
+  PT(Nametag2d) _nametag2d;
+  PT(Nametag3d) _nametag3d;
 
   typedef pvector<Nametag*> Nametags;
   Nametags _nametags;
