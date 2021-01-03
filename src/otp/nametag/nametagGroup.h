@@ -46,8 +46,8 @@ PUBLISHED:
   NametagGroup();
   ~NametagGroup();
 
-  INLINE Nametag2d *get_nametag2d();
-  INLINE Nametag3d *get_nametag3d();
+  INLINE PT(Nametag2d) get_nametag2d();
+  INLINE PT(Nametag3d) get_nametag3d();
 
   void add_nametag(Nametag *tag);
   void remove_nametag(Nametag *tag);
@@ -150,8 +150,8 @@ public:
 private:
   void update_contents_all();
 
-  Nametag2d *_nametag2d;
-  Nametag3d *_nametag3d;
+  PT(Nametag2d) _nametag2d;
+  PT(Nametag3d) _nametag3d;
 
   typedef pvector<Nametag*> Nametags;
   Nametags _nametags;

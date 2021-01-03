@@ -12,7 +12,7 @@
 //               along the edge of the screen when the avatar is not
 //               visible.
 ////////////////////////////////////////////////////////////////////
-INLINE Nametag2d *NametagGroup::
+INLINE PT(Nametag2d) NametagGroup::
 get_nametag2d() {
   return _nametag2d;
 }
@@ -24,7 +24,7 @@ get_nametag2d() {
 //               the group.  This is the Nametag that floats over the
 //               avatar's head in the world.
 ////////////////////////////////////////////////////////////////////
-INLINE Nametag3d *NametagGroup::
+INLINE PT(Nametag3d) NametagGroup::
 get_nametag3d() {
   return _nametag3d;
 }
