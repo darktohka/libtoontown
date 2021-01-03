@@ -46,8 +46,8 @@ PUBLISHED:
   NametagGroup();
   ~NametagGroup();
 
-  INLINE PT(Nametag2d) get_nametag2d();
-  INLINE PT(Nametag3d) get_nametag3d();
+  INLINE Nametag2d *get_nametag2d();
+  INLINE Nametag3d *get_nametag3d();
 
   void add_nametag(Nametag *tag);
   void remove_nametag(Nametag *tag);
