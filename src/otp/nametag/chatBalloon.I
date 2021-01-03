@@ -5,6 +5,17 @@
 
 
 ////////////////////////////////////////////////////////////////////
+//     Function: ChatBalloon::set_hscale
+//       Access: Public
+//  Description: Sets the horizontal scale that will be applied to
+//               the chat balloon in the last call to generate().
+////////////////////////////////////////////////////////////////////
+INLINE void ChatBalloon::
+set_hscale(float hscale) {
+  _hscale = hscale;
+}
+
+////////////////////////////////////////////////////////////////////
 //     Function: ChatBalloon::get_hscale
 //       Access: Public
 //  Description: Returns the horizontal scale applied to the chat

@@ -43,7 +43,7 @@ PUBLISHED:
                          const NodePath &page_button, bool space_for_button,
                          bool reversed, NodePath &new_button);
 
-public:
+  INLINE void set_hscale(float hscale);
   INLINE float get_hscale() const;
   INLINE float get_text_height() const;
   INLINE const LVecBase4f &get_text_frame() const;
