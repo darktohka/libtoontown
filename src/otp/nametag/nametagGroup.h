@@ -56,7 +56,7 @@ PUBLISHED:
   int get_num_nametags() const;
   Nametag *get_nametag(int n) const;
 
-  INLINE void set_font(TextFont *font);
+  INLINE void set_font(TextFont *font, bool set_chat_font = true);
   INLINE void set_name_font(TextFont *font);
   INLINE TextFont *get_name_font() const;
   INLINE void set_chat_font(TextFont *font);
