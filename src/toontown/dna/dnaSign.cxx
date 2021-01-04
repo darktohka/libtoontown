@@ -84,6 +84,9 @@ NodePath DNASign::traverse(NodePath &parent, DNAStorage *store, int editing) {
   sign_node_path.set_depth_write(0);
 #endif
 
+  // Offset the depth by 1 to prevent flickering with the windows
+  sign_node_path.set_depth_offset(1);
+
   //sign_node_path.node()->set_name("sign");
 
   // The Sign_origin is a special node in the model with a local

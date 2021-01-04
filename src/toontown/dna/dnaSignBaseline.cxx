@@ -171,6 +171,9 @@ NodePath DNASignBaseline::traverse(NodePath &parent, DNAStorage *store, int edit
   LVector3f hpr = _hpr;
   center(pos, hpr);
 
+  // Keep depth write disabled on the baseline text to stop flickers
+  signBaseline_node_path.set_depth_write(false);
+
   // Place the signBaseline on the sign:
   signBaseline_node_path.set_pos_hpr_scale(parent,
            pos,
