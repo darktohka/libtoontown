@@ -187,12 +187,9 @@ void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
       DNAStorage *store) {
   // Get the toon building name:
   std::string name = get_name();
-  if (!(name[0]=='t' &&
-      name[1]=='b' &&
-      isdigit(name[2]) &&
-      name.find(':')!=std::string::npos)) {
-    // ...this building is not setup to taken over.
-    // Skip it:
+  if (name.length() < 4 || name[0] != 't' || name[1] != 'b' || !isdigit(name[2]) || name.find(':') == std::string::npos) {
+    // ... this building is not set up
+    // Skip it.
     return;
   }
   // Make it a suit name:
@@ -243,12 +240,9 @@ void DNAFlatBuilding::setup_cogdo_flat_building(NodePath &parent,
       DNAStorage *store) {
   // Get the toon building name:
   std::string name = get_name();
-  if (!(name[0]=='t' &&
-      name[1]=='b' &&
-      isdigit(name[2]) &&
-      name.find(':')!=std::string::npos)) {
-    // ...this building is not setup to taken over.
-    // Skip it:
+  if (name.length() < 4 || name[0] != 't' || name[1] != 'b' || !isdigit(name[2]) || name.find(':') == std::string::npos) {
+    // ... this building is not set up
+    // Skip it.
     return;
   }
   // Make it a cogdo name:
