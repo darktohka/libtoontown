@@ -156,7 +156,7 @@ DNAFlatBuilding::DNAFlatBuilding(const DNAFlatBuilding &building) :
 
 
 ////////////////////////////////////////////////////////////////////
-//     Function: DNAFlatBuilding::setup_suit_flat_building
+//     Function: DNAFlatBuilding::has_door
 //       Access: Public
 //  Description:
 ////////////////////////////////////////////////////////////////////
@@ -187,12 +187,9 @@ void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
       DNAStorage *store) {
   // Get the toon building name:
   std::string name = get_name();
-  if (!(name[0]=='t' &&
-      name[1]=='b' &&
-      isdigit(name[2]) &&
-      name.find(':')!=std::string::npos)) {
+  if (name.length() < 4 || name[0] != 't' || name[1] != 'b' || !isdigit(name[2]) || name.find(':') == std::string::npos) {
     // ...this building is not setup to taken over.
-    // Skip it:
+    // Skip it.
     return;
   }
   // Make it a suit name:
@@ -232,6 +229,59 @@ void DNAFlatBuilding::setup_suit_flat_building(NodePath &parent,
   // The toon take over just uses a Z scale and does not need them
   suit_building_node_path.flatten_medium();
   suit_building_node_path.stash();
+}
+
+////////////////////////////////////////////////////////////////////
+//     Function: DNAFlatBuilding::setup_cogdo_flat_building
+//       Access: Public
+//  Description:
+////////////////////////////////////////////////////////////////////
+void DNAFlatBuilding::setup_cogdo_flat_building(NodePath &parent,
+      DNAStorage *store) {
+  // Get the toon building name:
+  std::string name = get_name();
+  if (name.length() < 4 || name[0] != 't' || name[1] != 'b' || !isdigit(name[2]) || name.find(':') == std::string::npos) {
+    // ...this building is not setup to taken over.
+    // Skip it.
+    return;
+  }
+  // Make it a cogdo name:
+  nassertv(name.length() > 0);
+  name[0]='c';
+  // Create the node to hang cogdo buildings on:
+  // ModelNode is used to preserve the name of the node so that we can
+  // do a find() for it later.
+  PT(PandaNode) cogdo_node = new ModelNode(name);
+  NodePath cogdo_building_node_path = parent.attach_new_node(cogdo_node);
+  // Size and place it correctly:
+  LVector3f scale = get_scale();
+  scale[2]*=store->get_current_wall_height();
+  cogdo_building_node_path.set_pos_hpr_scale(get_pos(), get_hpr(), scale);
+  // Pick a cogdo wall:
+  int count=store->get_num_catalog_codes("cogdo_wall");
+  name=store->get_catalog_code("cogdo_wall", rand()%count);
+  NodePath np=store->find_node(name);
+  if (!np.is_empty()) {
+    // Put it in the world:
+    NodePath newNP=np.copy_to(cogdo_building_node_path);
+    nassertv(!newNP.is_empty());
+    // Look for a door:
+    if (has_door(this)) {
+      NodePath wall_node_path=cogdo_building_node_path.find("wall_*");
+      nassertv(!wall_node_path.is_empty());
+      NodePath door_node_path =
+          (store->find_node("suit_door")).copy_to(wall_node_path);
+      nassertv(!door_node_path.is_empty());
+      door_node_path.set_scale(NodePath(), 1, 1, 1);
+      door_node_path.set_pos_hpr(0.5, 0, 0, 0, 0, 0);
+      //door_node_path.set_color(0.5, 0.5, 1.0, 1.0);
+      wall_node_path.node()->set_effect(DecalEffect::make());
+    }
+  }
+  // Flatten the wall to get rid of the pos hpr scale
+  // The toon take over just uses a Z scale and does not need them
+  cogdo_building_node_path.flatten_medium();
+  cogdo_building_node_path.stash();
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -282,8 +332,9 @@ NodePath DNAFlatBuilding::traverse(NodePath &parent, DNAStorage *store, int edit
   // Scale the camera collide geometry up to cover the entire wall
   wall_camera_barrier_node_path.set_scale(1.0, 1.0, store->get_current_wall_height());
 
-  // Build origin for suit flat building:
+  // Build origins for suit and cogdo flat buildings:
   setup_suit_flat_building(parent, store);
+  setup_cogdo_flat_building(parent, store);
 
   // Get rid of the transitions
   SceneGraphReducer gr;
