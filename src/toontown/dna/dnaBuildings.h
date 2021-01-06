@@ -85,6 +85,7 @@ PUBLISHED:
 protected:
   bool has_door(PT(DNAGroup) group_vector);
   void setup_suit_flat_building(NodePath &parent, DNAStorage *store);
+  void setup_cogdo_flat_building(NodePath &parent, DNAStorage *store);
 
 private:
   virtual DNAGroup* make_copy();
