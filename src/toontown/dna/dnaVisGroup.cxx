@@ -91,7 +91,7 @@ int DNAVisGroup::get_num_visibles() const {
 //       Access: Public
 //  Description: Return the string name of the ith visible
 ////////////////////////////////////////////////////////////////////
-std::string DNAVisGroup::get_visible_name(uint i) const {
+std::string DNAVisGroup::get_visible_name(unsigned int i) const {
   nassertr(i < _vis_vector.size(), "");
   return _vis_vector[i];
 }
@@ -158,7 +158,7 @@ int DNAVisGroup::get_num_suit_edges() const {
 //       Access: Public
 //  Description: Return the ith edge in the vector
 ////////////////////////////////////////////////////////////////////
-PT(DNASuitEdge) DNAVisGroup::get_suit_edge(uint i) const {
+PT(DNASuitEdge) DNAVisGroup::get_suit_edge(unsigned int i) const {
   nassertr(i < _suit_edge_vector.size(), (DNASuitEdge *)NULL);
   return _suit_edge_vector[i];
 }
@@ -211,7 +211,7 @@ int DNAVisGroup::get_num_battle_cells() const {
 //       Access: Public
 //  Description: Return the ith cell in the vector
 ////////////////////////////////////////////////////////////////////
-PT(DNABattleCell) DNAVisGroup::get_battle_cell(uint i) const {
+PT(DNABattleCell) DNAVisGroup::get_battle_cell(unsigned int i) const {
   nassertr(i < _battle_cell_vector.size(), (DNABattleCell *)NULL);
   return _battle_cell_vector[i];
 }

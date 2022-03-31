@@ -8,8 +8,6 @@
 
 #include "toontownbase.h"
 
-#include "typedef.h"
-
 #include <string>
 
 void dna_init_lexer(std::istream &in, std::ostream &err, const std::string &filename);

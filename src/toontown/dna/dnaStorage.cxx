@@ -425,10 +425,10 @@ int DNAStorage::get_num_block_numbers() const {
 //       Access: Public
 //  Description: Get key at index
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_block_number_at(uint index) const {
+int DNAStorage::get_block_number_at(unsigned int index) const {
   nassertr(index < _block_map.size(), 0);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the map entries:
   for(BlockToZoneMap::const_iterator it = _block_map.begin();
@@ -494,10 +494,10 @@ int DNAStorage::get_num_block_door_pos_hprs() const {
 //       Access: Public
 //  Description: Get key at index
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_door_pos_hpr_block_at(uint index) const {
+int DNAStorage::get_door_pos_hpr_block_at(unsigned int index) const {
   nassertr(index < _block_door_pos_hpr_map.size(), 0);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the map entries:
   for(BlockToPosHprMap::const_iterator it = _block_door_pos_hpr_map.begin();
@@ -561,10 +561,10 @@ int DNAStorage::get_num_block_sign_transforms() const {
 //       Access: Public
 //  Description: Get key at index
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_sign_transform_block_at(uint index) const {
+int DNAStorage::get_sign_transform_block_at(unsigned int index) const {
   nassertr(index < _block_sign_transform_map.size(), 0);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the map entries:
   for(BlockToTransformMap::const_iterator it = _block_sign_transform_map.begin();
@@ -688,10 +688,10 @@ int DNAStorage::get_num_block_titles() const {
 //       Access: Public
 //  Description: Get key at index
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_title_block_at(uint index) const {
+int DNAStorage::get_title_block_at(unsigned int index) const {
   nassertr(index < _block_title_map.size(), 0);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the map entries:
   for(BlockToTitleMap::const_iterator it = _block_title_map.begin();
@@ -1152,10 +1152,10 @@ PT(DNAVisGroup) DNAStorage::find_DNAVisGroup(PT(PandaNode) rr) const {
 //       Access: Public
 //  Description: Return the ith vis group in our storage
 ////////////////////////////////////////////////////////////////////
-PT(DNAVisGroup) DNAStorage::get_DNAVisGroup(uint i) const {
+PT(DNAVisGroup) DNAStorage::get_DNAVisGroup(unsigned int i) const {
   nassertr(i < _n2visgroup_map.size(), (DNAVisGroup *)NULL);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the vis groups
   for(Node2VisGroupMap::const_iterator it = _n2visgroup_map.begin();
@@ -1180,7 +1180,7 @@ PT(DNAVisGroup) DNAStorage::get_DNAVisGroup(uint i) const {
 //       Access: Public
 //  Description: Ask how many visibles there are in this visgroup
 ////////////////////////////////////////////////////////////////////
-int DNAStorage::get_num_visibles_in_DNAVisGroup(uint i) const {
+int DNAStorage::get_num_visibles_in_DNAVisGroup(unsigned int i) const {
   PT(DNAVisGroup) group;
   group = get_DNAVisGroup(i);
   if (group != (DNAVisGroup *)NULL) {
@@ -1200,7 +1200,7 @@ int DNAStorage::get_num_visibles_in_DNAVisGroup(uint i) const {
 //       Access: Public
 //  Description: Ask for the name of the nth DNAVisGroup in the map
 ////////////////////////////////////////////////////////////////////
-std::string DNAStorage::get_DNAVisGroup_name(uint i) const {
+std::string DNAStorage::get_DNAVisGroup_name(unsigned int i) const {
   PT(DNAVisGroup) group;
   group = get_DNAVisGroup(i);
   if (group != (DNAVisGroup *)NULL) {
@@ -1220,7 +1220,7 @@ std::string DNAStorage::get_DNAVisGroup_name(uint i) const {
 //       Access: Public
 //  Description: Ask for the name of the nth visible in the nth DNAVisGroup
 ////////////////////////////////////////////////////////////////////
-std::string DNAStorage::get_visible_name(uint visgroup_index, uint visible_index) const {
+std::string DNAStorage::get_visible_name(unsigned int visgroup_index, unsigned int visible_index) const {
   PT(DNAVisGroup) group;
   group = get_DNAVisGroup(visgroup_index);
   if (group != (DNAVisGroup *)NULL) {
@@ -1253,10 +1253,10 @@ void DNAStorage::store_DNAVisGroupAI(PT(DNAVisGroup) vis_group) {
 //       Access: Public
 //  Description: return the ith NodePath
 ////////////////////////////////////////////////////////////////////
-PT(PandaNode) DNAStorage::get_PandaNode_at(uint i) const {
+PT(PandaNode) DNAStorage::get_PandaNode_at(unsigned int i) const {
   nassertr(i < _n2group_map.size(), (PandaNode *)NULL);
 
-  uint current = 0;
+  unsigned int current = 0;
 
   // Loop over the PandaNodes
   for(Node2GroupMap::const_iterator it = _n2group_map.begin();

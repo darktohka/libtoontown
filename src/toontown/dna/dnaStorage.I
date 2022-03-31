@@ -215,7 +215,7 @@ INLINE int DNAStorage::get_num_DNAVisGroupsAI() const {
 //       Access: Public
 //  Description: Return the ith vis group in our storage
 ////////////////////////////////////////////////////////////////////
-INLINE PT(DNAVisGroup) DNAStorage::get_DNAVisGroupAI(uint i) const {
+INLINE PT(DNAVisGroup) DNAStorage::get_DNAVisGroupAI(unsigned int i) const {
   nassertr(i < _vis_group_vector.size(), (DNAVisGroup *)NULL);
   return _vis_group_vector[i];
 }

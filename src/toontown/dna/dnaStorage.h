@@ -146,24 +146,24 @@ PUBLISHED:
 
   // Block number functions
   int get_zone_from_block_number(int block_number) const;
-  int get_block_number_at(uint index) const;
+  int get_block_number_at(unsigned int index) const;
   int get_num_block_numbers() const;
 
   // Block door pos hpr functions
   const PosHpr& get_door_pos_hpr_from_block_number(int block_number) const;
-  int get_door_pos_hpr_block_at(uint index) const;
+  int get_door_pos_hpr_block_at(unsigned int index) const;
   int get_num_block_door_pos_hprs() const;
 
   // Block sign pos hpr functions
   const LMatrix4f& get_sign_transform_from_block_number(int block_number) const;
-  int get_sign_transform_block_at(uint index) const;
+  int get_sign_transform_block_at(unsigned int index) const;
   int get_num_block_sign_transforms() const;
 
   INLINE void reset_DNAGroups();
 
   // Block title functions
   std::string get_title_from_block_number(int block_number) const;
-  int get_title_block_at(uint index) const;
+  int get_title_block_at(unsigned int index) const;
   int get_num_block_titles() const;
 
   // Block article functions
@@ -179,20 +179,20 @@ PUBLISHED:
   PT(DNAVisGroup) find_DNAVisGroup(PT(PandaNode)) const;
   INLINE void reset_DNAVisGroups();
   INLINE int get_num_DNAVisGroups() const;
-  PT(DNAVisGroup) get_DNAVisGroup(uint i) const;
-  int get_num_visibles_in_DNAVisGroup(uint i) const;
-  std::string get_DNAVisGroup_name(uint i) const;
-  std::string get_visible_name(uint visgroup_index, uint visible_index) const;
+  PT(DNAVisGroup) get_DNAVisGroup(unsigned int i) const;
+  int get_num_visibles_in_DNAVisGroup(unsigned int i) const;
+  std::string get_DNAVisGroup_name(unsigned int i) const;
+  std::string get_visible_name(unsigned int visgroup_index, unsigned int visible_index) const;
 
   // For the AI, he does not traverse but still needs vis groups
   void store_DNAVisGroupAI(PT(DNAVisGroup));
   INLINE int get_num_DNAVisGroupsAI() const;
-  INLINE PT(DNAVisGroup) get_DNAVisGroupAI(uint i) const;
+  INLINE PT(DNAVisGroup) get_DNAVisGroupAI(unsigned int i) const;
   INLINE void reset_DNAVisGroupsAI();
 
   // Node relation functions
   INLINE int get_num_PandaNodes() const;
-  PT(PandaNode) get_PandaNode_at(uint i) const;
+  PT(PandaNode) get_PandaNode_at(unsigned int i) const;
   void print_PandaNodes() const;
 
   // Suit point functions

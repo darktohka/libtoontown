@@ -43,17 +43,17 @@ PUBLISHED:
   void add_visible(const std::string &vis_group_name);
   int remove_visible(const std::string &vis_group_name);
   int get_num_visibles() const;
-  std::string get_visible_name(uint i) const;
+  std::string get_visible_name(unsigned int i) const;
 
   void add_suit_edge(PT(DNASuitEdge) edge);
   int remove_suit_edge(PT(DNASuitEdge) edge);
   int get_num_suit_edges() const;
-  PT(DNASuitEdge) get_suit_edge(uint i) const;
+  PT(DNASuitEdge) get_suit_edge(unsigned int i) const;
 
   void add_battle_cell(PT(DNABattleCell) cell);
   int remove_battle_cell(PT(DNABattleCell) cell);
   int get_num_battle_cells() const;
-  PT(DNABattleCell) get_battle_cell(uint i) const;
+  PT(DNABattleCell) get_battle_cell(unsigned int i) const;
 
 private:
   virtual DNAGroup* make_copy();

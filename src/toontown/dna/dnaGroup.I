@@ -10,7 +10,7 @@
 //       Access: Public
 //  Description: Return the nth group in the vector
 ////////////////////////////////////////////////////////////////////
-INLINE PT(DNAGroup) DNAGroup::at(uint index) {
+INLINE PT(DNAGroup) DNAGroup::at(unsigned int index) {
   nassertr(index < _group_vector.size(), (PT(DNAGroup))0L);
   return _group_vector[index];
 }

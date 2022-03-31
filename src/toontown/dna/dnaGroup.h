@@ -36,7 +36,7 @@ PUBLISHED:
 
   void add(PT(DNAGroup) group);
   void remove(PT(DNAGroup) group);
-  INLINE PT(DNAGroup) at(uint index);
+  INLINE PT(DNAGroup) at(unsigned int index);
   INLINE PT(DNAGroup) current();
   INLINE int get_num_children();
   INLINE PT(DNAGroup) get_parent() const;
