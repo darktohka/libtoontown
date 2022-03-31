@@ -17,11 +17,12 @@
 #include "nodePath.h"
 #include "vector_string.h"
 
+#include "nametag2d.h"
+#include "nametag3d.h"
+
 #include <string>
 
 class MarginManager;
-class Nametag2d;
-class Nametag3d;
 
 ////////////////////////////////////////////////////////////////////
 //       Class : NametagGroup
