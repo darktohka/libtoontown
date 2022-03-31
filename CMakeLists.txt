@@ -14,6 +14,7 @@ if(WIN32)
 endif()
 SET(BUILD_STATIC_LIB OFF CACHE BOOL "If true, will build a static lib")
 SET(Python_USE_STATIC_LIBS ${BUILD_STATIC_LIB})
+SET(Python_FIND_STRATEGY LOCATION)
 
 find_package(Python COMPONENTS Interpreter Development)
 
