@@ -11,6 +11,7 @@
 #include "transformState.h"
 #include "clockObject.h"
 #include "omniBoundingVolume.h"
+#include "pandaVersion.h"
 #include "indent.h"
 
 #include <algorithm>
@@ -33,6 +34,10 @@ MarginManager() : PandaNode("popups") {
   OmniBoundingVolume volume;
   set_bounds(&volume);
   set_final(true);
+
+#if PANDA_MAJOR_VERSION >= 1 && PANDA_MINOR_VERSION >= 11
+  set_renderable();
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////
@@ -429,6 +434,7 @@ cull_callback(CullTraverser *, CullTraverserData &) {
   return true;
 }
 
+#if PANDA_MAJOR_VERSION == 1 && PANDA_MINOR_VERSION < 11
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::is_renderable
 //       Access: Public, Virtual
@@ -446,6 +452,7 @@ is_renderable() const {
   // traverser to visit it every frame.
   return true;
 }
+#endif
 
 ////////////////////////////////////////////////////////////////////
 //     Function: MarginManager::write

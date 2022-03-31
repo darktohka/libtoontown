@@ -49,7 +49,10 @@ public:
 public:
   // From base class PandaNode.
   virtual bool cull_callback(CullTraverser *trav, CullTraverserData &data);
+
+#if PANDA_MAJOR_VERSION == 1 && PANDA_MINOR_VERSION < 11
   virtual bool is_renderable() const;
+#endif
 
   virtual void write(std::ostream &out, int indent_level) const;
 
